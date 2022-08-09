@@ -4,9 +4,19 @@ class FileManagerModel {
     //IUDocumentPickerViewDelegate получаете url и вызываете этот метод
     static func openFile(fileNamePath: String) -> String {
         let filemanager = FileManager.default
-        let path = filemanager.contents(atPath: fileNamePath)
-        let open =  String(data: path ?? Data(), encoding: .utf8)
-        return open ?? "error"
+        var textArray: [String] = [String]()
+        let url = filemanager.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(fileNamePath)
+        if let aStreamReader = LineReader(path: url.path) {
+            let start = CFAbsoluteTimeGetCurrent()
+            while let line = aStreamReader.nextLine{
+                print(line)
+                textArray.append(line)
+            }
+            let stop = CFAbsoluteTimeGetCurrent() - start
+            print(stop)
+        }
+        let text = textArray.map({$0}).joined(separator : "\n")
+        return text
     }
 
     static func createFile(filename: String,content: String, ext: String) {
@@ -16,17 +26,17 @@ class FileManagerModel {
        
         do {
              filemanager.createFile(atPath: urls.path, contents: content.data(using: .utf8), attributes: nil)
-            print("create file: \(urls.lastPathComponent)")
+            print("ok")
         }
     }
     static func listFiles() -> [String] {
            let fileManager = FileManager.default
         var lst = [String]()
-           let path = NSSearchPathForDirectoriesInDomains(.allApplicationsDirectory, .userDomainMask, true)[0]
+           let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
         
            do {
                guard let items = try? fileManager.contentsOfDirectory(atPath: path) else {
-                   print("no files found")
+                   
                   return [""]
                }
                for item in items {
@@ -34,7 +44,6 @@ class FileManagerModel {
                    lst.append(url)
                }
            }
-         print("Путь: \(path) \n ==================")
        return lst
        }
 
