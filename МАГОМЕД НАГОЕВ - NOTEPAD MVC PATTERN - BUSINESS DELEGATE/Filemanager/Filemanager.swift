@@ -7,15 +7,12 @@ class FileManagerModel {
         var textArray: [String] = [String]()
         let url = filemanager.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(fileNamePath)
         if let aStreamReader = LineReader(path: url.path) {
-            let start = CFAbsoluteTimeGetCurrent()
             while let line = aStreamReader.nextLine{
-                print(line)
                 textArray.append(line)
             }
-            let stop = CFAbsoluteTimeGetCurrent() - start
-            print(stop)
         }
         let text = textArray.map({$0}).joined(separator : "\n")
+        textArray.removeAll()
         return text
     }
 
@@ -26,7 +23,6 @@ class FileManagerModel {
        
         do {
              filemanager.createFile(atPath: urls.path, contents: content.data(using: .utf8), attributes: nil)
-            print("ok")
         }
     }
     static func listFiles() -> [String] {
