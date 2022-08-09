@@ -23,7 +23,6 @@ class FileManagerModel {
        
         do {
              filemanager.createFile(atPath: urls.path, contents: content.data(using: .utf8), attributes: nil)
-            print("ok")
         }
     }
     static func listFiles() -> [String] {
