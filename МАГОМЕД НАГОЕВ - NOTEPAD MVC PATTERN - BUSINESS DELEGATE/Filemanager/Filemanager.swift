@@ -16,6 +16,7 @@ class FileManagerModel {
             print(stop)
         }
         let text = textArray.map({$0}).joined(separator : "\n")
+        textArray.removeAll()
         return text
     }
 
