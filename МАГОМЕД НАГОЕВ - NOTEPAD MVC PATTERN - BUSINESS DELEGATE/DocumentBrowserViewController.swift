@@ -15,6 +15,7 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
         delegate = self
         allowsPickingMultipleItems = false
         allowsDocumentCreation = false
+        self.navigationController?.isNavigationBarHidden = true
         
         if UIDevice.current.userInterfaceIdiom == .phone {
             template = try? FileManager.default.url(
@@ -56,10 +57,9 @@ importHandler: @escaping(URL?, UIDocumentBrowserViewController.ImportMode) -> Vo
     
     func presentDocument(at documentURL: URL){
         let textViewController = TextViewer()
-        let navigationController = UINavigationController(rootViewController: textViewController)
-        navigationController.modalPresentationStyle = .fullScreen
-        present(navigationController, animated: true)
-        
+
+        navigationController?.pushViewController(textViewController, animated: true)
+        textViewController.document = TextDocument(fileURL: documentURL)
     }
     
 }
