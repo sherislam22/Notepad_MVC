@@ -5,14 +5,15 @@ class FileManagerModel {
     static func openFile(fileNamePath: String) -> String {
         let filemanager = FileManager.default
         var textArray: [String] = [String]()
-        let url = filemanager.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(fileNamePath)
-        if let aStreamReader = LineReader(path: url.path) {
-            while let line = aStreamReader.nextLine{
-                textArray.append(line)
-            }
-        }
-        let text = textArray.map({$0}).joined(separator : "\n")
-        textArray.removeAll()
+        let url = filemanager.contents(atPath: fileNamePath)!
+        let text = String(data: url, encoding: .utf8)!
+//        if let aStreamReader = LineReader(path: url) {
+//            while let line = aStreamReader.nextLine{
+//                textArray.append(line)
+//            }
+//        }
+//        let text = textArray.map({$0}).joined(separator : "\n")
+//        textArray.removeAll()
         return text
     }
 
