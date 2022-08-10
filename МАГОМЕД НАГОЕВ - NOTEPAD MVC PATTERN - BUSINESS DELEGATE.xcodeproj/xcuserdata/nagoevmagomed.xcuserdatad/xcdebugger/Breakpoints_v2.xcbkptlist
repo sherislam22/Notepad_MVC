@@ -14,8 +14,8 @@
             filePath = "&#x41c;&#x410;&#x413;&#x41e;&#x41c;&#x415;&#x414; &#x41d;&#x410;&#x413;&#x41e;&#x415;&#x412; - NOTEPAD MVC PATTERN - BUSINESS DELEGATE/DocumentBrowserViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "48"
-            endingLineNumber = "48"
+            startingLineNumber = "44"
+            endingLineNumber = "44"
             landmarkName = "documentBrowser(_:didPickDocumentURLs:)"
             landmarkType = "7">
          </BreakpointContent>
