@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6A00550728A28902009C7393 /* LineReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A00550628A28902009C7393 /* LineReader.swift */; };
+		6A3A8BFA28A274610051A1E9 /* Filemanager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A3A8BF928A274610051A1E9 /* Filemanager.swift */; };
 		BE68E1CC289F88A20054150C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE68E1CB289F88A20054150C /* AppDelegate.swift */; };
 		BE68E1D0289F88A20054150C /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE68E1CF289F88A20054150C /* MainViewController.swift */; };
 		BE68E1D5289F88A40054150C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE68E1D4289F88A40054150C /* Assets.xcassets */; };
@@ -17,6 +19,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6A00550628A28902009C7393 /* LineReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineReader.swift; sourceTree = "<group>"; };
+		6A3A8BF928A274610051A1E9 /* Filemanager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filemanager.swift; sourceTree = "<group>"; };
 		BE68E1C8289F88A20054150C /* МАГОМЕД НАГОЕВ - NOTEPAD MVC PATTERN - BUSINESS DELEGATE.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "МАГОМЕД НАГОЕВ - NOTEPAD MVC PATTERN - BUSINESS DELEGATE.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE68E1CB289F88A20054150C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BE68E1CF289F88A20054150C /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -39,6 +43,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6A00550828A28C63009C7393 /* Filemanager */ = {
+			isa = PBXGroup;
+			children = (
+				6A3A8BF928A274610051A1E9 /* Filemanager.swift */,
+				6A00550628A28902009C7393 /* LineReader.swift */,
+			);
+			path = Filemanager;
+			sourceTree = "<group>";
+		};
 		BE68E1BF289F88A20054150C = {
 			isa = PBXGroup;
 			children = (
@@ -62,6 +75,7 @@
 				F8EFC50928A3AA6A000FFD33 /* DocumentBrowserViewController.swift */,
 				BE68E1CF289F88A20054150C /* MainViewController.swift */,
 				BE68E202289FAAB50054150C /* TextViewController.swift */,
+				6A00550828A28C63009C7393 /* Filemanager */,
 				BE68E204289FAAF90054150C /* InformationViewController.swift */,
 				BE68E200289FAA1B0054150C /* TabBarController.swift */,
 				BE68E1DF289F93A50054150C /* Supporting files */,
@@ -151,8 +165,10 @@
 				BE68E1D0289F88A20054150C /* MainViewController.swift in Sources */,
 				F8EFC50A28A3AA6A000FFD33 /* DocumentBrowserViewController.swift in Sources */,
 				BE68E1CC289F88A20054150C /* AppDelegate.swift in Sources */,
+				6A00550728A28902009C7393 /* LineReader.swift in Sources */,
 				BE68E203289FAAB50054150C /* TextViewController.swift in Sources */,
 				BE68E205289FAAF90054150C /* InformationViewController.swift in Sources */,
+				6A3A8BFA28A274610051A1E9 /* Filemanager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
