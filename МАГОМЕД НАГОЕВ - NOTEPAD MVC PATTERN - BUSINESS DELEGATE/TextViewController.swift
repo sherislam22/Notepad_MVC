@@ -17,6 +17,7 @@ class TextViewController: UIViewController {
     init() {
         textView = UITextView()
         super.init(nibName: nil, bundle: nil)
+        
     }
     
     required init?(coder: NSCoder) {
@@ -28,6 +29,15 @@ class TextViewController: UIViewController {
         super.viewDidLoad()
         setTextView()
         view.backgroundColor = .lightGray
+        
+//        let button = UIButton(type: .system)
+//        button.setTitle("Back", for: .normal)
+//        button.setImage(UIImage(systemName: "chevron.backward"), for: .normal)
+//        let closeButton = UIBarButtonItem(customView: button)
+//
+//        navigationItem.leftBarButtonItem = closeButton
+//
+//        button.addTarget(self, action: #selector(close), for: .touchUpInside)
     }
     
     //MARK: - Methods
@@ -46,5 +56,9 @@ class TextViewController: UIViewController {
             textView.rightAnchor.constraint(equalTo: safeArea.rightAnchor, constant: -5)
         ])
     }
+    
+//    @objc func close() {
+//        presentingViewController?.dismiss(animated: true)
+//    }
     
 }

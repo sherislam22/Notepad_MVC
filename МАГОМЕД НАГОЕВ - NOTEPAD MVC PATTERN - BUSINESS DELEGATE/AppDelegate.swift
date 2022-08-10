@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import UniformTypeIdentifiers
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,9 +16,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow(frame: UIScreen.main.bounds)
         
-        let mainTabBarController = TabBarController()
+       
 
-        window?.rootViewController = mainTabBarController
+        window?.rootViewController = DocumentBrowserViewController(forOpening: [.text])
         window?.makeKeyAndVisible()
         return true
     }
