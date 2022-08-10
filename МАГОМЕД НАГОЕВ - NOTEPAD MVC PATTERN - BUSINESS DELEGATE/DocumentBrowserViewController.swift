@@ -15,7 +15,6 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
         delegate = self
         allowsPickingMultipleItems = false
         allowsDocumentCreation = false
-        self.navigationController?.isNavigationBarHidden = true
         
         if UIDevice.current.userInterfaceIdiom == .phone {
             template = try? FileManager.default.url(
@@ -28,6 +27,10 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
                 allowsDocumentCreation = FileManager.default.createFile(atPath: template! .path, contents: Data())
             }
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.isNavigationBarHidden = true
     }
     
     var template: URL?
@@ -59,7 +62,8 @@ importHandler: @escaping(URL?, UIDocumentBrowserViewController.ImportMode) -> Vo
         let textViewController = TextViewer()
 
         navigationController?.pushViewController(textViewController, animated: true)
-        textViewController.document = TextDocument(fileURL: documentURL)
+        let text = FileManagerModel.openFile(fileNamePath: documentURL.path)
+        textViewController.updateTextView(text: text)
     }
     
 }
