@@ -17,8 +17,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         
        
-
-        window?.rootViewController = DocumentBrowserViewController(forOpening: [.text])
+        let navigationController = UINavigationController(rootViewController: DocumentBrowserViewController(forOpening: [.text]))
+        window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
         return true
     }
