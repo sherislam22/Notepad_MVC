@@ -15,7 +15,7 @@ class TextController {
     //MARK: - Initializer
     init(textViewer: TextViewer) {
         self.textViewer = textViewer
-        textViewer.updateTextView(text: "I love iOS ❤️")
+        
         textViewer.updateTitle(fileTitle: "Internship")
     }
     
