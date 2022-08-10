@@ -55,7 +55,7 @@ importHandler: @escaping(URL?, UIDocumentBrowserViewController.ImportMode) -> Vo
     // MARK: Document Presentation
     
     func presentDocument(at documentURL: URL){
-        let textViewController = TextViewController()
+        let textViewController = TextViewer()
         let navigationController = UINavigationController(rootViewController: textViewController)
         navigationController.modalPresentationStyle = .fullScreen
         present(navigationController, animated: true)
