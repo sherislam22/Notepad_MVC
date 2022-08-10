@@ -3,13 +3,10 @@ class FileManagerModel {
     // принимает url от IUDocumentPickerViewController в делегате
     //IUDocumentPickerViewDelegate получаете url и вызываете этот метод
     static func openFile(fileNamePath: String) -> String {
+        let filemanager = FileManager.default
         var textArray: [String] = [String]()
-<<<<<<< Updated upstream
         let url = filemanager.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(fileNamePath)
         if let aStreamReader = LineReader(path: url.path) {
-=======
-        if let aStreamReader = LineReader(path: fileNamePath) {
->>>>>>> Stashed changes
             while let line = aStreamReader.nextLine{
                 textArray.append(line)
             }
