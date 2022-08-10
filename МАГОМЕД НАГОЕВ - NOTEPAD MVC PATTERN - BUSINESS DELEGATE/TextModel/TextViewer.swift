@@ -35,7 +35,8 @@ class TextViewer: UIViewController {
         setupDismissKeyboardGesture()
         setupKeyboardHiding()
         self.navigationController?.isNavigationBarHidden = false
-//        setButton()
+        setButton()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -131,5 +132,7 @@ extension TextViewer {
     
     @objc func close() {
         presentingViewController?.dismiss(animated: true)
+        document?.text = textView.text
+        document?.updateChangeCount(.done)
     }
 }
