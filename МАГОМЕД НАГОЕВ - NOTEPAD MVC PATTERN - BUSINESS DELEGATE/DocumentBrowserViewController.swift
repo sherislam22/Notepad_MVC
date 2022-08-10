@@ -29,10 +29,6 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
         }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.isNavigationBarHidden = true
-    }
-    
     var template: URL?
     
     // MARK: UIDocumentBrowserViewControllerDelegate
@@ -60,10 +56,12 @@ importHandler: @escaping(URL?, UIDocumentBrowserViewController.ImportMode) -> Vo
     
     func presentDocument(at documentURL: URL){
         let textViewController = TextViewer()
-
-        navigationController?.pushViewController(textViewController, animated: true)
-        let text = FileManagerModel.openFile(fileNamePath: documentURL.path)
-        textViewController.updateTextView(text: text)
+        let navigationController = UINavigationController(rootViewController: textViewController)
+        navigationController.modalPresentationStyle = .fullScreen
+        present(navigationController, animated: true)
+//        let text = FileManagerModel.openFile(fileNamePath: documentURL.path)
+        textViewController.document = TextDocument(fileURL: documentURL)
+//        textViewController.updateTextView(text: text)
     }
     
 }
