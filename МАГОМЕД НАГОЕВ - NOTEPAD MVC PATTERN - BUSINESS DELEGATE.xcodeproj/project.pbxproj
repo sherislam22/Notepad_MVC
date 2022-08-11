@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		6A00550728A28902009C7393 /* LineReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A00550628A28902009C7393 /* LineReader.swift */; };
 		6A3A8BFA28A274610051A1E9 /* Filemanager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A3A8BF928A274610051A1E9 /* Filemanager.swift */; };
-		9A24B50B28A4CFF500D30FED /* Toolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A24B50A28A4CFF500D30FED /* Toolbar.swift */; };
 		BE68E1CC289F88A20054150C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE68E1CB289F88A20054150C /* AppDelegate.swift */; };
 		BE68E1D5289F88A40054150C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE68E1D4289F88A40054150C /* Assets.xcassets */; };
 		BE68E201289FAA1B0054150C /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE68E200289FAA1B0054150C /* TabBarController.swift */; };
@@ -23,7 +22,6 @@
 /* Begin PBXFileReference section */
 		6A00550628A28902009C7393 /* LineReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineReader.swift; sourceTree = "<group>"; };
 		6A3A8BF928A274610051A1E9 /* Filemanager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filemanager.swift; sourceTree = "<group>"; };
-		9A24B50A28A4CFF500D30FED /* Toolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toolbar.swift; sourceTree = "<group>"; };
 		BE68E1C8289F88A20054150C /* МАГОМЕД НАГОЕВ - NOTEPAD MVC PATTERN - BUSINESS DELEGATE.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "МАГОМЕД НАГОЕВ - NOTEPAD MVC PATTERN - BUSINESS DELEGATE.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE68E1CB289F88A20054150C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BE68E1D4289F88A40054150C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -100,7 +98,6 @@
 			children = (
 				BEEB1F4B28A417FB0072DFA5 /* TextController.swift */,
 				BEEB1F4A28A417FB0072DFA5 /* TextViewer.swift */,
-				9A24B50A28A4CFF500D30FED /* Toolbar.swift */,
 				BEEB1F4F28A41DD50072DFA5 /* TextDocument.swift */,
 			);
 			path = TextModel;
@@ -182,7 +179,6 @@
 				6A00550728A28902009C7393 /* LineReader.swift in Sources */,
 				BEEB1F4D28A417FB0072DFA5 /* TextController.swift in Sources */,
 				BE68E205289FAAF90054150C /* InformationViewController.swift in Sources */,
-				9A24B50B28A4CFF500D30FED /* Toolbar.swift in Sources */,
 				6A3A8BFA28A274610051A1E9 /* Filemanager.swift in Sources */,
 				BEEB1F5028A41DD50072DFA5 /* TextDocument.swift in Sources */,
 			);

@@ -14,6 +14,11 @@ class TextViewer: UIViewController {
     private var textController: TextController?
     private var textViewBottomConstraint: NSLayoutConstraint?
     var document: TextDocument?
+    //MARK: Toolbar's properties
+    var toolBar = UIToolbar()
+    let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+    var tempToolBarItems = [UIBarButtonItem]()
+    var goToRight: Bool = false
     
     //MARK: - Initialize
     
@@ -36,8 +41,8 @@ class TextViewer: UIViewController {
         setupKeyboardHiding()
         self.navigationController?.isNavigationBarHidden = false
         setButton()
-        Toolbar().toolbar(textview: textView)
-        
+        setupToolBar()
+        toolBar.setItems(tempToolBarItems, animated: false)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -135,5 +140,48 @@ extension TextViewer {
         presentingViewController?.dismiss(animated: true)
         document?.text = textView.text
         document?.updateChangeCount(.done)
+    }
+    
+    func setupToolBar() {
+        changeStateOfToolbar()
+        toolBar.sizeToFit()
+        textView.inputAccessoryView = toolBar
+    }
+    
+    func changeStateOfToolbar() {
+       
+        if !goToRight {
+            tempToolBarItems.removeAll()
+            let cut = UIBarButtonItem(image: UIImage(systemName: "scissors"), style: .plain, target: self, action: nil)
+            let undo = UIBarButtonItem(image: UIImage(systemName: "arrow.uturn.backward.circle"), style: .plain, target: self, action: nil)
+            let redo = UIBarButtonItem(image: UIImage(systemName: "arrow.uturn.forward.circle"), style: .plain, target: self, action: nil)
+            let copy = UIBarButtonItem(image: UIImage(systemName: "doc.on.doc"), style: .plain, target: self, action: nil)
+            let remove = UIBarButtonItem(image: UIImage(systemName: "trash.slash.circle"), style: .plain, target: self, action: nil)
+            let rightArrow = UIBarButtonItem(image: UIImage(systemName: "arrow.right.to.line"), style: .plain, target: self, action: #selector(rightArrowTapped))
+            
+            [cut, flexibleSpace, undo, flexibleSpace, redo, flexibleSpace, copy, flexibleSpace, remove, flexibleSpace, rightArrow].forEach { tempToolBarItems.append($0) }
+        } else {
+            tempToolBarItems.removeAll()
+            let leftArrow = UIBarButtonItem(image: UIImage(systemName: "arrow.left.to.line"), style: .plain, target: self, action: #selector(leftArrowTapped))
+            let replace = UIBarButtonItem(image: UIImage(systemName: "repeat.circle"), style: .plain, target: self, action: nil)
+            let find = UIBarButtonItem(image: UIImage(systemName: "magnifyingglass"), style: .plain, target: self, action: nil)
+            let goTo = UIBarButtonItem(image: UIImage(systemName: "arrow.forward"), style: .plain, target: self, action: nil)
+            let selectAll = UIBarButtonItem(image: UIImage(systemName: "rectangle.fill.badge.checkmark"), style: .plain, target: self, action: nil)
+            let timeAndDate = UIBarButtonItem(image: UIImage(systemName: "calendar"), style: .plain, target: self, action: nil)
+            
+            [leftArrow, flexibleSpace, replace, flexibleSpace, find, flexibleSpace, goTo, flexibleSpace, selectAll, flexibleSpace, timeAndDate, flexibleSpace].forEach { tempToolBarItems.append($0) }
+        }
+    }
+    
+    @objc func rightArrowTapped(_ sender: UIButton) {
+        goToRight = !goToRight
+        changeStateOfToolbar()
+        toolBar.setItems(tempToolBarItems, animated: true)
+    }
+    
+    @objc func leftArrowTapped(_ sender: UIButton) {
+        goToRight = !goToRight
+        changeStateOfToolbar()
+        toolBar.setItems(tempToolBarItems, animated: true)
     }
 }
