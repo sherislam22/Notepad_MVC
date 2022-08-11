@@ -59,7 +59,9 @@ importHandler: @escaping(URL?, UIDocumentBrowserViewController.ImportMode) -> Vo
         let navigationController = UINavigationController(rootViewController: textViewController)
         navigationController.modalPresentationStyle = .fullScreen
         present(navigationController, animated: true)
-        
+//        let text = FileManagerModel.openFile(fileNamePath: documentURL.path)
+        textViewController.document = TextDocument(fileURL: documentURL)
+//        textViewController.updateTextView(text: text)
     }
     
 }

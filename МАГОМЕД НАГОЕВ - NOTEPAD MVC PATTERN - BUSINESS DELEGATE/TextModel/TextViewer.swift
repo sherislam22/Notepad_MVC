@@ -13,6 +13,7 @@ class TextViewer: UIViewController {
     private var textView: UITextView
     private var textController: TextController?
     private var textViewBottomConstraint: NSLayoutConstraint?
+    var document: TextDocument?
     
     //MARK: - Initialize
     
@@ -33,9 +34,23 @@ class TextViewer: UIViewController {
         view.backgroundColor = .lightGray
         setupDismissKeyboardGesture()
         setupKeyboardHiding()
+        self.navigationController?.isNavigationBarHidden = false
         setButton()
+        
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // Access the document
+        document?.open(completionHandler: { (success) in
+            if success {
+                // Display the content of the document, e.g.:
+                self.textView.text = self.document?.text
+            } else {
+                // Make sure to handle the failed import appropriately, e.g., by presenting an error message to the user.
+            }
+        })
+    }
     //MARK: - Methods
     
     func setButton() {
@@ -117,5 +132,7 @@ extension TextViewer {
     
     @objc func close() {
         presentingViewController?.dismiss(animated: true)
+        document?.text = textView.text
+        document?.updateChangeCount(.done)
     }
 }
