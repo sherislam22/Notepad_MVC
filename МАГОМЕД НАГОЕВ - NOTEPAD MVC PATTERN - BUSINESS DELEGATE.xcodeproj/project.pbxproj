@@ -7,23 +7,31 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6A00550728A28902009C7393 /* LineReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A00550628A28902009C7393 /* LineReader.swift */; };
+		6A3A8BFA28A274610051A1E9 /* Filemanager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A3A8BF928A274610051A1E9 /* Filemanager.swift */; };
 		BE68E1CC289F88A20054150C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE68E1CB289F88A20054150C /* AppDelegate.swift */; };
-		BE68E1D0289F88A20054150C /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE68E1CF289F88A20054150C /* MainViewController.swift */; };
 		BE68E1D5289F88A40054150C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE68E1D4289F88A40054150C /* Assets.xcassets */; };
 		BE68E201289FAA1B0054150C /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE68E200289FAA1B0054150C /* TabBarController.swift */; };
-		BE68E203289FAAB50054150C /* TextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE68E202289FAAB50054150C /* TextViewController.swift */; };
 		BE68E205289FAAF90054150C /* InformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE68E204289FAAF90054150C /* InformationViewController.swift */; };
+		BEEB1F4C28A417FB0072DFA5 /* TextViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEB1F4A28A417FB0072DFA5 /* TextViewer.swift */; };
+		BEEB1F4D28A417FB0072DFA5 /* TextController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEB1F4B28A417FB0072DFA5 /* TextController.swift */; };
+		BEEB1F5028A41DD50072DFA5 /* TextDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEB1F4F28A41DD50072DFA5 /* TextDocument.swift */; };
+		F8EFC50A28A3AA6A000FFD33 /* DocumentBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8EFC50928A3AA6A000FFD33 /* DocumentBrowserViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6A00550628A28902009C7393 /* LineReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineReader.swift; sourceTree = "<group>"; };
+		6A3A8BF928A274610051A1E9 /* Filemanager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filemanager.swift; sourceTree = "<group>"; };
 		BE68E1C8289F88A20054150C /* МАГОМЕД НАГОЕВ - NOTEPAD MVC PATTERN - BUSINESS DELEGATE.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "МАГОМЕД НАГОЕВ - NOTEPAD MVC PATTERN - BUSINESS DELEGATE.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE68E1CB289F88A20054150C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		BE68E1CF289F88A20054150C /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		BE68E1D4289F88A40054150C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BE68E1D9289F88A40054150C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BE68E200289FAA1B0054150C /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
-		BE68E202289FAAB50054150C /* TextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewController.swift; sourceTree = "<group>"; };
 		BE68E204289FAAF90054150C /* InformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationViewController.swift; sourceTree = "<group>"; };
+		BEEB1F4A28A417FB0072DFA5 /* TextViewer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextViewer.swift; sourceTree = "<group>"; };
+		BEEB1F4B28A417FB0072DFA5 /* TextController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextController.swift; sourceTree = "<group>"; };
+		BEEB1F4F28A41DD50072DFA5 /* TextDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextDocument.swift; sourceTree = "<group>"; };
+		F8EFC50928A3AA6A000FFD33 /* DocumentBrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentBrowserViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,6 +45,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6A00550828A28C63009C7393 /* Filemanager */ = {
+			isa = PBXGroup;
+			children = (
+				6A3A8BF928A274610051A1E9 /* Filemanager.swift */,
+				6A00550628A28902009C7393 /* LineReader.swift */,
+			);
+			path = Filemanager;
+			sourceTree = "<group>";
+		};
 		BE68E1BF289F88A20054150C = {
 			isa = PBXGroup;
 			children = (
@@ -57,8 +74,9 @@
 			isa = PBXGroup;
 			children = (
 				BE68E1CB289F88A20054150C /* AppDelegate.swift */,
-				BE68E1CF289F88A20054150C /* MainViewController.swift */,
-				BE68E202289FAAB50054150C /* TextViewController.swift */,
+				F8EFC50928A3AA6A000FFD33 /* DocumentBrowserViewController.swift */,
+				BEEB1F4E28A4180E0072DFA5 /* TextModel */,
+				6A00550828A28C63009C7393 /* Filemanager */,
 				BE68E204289FAAF90054150C /* InformationViewController.swift */,
 				BE68E200289FAA1B0054150C /* TabBarController.swift */,
 				BE68E1D4289F88A40054150C /* Assets.xcassets */,
@@ -73,6 +91,16 @@
 			children = (
 			);
 			path = "Supporting files";
+			sourceTree = "<group>";
+		};
+		BEEB1F4E28A4180E0072DFA5 /* TextModel */ = {
+			isa = PBXGroup;
+			children = (
+				BEEB1F4B28A417FB0072DFA5 /* TextController.swift */,
+				BEEB1F4A28A417FB0072DFA5 /* TextViewer.swift */,
+				BEEB1F4F28A41DD50072DFA5 /* TextDocument.swift */,
+			);
+			path = TextModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -144,11 +172,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BEEB1F4C28A417FB0072DFA5 /* TextViewer.swift in Sources */,
 				BE68E201289FAA1B0054150C /* TabBarController.swift in Sources */,
-				BE68E1D0289F88A20054150C /* MainViewController.swift in Sources */,
+				F8EFC50A28A3AA6A000FFD33 /* DocumentBrowserViewController.swift in Sources */,
 				BE68E1CC289F88A20054150C /* AppDelegate.swift in Sources */,
-				BE68E203289FAAB50054150C /* TextViewController.swift in Sources */,
+				6A00550728A28902009C7393 /* LineReader.swift in Sources */,
+				BEEB1F4D28A417FB0072DFA5 /* TextController.swift in Sources */,
 				BE68E205289FAAF90054150C /* InformationViewController.swift in Sources */,
+				6A3A8BFA28A274610051A1E9 /* Filemanager.swift in Sources */,
+				BEEB1F5028A41DD50072DFA5 /* TextDocument.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -289,7 +321,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "Business-Delegate.-----------------NOTEPAD-MVC-PATTERN---BUSINESS-DELEGATE";
+				PRODUCT_BUNDLE_IDENTIFIER = com.internlabs.notepad;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -317,7 +349,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "Business-Delegate.-----------------NOTEPAD-MVC-PATTERN---BUSINESS-DELEGATE";
+				PRODUCT_BUNDLE_IDENTIFIER = com.internlabs.notepad;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
