@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         
        
-        window?.rootViewController = DocumentBrowserViewController(forOpening: [.text])
+        window?.rootViewController = DocumentBrowserViewController()
         window?.makeKeyAndVisible()
         return true
     }
