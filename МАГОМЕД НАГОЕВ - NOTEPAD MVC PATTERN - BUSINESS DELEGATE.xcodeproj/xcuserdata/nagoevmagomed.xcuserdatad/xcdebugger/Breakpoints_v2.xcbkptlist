@@ -3,22 +3,4 @@
    uuid = "AA9A2811-99F9-4D44-BF8E-03F0407ACBE2"
    type = "1"
    version = "2.0">
-   <Breakpoints>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "AF5B3440-CA57-4910-A9F8-C3FF43B2098C"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "&#x41c;&#x410;&#x413;&#x41e;&#x41c;&#x415;&#x414; &#x41d;&#x410;&#x413;&#x41e;&#x415;&#x412; - NOTEPAD MVC PATTERN - BUSINESS DELEGATE/DocumentBrowserViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "44"
-            endingLineNumber = "44"
-            landmarkName = "documentBrowser(_:didPickDocumentURLs:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-   </Breakpoints>
 </Bucket>
