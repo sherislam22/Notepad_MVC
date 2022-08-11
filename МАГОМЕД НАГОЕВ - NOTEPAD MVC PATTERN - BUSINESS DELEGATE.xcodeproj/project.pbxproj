@@ -15,6 +15,7 @@
 		BEEB1F4C28A417FB0072DFA5 /* TextViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEB1F4A28A417FB0072DFA5 /* TextViewer.swift */; };
 		BEEB1F4D28A417FB0072DFA5 /* TextController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEB1F4B28A417FB0072DFA5 /* TextController.swift */; };
 		BEEB1F5028A41DD50072DFA5 /* TextDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEB1F4F28A41DD50072DFA5 /* TextDocument.swift */; };
+		BEEB1F5228A571440072DFA5 /* NotePadToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEB1F5128A571440072DFA5 /* NotePadToolBar.swift */; };
 		F8EFC50A28A3AA6A000FFD33 /* DocumentBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8EFC50928A3AA6A000FFD33 /* DocumentBrowserViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -29,6 +30,7 @@
 		BEEB1F4A28A417FB0072DFA5 /* TextViewer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextViewer.swift; sourceTree = "<group>"; };
 		BEEB1F4B28A417FB0072DFA5 /* TextController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextController.swift; sourceTree = "<group>"; };
 		BEEB1F4F28A41DD50072DFA5 /* TextDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextDocument.swift; sourceTree = "<group>"; };
+		BEEB1F5128A571440072DFA5 /* NotePadToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotePadToolBar.swift; sourceTree = "<group>"; };
 		F8EFC50928A3AA6A000FFD33 /* DocumentBrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentBrowserViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -48,6 +50,7 @@
 			children = (
 				6A3A8BF928A274610051A1E9 /* Filemanager.swift */,
 				6A00550628A28902009C7393 /* LineReader.swift */,
+				BEEB1F5128A571440072DFA5 /* NotePadToolBar.swift */,
 			);
 			path = Filemanager;
 			sourceTree = "<group>";
@@ -169,6 +172,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BEEB1F5228A571440072DFA5 /* NotePadToolBar.swift in Sources */,
 				BEEB1F4C28A417FB0072DFA5 /* TextViewer.swift in Sources */,
 				F8EFC50A28A3AA6A000FFD33 /* DocumentBrowserViewController.swift in Sources */,
 				BE68E1CC289F88A20054150C /* AppDelegate.swift in Sources */,
@@ -233,7 +237,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -287,7 +291,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
