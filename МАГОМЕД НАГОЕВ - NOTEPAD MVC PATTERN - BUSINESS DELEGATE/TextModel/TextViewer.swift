@@ -36,6 +36,7 @@ class TextViewer: UIViewController {
         setupKeyboardHiding()
         self.navigationController?.isNavigationBarHidden = false
         setButton()
+        Toolbar().toolbar(textview: textView)
         
     }
     
