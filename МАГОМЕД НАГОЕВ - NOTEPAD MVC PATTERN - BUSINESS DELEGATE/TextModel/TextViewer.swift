@@ -13,7 +13,6 @@ class TextViewer: UIViewController {
     private var textView: UITextView
     private var textController: TextController?
     private var textViewBottomConstraint: NSLayoutConstraint?
-    var document: TextDocument?
     
     //MARK: - Initialize
     
@@ -34,34 +33,21 @@ class TextViewer: UIViewController {
         view.backgroundColor = .lightGray
         setupDismissKeyboardGesture()
         setupKeyboardHiding()
-        self.navigationController?.isNavigationBarHidden = false
-        setButton()
-        
+        setnavigationBar()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        // Access the document
-        document?.open(completionHandler: { (success) in
-            if success {
-                // Display the content of the document, e.g.:
-                self.textView.text = self.document?.text
-            } else {
-                // Make sure to handle the failed import appropriately, e.g., by presenting an error message to the user.
-            }
-        })
+        textController?.openDocument()
     }
+
     //MARK: - Methods
     
-    func setButton() {
-        let button = UIButton(type: .system)
-        button.setTitle("Back", for: .normal)
-        button.setImage(UIImage(systemName: "chevron.backward"), for: .normal)
-        let closeButton = UIBarButtonItem(customView: button)
-        
-        navigationItem.leftBarButtonItem = closeButton
-        
-        button.addTarget(self, action: #selector(close), for: .touchUpInside)
+    func setnavigationBar() {
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(close))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(save))
+        navigationController?.navigationBar.isTranslucent = false
+        navigationController?.view.backgroundColor = .white
     }
     
     private func setTextView() {
@@ -87,8 +73,16 @@ class TextViewer: UIViewController {
         textView.text = text
     }
     
+    public func getText() -> String {
+        return textView.text
+    }
+    
     public func updateTitle(fileTitle: String) {
         title = fileTitle
+    }
+    
+    public func getDocumentURL(url: URL) {
+        textController?.createDocument(documentURL: url)
     }
 }
 
@@ -132,7 +126,10 @@ extension TextViewer {
     
     @objc func close() {
         presentingViewController?.dismiss(animated: true)
-        document?.text = textView.text
-        document?.updateChangeCount(.done)
+    }
+    
+    @objc func save() {
+        presentingViewController?.dismiss(animated: true)
+        textController?.saveDocument()
     }
 }
