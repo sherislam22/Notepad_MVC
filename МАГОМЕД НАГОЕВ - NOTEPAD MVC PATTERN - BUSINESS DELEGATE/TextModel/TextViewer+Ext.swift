@@ -18,7 +18,6 @@ extension TextViewer: UIFontPickerViewControllerDelegate {
     func fontPickerViewControllerDidPickFont(_ viewController: UIFontPickerViewController) {
         viewController.dismiss(animated: true, completion: nil)
         guard let descriptor = viewController.selectedFontDescriptor else {return}
-        let selectedFont = UIFont(descriptor: descriptor, size: 24)
-        print(selectedFont)
+        setTextView(UIFont(descriptor: descriptor, size: 24)) //        function from TextViewer
     }
 }
