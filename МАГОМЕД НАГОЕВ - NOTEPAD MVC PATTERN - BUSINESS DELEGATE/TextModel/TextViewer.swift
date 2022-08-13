@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol TextViewerDelegate: AnyObject {
+    func menuButtonTapped()
+}
+
 class TextViewer: UIViewController {
     
     //MARK: - Properties
@@ -15,6 +19,7 @@ class TextViewer: UIViewController {
     private var textViewBottomConstraint: NSLayoutConstraint?
     var document: TextDocument?
     let notePadToolBar: NotePadToolBar
+    weak var delegate: TextViewerDelegate?
 
     //MARK: - Initialize
     
@@ -51,8 +56,8 @@ class TextViewer: UIViewController {
     }
     
     func setnavigationBar() {
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(close))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(save))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(close))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "list.dash"), style: .done, target: self, action: #selector(menuButtonTapped))
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.view.backgroundColor = .white
     }
@@ -96,9 +101,9 @@ class TextViewer: UIViewController {
         presentingViewController?.dismiss(animated: true)
     }
     
-    @objc func save() {
-        presentingViewController?.dismiss(animated: true)
-        textController?.saveDocument()
+    @objc func menuButtonTapped() {
+        delegate?.menuButtonTapped()
+        //print("menuButtonTapped")
     }
 }
 
