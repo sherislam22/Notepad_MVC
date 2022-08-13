@@ -18,7 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let textViewer = TextViewer()
         let navigationController = UINavigationController(rootViewController: textViewer)
-        
+        navigationController.showLaunchView()
+
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
         return true
