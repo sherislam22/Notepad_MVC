@@ -12,6 +12,7 @@
 		BE68E1CC289F88A20054150C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE68E1CB289F88A20054150C /* AppDelegate.swift */; };
 		BE68E1D5289F88A40054150C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE68E1D4289F88A40054150C /* Assets.xcassets */; };
 		BE68E205289FAAF90054150C /* InformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE68E204289FAAF90054150C /* InformationViewController.swift */; };
+		BECA334428A7CDFF00011F92 /* TextViewer+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = BECA334328A7CDFF00011F92 /* TextViewer+Ext.swift */; };
 		BEEB1F4C28A417FB0072DFA5 /* TextViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEB1F4A28A417FB0072DFA5 /* TextViewer.swift */; };
 		BEEB1F4D28A417FB0072DFA5 /* TextController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEB1F4B28A417FB0072DFA5 /* TextController.swift */; };
 		BEEB1F5028A41DD50072DFA5 /* TextDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEB1F4F28A41DD50072DFA5 /* TextDocument.swift */; };
@@ -27,6 +28,7 @@
 		BE68E1D4289F88A40054150C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BE68E1D9289F88A40054150C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BE68E204289FAAF90054150C /* InformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationViewController.swift; sourceTree = "<group>"; };
+		BECA334328A7CDFF00011F92 /* TextViewer+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextViewer+Ext.swift"; sourceTree = "<group>"; };
 		BEEB1F4A28A417FB0072DFA5 /* TextViewer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextViewer.swift; sourceTree = "<group>"; };
 		BEEB1F4B28A417FB0072DFA5 /* TextController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextController.swift; sourceTree = "<group>"; };
 		BEEB1F4F28A41DD50072DFA5 /* TextDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextDocument.swift; sourceTree = "<group>"; };
@@ -99,6 +101,7 @@
 				BEEB1F4B28A417FB0072DFA5 /* TextController.swift */,
 				BEEB1F4A28A417FB0072DFA5 /* TextViewer.swift */,
 				BEEB1F4F28A41DD50072DFA5 /* TextDocument.swift */,
+				BECA334328A7CDFF00011F92 /* TextViewer+Ext.swift */,
 			);
 			path = TextModel;
 			sourceTree = "<group>";
@@ -172,6 +175,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BECA334428A7CDFF00011F92 /* TextViewer+Ext.swift in Sources */,
 				BEEB1F5228A571440072DFA5 /* NotePadToolBar.swift in Sources */,
 				BEEB1F4C28A417FB0072DFA5 /* TextViewer.swift in Sources */,
 				F8EFC50A28A3AA6A000FFD33 /* DocumentBrowserViewController.swift in Sources */,
