@@ -90,22 +90,17 @@ extension ContainerViewController: MenuViewControllerDelegate {
         case .print:
             break
         case .info:
-            break
+            self.infoButtonTapped()
         }
     }
     
-//    func addInfo() {
-//        let vc = infoVC
-//        homeVC.addChild(vc)
-//        homeVC.view.addSubview(vc.view)
-//        vc.view.frame = view.frame
-//        vc.didMove(toParent: homeVC)
-//        homeVC.title = vc.title
-//    }
-//
-//    func resetToHome() {
-//        infoVC.view.removeFromSuperview()
-//        infoVC.didMove(toParent: nil)
-//        homeVC.title = "Home"
-//    }
+    func infoButtonTapped() {
+        let vc = infoVC
+        tectViewerVC.addChild(vc)
+        tectViewerVC.view.addSubview(vc.view)
+        vc.view.frame = view.frame
+        vc.didMove(toParent: tectViewerVC)
+        tectViewerVC.title = vc.title
+    }
+
 }
