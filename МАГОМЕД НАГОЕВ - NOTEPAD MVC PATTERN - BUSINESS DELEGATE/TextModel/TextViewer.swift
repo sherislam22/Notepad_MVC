@@ -40,9 +40,15 @@ class TextViewer: UIViewController {
         textView.inputAccessoryView = notePadToolBar
         setnavigationBar()
         textController?.openDocument()
+        setZoom()
     }
 
     //MARK: - Methods
+    
+    func setZoom() {
+        textView.minimumZoomScale = 0.5
+        textView.maximumZoomScale = 2.0
+    }
     
     func setnavigationBar() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(close))
@@ -85,6 +91,15 @@ class TextViewer: UIViewController {
     public func getDocumentURL(url: URL) {
         textController?.createDocument(documentURL: url)
     }
+    
+    @objc func close() {
+        presentingViewController?.dismiss(animated: true)
+    }
+    
+    @objc func save() {
+        presentingViewController?.dismiss(animated: true)
+        textController?.saveDocument()
+    }
 }
 
 extension TextViewer {
@@ -123,14 +138,5 @@ extension TextViewer {
     @objc func keyboardWillHide(notification: NSNotification) {
         textViewBottomConstraint?.constant = 0
         view.layoutIfNeeded()
-    }
-    
-    @objc func close() {
-        presentingViewController?.dismiss(animated: true)
-    }
-    
-    @objc func save() {
-        presentingViewController?.dismiss(animated: true)
-        textController?.saveDocument()
     }
 }
