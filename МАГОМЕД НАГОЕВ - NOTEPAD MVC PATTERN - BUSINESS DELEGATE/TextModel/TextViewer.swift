@@ -15,12 +15,16 @@ class TextViewer: UIViewController {
     private var textViewBottomConstraint: NSLayoutConstraint?
     var document: TextDocument?
     let notePadToolBar: NotePadToolBar
+    private let notepadView: UIImageView
 
     //MARK: - Initialize
     
     init() {
         textView = UITextView()
         notePadToolBar = NotePadToolBar()
+        
+        notepadView = UIImageView()
+        notepadView.image = UIImage(named: "notepad")
         super.init(nibName: nil, bundle: nil)
 
         textController = TextController(textViewer: self)
@@ -33,8 +37,9 @@ class TextViewer: UIViewController {
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        setImageView()
         setTextView()
-        view.backgroundColor = .lightGray
+        view.backgroundColor = .white
         setupDismissKeyboardGesture()
         setupKeyboardHiding()
         textView.inputAccessoryView = notePadToolBar
@@ -71,10 +76,24 @@ class TextViewer: UIViewController {
         
         view.addSubview(textView)
         NSLayoutConstraint.activate([
-            textView.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 5),
+            textView.topAnchor.constraint(equalTo: notepadView.bottomAnchor, constant: 0),
             textViewBottomConstraint,
             textView.leftAnchor.constraint(equalTo: safeArea.leftAnchor, constant: 5),
             textView.rightAnchor.constraint(equalTo: safeArea.rightAnchor, constant: -5)
+        ])
+    }
+    
+    func setImageView() {
+        let safeArea = view.safeAreaLayoutGuide
+
+        notepadView.translatesAutoresizingMaskIntoConstraints = false
+
+        view.addSubview(notepadView)
+        NSLayoutConstraint.activate([
+            notepadView.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 0),
+            notepadView.heightAnchor.constraint(equalToConstant: 18),
+            notepadView.leftAnchor.constraint(equalTo: safeArea.leftAnchor, constant: 0),
+            notepadView.rightAnchor.constraint(equalTo: safeArea.rightAnchor, constant: 0)
         ])
     }
     
