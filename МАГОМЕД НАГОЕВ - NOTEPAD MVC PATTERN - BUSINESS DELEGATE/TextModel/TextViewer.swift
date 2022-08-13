@@ -16,16 +16,6 @@ class TextViewer: UIViewController {
     var document: TextDocument?
     let notePadToolBar: NotePadToolBar
 
-    //---------------------------- MARK: - Properties for font picker button ------------------------
-    private let button: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = .systemPink
-        button.setTitle("Pick a font", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        return button
-    }()
-    //----------------------------------------
-    
     //MARK: - Initialize
     
     init() {
@@ -44,28 +34,12 @@ class TextViewer: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setTextView()
-        textView.textColor = .black
         view.backgroundColor = .lightGray
         setupDismissKeyboardGesture()
         setupKeyboardHiding()
         textView.inputAccessoryView = notePadToolBar
         setnavigationBar()
         textController?.openDocument()
-
-        
-        //---------------------------- MARK: - Lifecycle for font picker button ------------------------
-
-        view.addSubview(button)
-        button.addTarget(self, action: #selector(didTapPickFont), for: .touchUpInside)
-    
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        button.frame = CGRect(x: 20, y: view.frame.size.height-100, width: view.frame.size.width-40, height: 50)
-        
-        //----------------------------------------
     }
 
     //MARK: - Methods
@@ -111,14 +85,6 @@ class TextViewer: UIViewController {
     public func getDocumentURL(url: URL) {
         textController?.createDocument(documentURL: url)
     }
-    
-    //---------------------------- MARK: - Methods for font picker button functionality ------------------------
-    
-    public func setTextView(_ font: UIFont){
-        textView.font = font
-    }
-    //----------------------------------------
-
 }
 
 extension TextViewer {
