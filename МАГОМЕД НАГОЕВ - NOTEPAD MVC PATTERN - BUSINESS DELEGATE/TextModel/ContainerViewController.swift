@@ -17,7 +17,7 @@ class ContainerViewController: UIViewController {
     private var menuState: MenuState = .closed
     
     let menuVC = MenuViewController()
-    let tectViewerVC = TextViewer()
+    let textViewerVC = TextViewer()
     var navVC: UINavigationController?
     lazy var infoVC = InformationViewController()
     override func viewDidLoad() {
@@ -34,8 +34,8 @@ class ContainerViewController: UIViewController {
         view.addSubview(menuVC.view)
         menuVC.didMove(toParent: self)
         //home
-        tectViewerVC.delegate = self
-        let navVC = UINavigationController(rootViewController: tectViewerVC)
+        textViewerVC.delegate = self
+        let navVC = UINavigationController(rootViewController: textViewerVC)
         addChild(navVC)
         view.addSubview(navVC.view)
         navVC.didMove(toParent: self)
@@ -53,7 +53,7 @@ extension ContainerViewController: TextViewerDelegate {
         switch menuState {
         case .closed:
             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut) {
-                self.navVC?.view.frame.origin.x = self.tectViewerVC.view.frame.size.width - 100
+                self.navVC?.view.frame.origin.x = self.textViewerVC.view.frame.size.width - 100
             } completion: { [weak self] done in
                 if done {
                     self?.menuState = .opened
@@ -96,11 +96,11 @@ extension ContainerViewController: MenuViewControllerDelegate {
     
     func infoButtonTapped() {
         let vc = infoVC
-        tectViewerVC.addChild(vc)
-        tectViewerVC.view.addSubview(vc.view)
+        textViewerVC.addChild(vc)
+        textViewerVC.view.addSubview(vc.view)
         vc.view.frame = view.frame
-        vc.didMove(toParent: tectViewerVC)
-        tectViewerVC.title = vc.title
+        vc.didMove(toParent: textViewerVC)
+        textViewerVC.title = vc.title
     }
 
 }
