@@ -18,6 +18,8 @@ class LaunchView: UIView {
 
     override init(frame: CGRect) {
         foldersView = UIImageView()
+        foldersView.alpha = 0
+
         logoView = UIImageView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
         pointsView = UIImageView()
         stackView = UIStackView()
@@ -54,7 +56,7 @@ class LaunchView: UIView {
         pointsView.image = UIImage(named: "points")
 
         setupConstraints()
-        disappearLaunchView()
+        appearAnimation()
     }
     
     private func resizeImageView() {
@@ -106,20 +108,22 @@ class LaunchView: UIView {
         ])
     }
     
-    private func disappearLaunchView() {
-        UIView.animate(withDuration: 1.5) {
-            self.foldersView.alpha = 0
-            self.logoName.alpha = 0
-            self.logoView.alpha = 0
-            self.pointsView.alpha = 0
-        } completion: { _ in
-            self.removeFromSuperview()
+    private func appearAnimation() {
+        UIView.animate(withDuration: 1.0) { [weak self] in
+            self?.foldersView.alpha = 1
+        } completion: { [weak self] _ in
+            self?.disappearLaunchView()
         }
-
     }
-    private func presentWeatherVC() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-            self.removeFromSuperview()
+
+    private func disappearLaunchView() {
+        UIView.animate(withDuration: 1.0) { [weak self] in
+            self?.foldersView.alpha = 0
+            self?.logoName.alpha = 0
+            self?.logoView.alpha = 0
+            self?.pointsView.alpha = 0
+        } completion: { [weak self] _ in
+            self?.removeFromSuperview()
         }
     }
 }
