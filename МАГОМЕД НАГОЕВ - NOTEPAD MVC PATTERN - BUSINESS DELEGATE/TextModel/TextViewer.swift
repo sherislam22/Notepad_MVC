@@ -51,10 +51,12 @@ class TextViewer: UIViewController {
     }
     
     func setnavigationBar() {
+        
+        navigationController?.navigationBar.barStyle = .black
+        navigationController?.navigationBar.isTranslucent = false
+        
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(close))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(save))
-        navigationController?.navigationBar.isTranslucent = false
-        navigationController?.view.backgroundColor = .white
     }
     
     private func setTextView() {
