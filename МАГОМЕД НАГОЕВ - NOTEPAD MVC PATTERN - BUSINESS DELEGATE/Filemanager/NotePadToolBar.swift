@@ -10,21 +10,23 @@ import UIKit
 class NotePadToolBar: UIToolbar {
     //MARK: Toolbar's properties
     let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-    var tempToolBarItems = [UIBarButtonItem]()
+    var tempToolBarItems: [UIBarButtonItem]
     var goToRight: Bool
     
     override init(frame: CGRect) {
         goToRight = false
+        tempToolBarItems = []
         super.init(frame: frame)
         setupToolBar()
     }
     
     required init?(coder: NSCoder) {
         goToRight = false
+        tempToolBarItems = []
         super.init(coder: coder)
         setupToolBar()
     }
-
+    
     func setupToolBar() {
         changeStateOfToolbar()
         sizeToFit()
@@ -32,7 +34,6 @@ class NotePadToolBar: UIToolbar {
     }
     
     func changeStateOfToolbar() {
-       
         if !goToRight {
             tempToolBarItems.removeAll()
             let cut = UIBarButtonItem(image: UIImage(systemName: "scissors"), style: .plain, target: self, action: nil)
