@@ -14,6 +14,7 @@
 		BE68E1CC289F88A20054150C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE68E1CB289F88A20054150C /* AppDelegate.swift */; };
 		BE68E1D5289F88A40054150C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE68E1D4289F88A40054150C /* Assets.xcassets */; };
 		BE68E205289FAAF90054150C /* InformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE68E204289FAAF90054150C /* InformationViewController.swift */; };
+		BE7CAE9828A9445000741581 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7CAE9728A9445000741581 /* Router.swift */; };
 		BECA334428A7CDFF00011F92 /* TextViewer+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = BECA334328A7CDFF00011F92 /* TextViewer+Ext.swift */; };
 		BEEB1F4C28A417FB0072DFA5 /* TextViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEB1F4A28A417FB0072DFA5 /* TextViewer.swift */; };
 		BEEB1F4D28A417FB0072DFA5 /* TextController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEB1F4B28A417FB0072DFA5 /* TextController.swift */; };
@@ -32,6 +33,7 @@
 		BE68E1D4289F88A40054150C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BE68E1D9289F88A40054150C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BE68E204289FAAF90054150C /* InformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationViewController.swift; sourceTree = "<group>"; };
+		BE7CAE9728A9445000741581 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		BECA334328A7CDFF00011F92 /* TextViewer+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextViewer+Ext.swift"; sourceTree = "<group>"; };
 		BEEB1F4A28A417FB0072DFA5 /* TextViewer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextViewer.swift; sourceTree = "<group>"; };
 		BEEB1F4B28A417FB0072DFA5 /* TextController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextController.swift; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 			children = (
 				BE68E1CB289F88A20054150C /* AppDelegate.swift */,
 				F8EFC50928A3AA6A000FFD33 /* DocumentBrowserViewController.swift */,
+				BE7CAE9728A9445000741581 /* Router.swift */,
 				BEEB1F4E28A4180E0072DFA5 /* TextModel */,
 				6A00550828A28C63009C7393 /* Filemanager */,
 				9AAD920728A92A770021C70D /* ContentMenu */,
@@ -209,6 +212,7 @@
 				6A3A8BFA28A274610051A1E9 /* Filemanager.swift in Sources */,
 				9A01113728A7DA0C00D82488 /* ContainerViewController.swift in Sources */,
 				BEEB1F5028A41DD50072DFA5 /* TextDocument.swift in Sources */,
+				BE7CAE9828A9445000741581 /* Router.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
