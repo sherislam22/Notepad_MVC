@@ -56,9 +56,25 @@
 			children = (
 				6A3A8BF928A274610051A1E9 /* Filemanager.swift */,
 				6A00550628A28902009C7393 /* LineReader.swift */,
-				BEEB1F5128A571440072DFA5 /* NotePadToolBar.swift */,
 			);
 			path = Filemanager;
+			sourceTree = "<group>";
+		};
+		9AAD920728A92A770021C70D /* ContentMenu */ = {
+			isa = PBXGroup;
+			children = (
+				9A01113628A7DA0C00D82488 /* ContainerViewController.swift */,
+				9A01113428A7D9E500D82488 /* MenuViewController.swift */,
+			);
+			path = ContentMenu;
+			sourceTree = "<group>";
+		};
+		9AAD920928A92AC00021C70D /* Cutstoms */ = {
+			isa = PBXGroup;
+			children = (
+				BEEB1F5128A571440072DFA5 /* NotePadToolBar.swift */,
+			);
+			path = Cutstoms;
 			sourceTree = "<group>";
 		};
 		BE68E1BF289F88A20054150C = {
@@ -84,6 +100,8 @@
 				F8EFC50928A3AA6A000FFD33 /* DocumentBrowserViewController.swift */,
 				BEEB1F4E28A4180E0072DFA5 /* TextModel */,
 				6A00550828A28C63009C7393 /* Filemanager */,
+				9AAD920728A92A770021C70D /* ContentMenu */,
+				9AAD920928A92AC00021C70D /* Cutstoms */,
 				BE68E204289FAAF90054150C /* InformationViewController.swift */,
 				BE68E1DF289F93A50054150C /* Supporting files */,
 				BE68E1D9289F88A40054150C /* Info.plist */,
@@ -106,8 +124,6 @@
 				BEEB1F4A28A417FB0072DFA5 /* TextViewer.swift */,
 				BEEB1F4F28A41DD50072DFA5 /* TextDocument.swift */,
 				BECA334328A7CDFF00011F92 /* TextViewer+Ext.swift */,
-				9A01113428A7D9E500D82488 /* MenuViewController.swift */,
-				9A01113628A7DA0C00D82488 /* ContainerViewController.swift */,
 			);
 			path = TextModel;
 			sourceTree = "<group>";
