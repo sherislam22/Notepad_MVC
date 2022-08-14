@@ -16,7 +16,7 @@ protocol RouterProtocol {
 
 class Router: RouterProtocol {
 
-    var navigationController: UINavigationController
+    private let navigationController: UINavigationController
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
