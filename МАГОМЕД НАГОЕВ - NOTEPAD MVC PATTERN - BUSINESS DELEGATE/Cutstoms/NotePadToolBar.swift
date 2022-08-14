@@ -9,11 +9,12 @@ import UIKit
 
 class NotePadToolBar: UIToolbar {
     //MARK: Toolbar's properties
-    let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+    let flexibleSpace: UIBarButtonItem
     var tempToolBarItems: [UIBarButtonItem]
     var goToRight: Bool
     
     override init(frame: CGRect) {
+        flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         goToRight = false
         tempToolBarItems = []
         super.init(frame: frame)
@@ -21,6 +22,7 @@ class NotePadToolBar: UIToolbar {
     }
     
     required init?(coder: NSCoder) {
+        flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         goToRight = false
         tempToolBarItems = []
         super.init(coder: coder)
