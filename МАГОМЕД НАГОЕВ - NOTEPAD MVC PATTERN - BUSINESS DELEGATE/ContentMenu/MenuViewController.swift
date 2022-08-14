@@ -7,13 +7,10 @@
 
 import UIKit
 
-protocol MenuViewControllerDelegate: AnyObject {
-    func didSelect(menuItem: MenuViewController.MenuOptions)
-}
-
 class MenuViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    weak var delegate: MenuViewControllerDelegate?
-    
+
+    let router: RouterProtocol
+
     enum MenuOptions: String, CaseIterable {
         case new = "New"
         case open = "Open"
@@ -38,6 +35,15 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
                 return "info.circle"
             }
         }
+    }
+    
+    init(router: RouterProtocol) {
+        self.router = router
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     private let tableView: UITableView = {
@@ -80,7 +86,7 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let item = MenuOptions.allCases[indexPath.row]
-        delegate?.didSelect(menuItem: item)
+        print(item)
         
     }
 
