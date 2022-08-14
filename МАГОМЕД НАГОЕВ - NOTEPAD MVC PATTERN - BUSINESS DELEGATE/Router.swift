@@ -20,6 +20,9 @@ class Router: RouterProtocol {
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
+        self.navigationController.navigationBar.barStyle = .black
+        self.navigationController.navigationBar.isTranslucent = false
+        navigationController.showLaunchView()
     }
     
     func initialViewController() {
