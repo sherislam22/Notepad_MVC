@@ -68,14 +68,14 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController,
     // MARK: Document Presentation
 
     func presentDocument(at documentURL: URL){
-        let textViewController = TextViewer()
-
-        let navigationController = UINavigationController(rootViewController: textViewController)
-        navigationController.modalPresentationStyle = .fullScreen
-
-        present(navigationController, animated: true)
-
-        textViewController.getDocumentURL(url: documentURL)
+//        let textViewController = TextViewer()
+//
+//        let navigationController = UINavigationController(rootViewController: textViewController)
+//        navigationController.modalPresentationStyle = .fullScreen
+//
+//        present(navigationController, animated: true)
+//
+//        textViewController.getDocumentURL(url: documentURL)
 
     }
     

@@ -19,7 +19,7 @@ class TextViewer: UIViewController {
 
     //MARK: - Initialize
     
-    init() {
+    init(router: RouterProtocol) {
         textView = UITextView()
         notePadToolBar = NotePadToolBar()
         
@@ -27,7 +27,8 @@ class TextViewer: UIViewController {
         notepadView.image = UIImage(named: "notepad")
         super.init(nibName: nil, bundle: nil)
 
-        textController = TextController(textViewer: self)
+        textController = TextController(textViewer: self,
+                                        router: router)
     }
     
     required init?(coder: NSCoder) {
@@ -58,10 +59,9 @@ class TextViewer: UIViewController {
     func setnavigationBar() {
         
         navigationController?.navigationBar.barStyle = .black
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "list.dash"), style: .done, target: self, action: #selector(menuButtonTapped))
+
         navigationController?.navigationBar.isTranslucent = false
-        
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(close))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(save))
     }
     
     private func setTextView() {
@@ -117,9 +117,9 @@ class TextViewer: UIViewController {
         presentingViewController?.dismiss(animated: true)
     }
     
-    @objc func save() {
-        presentingViewController?.dismiss(animated: true)
-        textController?.saveDocument()
+    @objc func menuButtonTapped() {
+        textController?.router.pushContentMenu()
+        //print("menuButtonTapped")
     }
 }
 

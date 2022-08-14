@@ -12,11 +12,14 @@ class TextController {
     //MARK: - Properties
     private let textViewer: TextViewer
     private var document: TextDocument?
+    let router: RouterProtocol
     
     //MARK: - Initializer
-    init(textViewer: TextViewer) {
+    init(textViewer: TextViewer,
+         router: RouterProtocol) {
+
         self.textViewer = textViewer
-        
+        self.router = router
         textViewer.updateTitle(fileTitle: "Internship")
     }
     
@@ -41,5 +44,9 @@ class TextController {
     public func saveDocument() {
         document?.text = textViewer.getText()
         document?.updateChangeCount(.done)
+    }
+    
+    func openContentMenu() {
+
     }
 }
