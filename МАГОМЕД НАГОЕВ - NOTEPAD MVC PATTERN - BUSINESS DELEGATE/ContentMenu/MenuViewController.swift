@@ -99,7 +99,7 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
         case .print:
             print("print")
         case .info:
-            router.pusInformationViewController()
+            router.pushInformationViewController()
         }
     }
 
