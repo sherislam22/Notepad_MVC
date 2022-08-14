@@ -7,10 +7,6 @@
 
 import UIKit
 
-protocol TextViewerDelegate: AnyObject {
-    func menuButtonTapped()
-}
-
 class TextViewer: UIViewController {
     
     //MARK: - Properties
@@ -19,16 +15,16 @@ class TextViewer: UIViewController {
     private var textViewBottomConstraint: NSLayoutConstraint?
     var document: TextDocument?
     let notePadToolBar: NotePadToolBar
-    weak var delegate: TextViewerDelegate?
 
     //MARK: - Initialize
     
-    init() {
+    init(router: RouterProtocol) {
         textView = UITextView()
         notePadToolBar = NotePadToolBar()
         super.init(nibName: nil, bundle: nil)
 
-        textController = TextController(textViewer: self)
+        textController = TextController(textViewer: self,
+                                        router: router)
     }
     
     required init?(coder: NSCoder) {
@@ -56,8 +52,8 @@ class TextViewer: UIViewController {
     }
     
     func setnavigationBar() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(close))
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "list.dash"), style: .done, target: self, action: #selector(menuButtonTapped))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "list.dash"), style: .done, target: self, action: #selector(menuButtonTapped))
+
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.view.backgroundColor = .white
     }
@@ -102,7 +98,7 @@ class TextViewer: UIViewController {
     }
     
     @objc func menuButtonTapped() {
-        delegate?.menuButtonTapped()
+        textController?.router.pushContentMenu()
         //print("menuButtonTapped")
     }
 }
