@@ -1,6 +1,6 @@
 import Foundation
 class FileManagerModel {
- 
+    let filemanager = FileManager.default
     func openFile(fileNamePath: String) -> String {
         var textArray: [String] = [String]()
         if let aStreamReader = LineReader(path: fileNamePath) {
@@ -12,11 +12,24 @@ class FileManagerModel {
         textArray.removeAll()
         return text
     }
+    
+    func saveFile(fileUrl: URL, text: String) {
+        if filemanager.fileExists(atPath: fileUrl.path) {
+            do {
+                try filemanager.removeItem(atPath: fileUrl.path)
+                filemanager.createFile(atPath: fileUrl.path, contents: text.data(using: .utf8))
+                
+            } catch {
+                print(error.localizedDescription)
+            }
+            
+        }
+    }
 
     func createFile(filename: String,
                     content: String,
                     ext: String) {
-        let filemanager = FileManager.default
+       
        
         let urls = filemanager.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(filename).appendingPathExtension(ext)
        
