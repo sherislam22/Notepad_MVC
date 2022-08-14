@@ -21,54 +21,27 @@ import UIKit
 
 extension TextViewer: UIFontPickerViewControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
     
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-     
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        let fontSizePickerAlert = getFontSizePickerAlert()
-        return fontSizePickerAlert.getFontSizes().count
-    }
-        
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        let fontSizePickerAlert = getFontSizePickerAlert()
-        return String(fontSizePickerAlert.getFontSizes()[row])
-    }
-        
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        let fontSizePickerAlert = getFontSizePickerAlert()
-        fontSizePickerAlert.setFontValue(UIFont(name: self.getTextViewFont().fontName, size: CGFloat(fontSizePickerAlert.getFontSizes()[row]))!)
-    }
+//    ALERT: Deleting current file
     
-    @objc func didTapPickFont(){
-        let config = UIFontPickerViewController.Configuration()
-        config.includeFaces = true
-        let fontPicker = UIFontPickerViewController(configuration: config)
-        fontPicker.delegate = self
-        present(fontPicker, animated: true)
-        
-    }
-    
-    @objc func didTapPickFontSize(){
-        let alert = UIAlertController(title: "Select size", message: "\n\n\n\n\n\n", preferredStyle: .alert)
-        let fontSizePickerView = UIPickerView(frame: CGRect(x: 5, y: 30, width: 250, height: 140))
-        let fontSizePickerAlert = getFontSizePickerAlert()
-        fontSizePickerAlert.setFontValue(UIFont(name: self.getTextViewFont().fontName, size: CGFloat(fontSizePickerAlert.getFontSizes()[0]))!)
-        
-        alert.view.addSubview(fontSizePickerView)
-        fontSizePickerView.dataSource = self
-        fontSizePickerView.delegate = self
+    @objc func didTapNewFile(){
+        let alert = UIAlertController(title: "Delete current file?", message: "Are you sure you want to delete the current file and open new?", preferredStyle: .alert)
 
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (UIAlertAction) in
-            
-            
-            self.setTextViewFont(fontSizePickerAlert.getFontValue())
-            
-        }))
-        self.present(alert, animated: true, completion: nil )
+        let confirmAction = UIAlertAction(title: "Delete", style: .destructive,
+                                      handler: {(_: UIAlertAction!) in
+                                        print("Test ////// deleting file")
+        })
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: { _ in })
+        
+        alert.addAction(cancelAction)
+        alert.addAction(confirmAction)
+        alert.view.addSubview(UIView())
+        
+        present(alert, animated: true, completion: nil)
     }
-    
+
+//    ALERT: Saving file name
+
     @objc func didTapSaveButton(){
         let alert = UIAlertController(title: "Name the file", message: nil, preferredStyle: .alert)
         
@@ -88,27 +61,62 @@ extension TextViewer: UIFontPickerViewControllerDelegate, UIPickerViewDelegate, 
         alert.addAction(confirmAction)
         alert.addAction(cancelAction)
         
-        self.present(alert, animated: true, completion: nil)
+        present(alert, animated: true, completion: nil)
     }
     
+//    ALERT WITH PICKER VIEW: Picking font size
     
-    @objc func didTapNewFile(){
-        let alert = UIAlertController(title: "Delete current file?", message: "Are you sure you want to delete the current file and open new?", preferredStyle: .alert)
+    @objc func didTapPickFontSize(){
+        let alert = UIAlertController(title: "Select size", message: "\n\n\n\n\n\n", preferredStyle: .alert)
+        let fontSizePickerView = UIPickerView(frame: CGRect(x: 5, y: 30, width: 250, height: 140))
+        
+        let fontSizePickerAlert = getFontSizePickerAlert()
+        let fontFamilyName = self.getTextViewFont().fontName
+        fontSizePickerAlert.setFontValue(UIFont(name: fontFamilyName, size: CGFloat(fontSizePickerAlert.getFontSizes()[0]))!)
+        
+        alert.view.addSubview(fontSizePickerView)
+        
+        fontSizePickerView.dataSource = self
+        fontSizePickerView.delegate = self
 
-        let confirmAction = UIAlertAction(title: "Delete", style: .destructive,
-                                      handler: {(_: UIAlertAction!) in
-                                        print("Test ////// deleting file")
-        })
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: { _ in })
-        
-        alert.addAction(cancelAction)
-        alert.addAction(confirmAction)
-        alert.view.addSubview(UIView())
-        
-        self.present(alert, animated: true, completion: nil)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (UIAlertAction) in
+            
+            self.setTextViewFont(fontSizePickerAlert.getFontValue())
+            
+        }))
+        present(alert, animated: true, completion: nil )
     }
-
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+     
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        let fontSizePickerAlert = getFontSizePickerAlert()
+        return fontSizePickerAlert.getFontSizes().count
+    }
+        
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        let fontSizePickerAlert = getFontSizePickerAlert()
+        return String(fontSizePickerAlert.getFontSizes()[row])
+    }
+        
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        let fontSizePickerAlert = getFontSizePickerAlert()
+        fontSizePickerAlert.setFontValue(UIFont(name: self.getTextViewFont().fontName, size: CGFloat(fontSizePickerAlert.getFontSizes()[row]))!)
+    }
+    
+//    PICKER VIEW: Picking font family and style
+    
+    @objc func didTapPickFont(){
+        let config = UIFontPickerViewController.Configuration()
+        config.includeFaces = true
+        let fontPicker = UIFontPickerViewController(configuration: config)
+        fontPicker.delegate = self
+        present(fontPicker, animated: true)
+        
+    }
     
     func fontPickerViewControllerDidCancel(_ viewController: UIFontPickerViewController) {
         viewController.dismiss(animated: true, completion: nil)
@@ -118,7 +126,6 @@ extension TextViewer: UIFontPickerViewControllerDelegate, UIPickerViewDelegate, 
         viewController.dismiss(animated: true, completion: nil)
         guard let descriptor = viewController.selectedFontDescriptor else {return}
         let selectedFont = UIFont(descriptor: descriptor, size: 24)
-//        функция для установления шрифта с типом аргумента UIFont
         setTextViewFont(selectedFont)
     }
 }

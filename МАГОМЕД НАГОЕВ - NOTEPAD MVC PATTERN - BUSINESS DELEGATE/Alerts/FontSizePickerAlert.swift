@@ -8,7 +8,7 @@ class FontSizePickerAlert {
     init(_ viewer: TextViewer) {
         fontSizes = Array(16...47)
         self.viewer = viewer
-        fontValue = self.viewer.getTextViewFont()
+        fontValue = UIFont()
     }
     
     func getFontSizes() -> Array<Int> {
