@@ -1,10 +1,10 @@
 import UIKit
 
-//    в TextViewer надо добавить функции и объектную переменную FontSizePickerAlert
+//    в TextViewer надо добавить функции и объектную переменную FontData
 //
-//    private var fontSizePickerAlert: FontSizePickerAlert?
+//    private var fontData: FontData?
 //
-//    fontSizePickerAlert = FontSizePickerAlert(self)
+//    fontData = FontData(self)
 //
 //    public func setTextViewFont(_ font: UIFont){
 //        textView.font = font
@@ -15,8 +15,8 @@ import UIKit
 //        return font
 //    }
 //
-//    public func getFontSizePickerAlert() -> FontSizePickerAlert {
-//        return fontSizePickerAlert!
+//    public func getFontData() -> FontData {
+//        return fontData!
 //    }
 
 extension TextViewer: UIFontPickerViewControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
@@ -70,9 +70,9 @@ extension TextViewer: UIFontPickerViewControllerDelegate, UIPickerViewDelegate, 
         let alert = UIAlertController(title: "Select size", message: "\n\n\n\n\n\n", preferredStyle: .alert)
         let fontSizePickerView = UIPickerView(frame: CGRect(x: 5, y: 30, width: 250, height: 140))
         
-        let fontSizePickerAlert = getFontSizePickerAlert()
+        let fontData = getFontData()
         let fontFamilyName = self.getTextViewFont().fontName
-        fontSizePickerAlert.setFontValue(UIFont(name: fontFamilyName, size: CGFloat(fontSizePickerAlert.getFontSizes()[0]))!)
+        fontData.setFontValue(UIFont(name: fontFamilyName, size: CGFloat(fontData.getFontSizes()[0]))!)
         
         alert.view.addSubview(fontSizePickerView)
         
@@ -82,7 +82,7 @@ extension TextViewer: UIFontPickerViewControllerDelegate, UIPickerViewDelegate, 
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (UIAlertAction) in
             
-            self.setTextViewFont(fontSizePickerAlert.getFontValue())
+            self.setTextViewFont(fontData.getFontValue())
             
         }))
         present(alert, animated: true, completion: nil )
@@ -93,18 +93,18 @@ extension TextViewer: UIFontPickerViewControllerDelegate, UIPickerViewDelegate, 
     }
      
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        let fontSizePickerAlert = getFontSizePickerAlert()
-        return fontSizePickerAlert.getFontSizes().count
+        let fontData = getFontData()
+        return fontData.getFontSizes().count
     }
         
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        let fontSizePickerAlert = getFontSizePickerAlert()
-        return String(fontSizePickerAlert.getFontSizes()[row])
+        let fontData = getFontData()
+        return String(fontData.getFontSizes()[row])
     }
         
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        let fontSizePickerAlert = getFontSizePickerAlert()
-        fontSizePickerAlert.setFontValue(UIFont(name: self.getTextViewFont().fontName, size: CGFloat(fontSizePickerAlert.getFontSizes()[row]))!)
+        let fontData = getFontData()
+        fontData.setFontValue(UIFont(name: self.getTextViewFont().fontName, size: CGFloat(fontData.getFontSizes()[row]))!)
     }
     
 //    PICKER VIEW: Picking font family and style
@@ -125,8 +125,7 @@ extension TextViewer: UIFontPickerViewControllerDelegate, UIPickerViewDelegate, 
     func fontPickerViewControllerDidPickFont(_ viewController: UIFontPickerViewController) {
         viewController.dismiss(animated: true, completion: nil)
         guard let descriptor = viewController.selectedFontDescriptor else {return}
-        let fontSizePickerAlert = getFontSizePickerAlert()
-        let fontSize = fontSizePickerAlert.getFontValue().pointSize
+        let fontSize = self.getTextViewFont().pointSize
         let selectedFont = UIFont(descriptor: descriptor, size: fontSize)
         setTextViewFont(selectedFont)
     }

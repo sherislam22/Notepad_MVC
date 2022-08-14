@@ -1,6 +1,6 @@
 import UIKit
 
-class FontSizePickerAlert {
+class FontData {
     private let fontSizes: Array<Int>
     private var fontValue: UIFont
     private var viewer: TextViewer
