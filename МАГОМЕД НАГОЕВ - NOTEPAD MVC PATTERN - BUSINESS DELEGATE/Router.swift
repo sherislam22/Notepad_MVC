@@ -11,7 +11,7 @@ import UIKit
 protocol RouterProtocol {
     func initialViewController()
     func pushContentMenu()
-    func pusInformationViewController()
+    func pushInformationViewController()
 }
 
 class Router: RouterProtocol {
@@ -33,7 +33,7 @@ class Router: RouterProtocol {
         navigationController.pushViewController(menuViewer, animated: true)
     }
     
-    func pusInformationViewController() {
+    func pushInformationViewController() {
         let informationViewController = InformationViewController()
         navigationController.pushViewController(informationViewController, animated: true)
     }
