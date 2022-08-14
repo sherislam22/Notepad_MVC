@@ -14,12 +14,23 @@ class ContainerViewController: UIViewController {
         case closed
     }
     
-    private var menuState: MenuState = .closed
-    
-    let menuVC = MenuViewController()
-    let textViewerVC = TextViewer()
+    private var menuState: MenuState
+    let menuVC: MenuViewController
+    let textViewerVC: TextViewer
     var navVC: UINavigationController?
-    lazy var infoVC = InformationViewController()
+    //    lazy var infoVC = InformationViewController()
+    
+    init() {
+        menuState = .closed
+        menuVC = MenuViewController()
+        textViewerVC = TextViewer()
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -90,17 +101,18 @@ extension ContainerViewController: MenuViewControllerDelegate {
         case .print:
             break
         case .info:
-            self.infoButtonTapped()
+//            self.infoButtnTapped()
+            break
         }
     }
     
-    func infoButtonTapped() {
-        let vc = infoVC
-        textViewerVC.addChild(vc)
-        textViewerVC.view.addSubview(vc.view)
-        vc.view.frame = view.frame
-        vc.didMove(toParent: textViewerVC)
-        textViewerVC.title = vc.title
-    }
+//    func infoButtonTapped() {
+//        let vc = infoVC
+//        textViewerVC.addChild(vc)
+//        textViewerVC.view.addSubview(vc.view)
+//        vc.view.frame = view.frame
+//        vc.didMove(toParent: textViewerVC)
+//        textViewerVC.title = vc.title
+//    }
 
 }
