@@ -86,8 +86,21 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let item = MenuOptions.allCases[indexPath.row]
-        print(item)
-        
+        switch item {
+            
+        case .new:
+            print("new")
+        case .open:
+            print("open")
+        case .save:
+            print("save")
+        case .saveAs:
+            print("saveAs")
+        case .print:
+            print("print")
+        case .info:
+            router.pusInformationViewController()
+        }
     }
 
 }
