@@ -14,6 +14,7 @@
 		BE68E1D5289F88A40054150C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE68E1D4289F88A40054150C /* Assets.xcassets */; };
 		BE68E205289FAAF90054150C /* InformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE68E204289FAAF90054150C /* InformationViewController.swift */; };
 		BE7CAE9828A9445000741581 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7CAE9728A9445000741581 /* Router.swift */; };
+		BE7CAE9E28A9847300741581 /* Alerts in Resources */ = {isa = PBXBuildFile; fileRef = BE7CAE9D28A9847300741581 /* Alerts */; };
 		BECA334428A7CDFF00011F92 /* TextViewer+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = BECA334328A7CDFF00011F92 /* TextViewer+Ext.swift */; };
 		BECA334628A7D5E000011F92 /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BECA334528A7D5E000011F92 /* LaunchView.swift */; };
 		BECA334828A7DE9400011F92 /* UINavigationController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = BECA334728A7DE9400011F92 /* UINavigationController+Ext.swift */; };
@@ -34,6 +35,7 @@
 		BE68E1D9289F88A40054150C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BE68E204289FAAF90054150C /* InformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationViewController.swift; sourceTree = "<group>"; };
 		BE7CAE9728A9445000741581 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		BE7CAE9D28A9847300741581 /* Alerts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Alerts; sourceTree = "<group>"; };
 		BECA334328A7CDFF00011F92 /* TextViewer+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextViewer+Ext.swift"; sourceTree = "<group>"; };
 		BECA334528A7D5E000011F92 /* LaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
 		BECA334728A7DE9400011F92 /* UINavigationController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Ext.swift"; sourceTree = "<group>"; };
@@ -104,6 +106,7 @@
 				BECA334528A7D5E000011F92 /* LaunchView.swift */,
 				BECA334728A7DE9400011F92 /* UINavigationController+Ext.swift */,
 				BE7CAE9728A9445000741581 /* Router.swift */,
+				BE7CAE9D28A9847300741581 /* Alerts */,
 				BEEB1F4E28A4180E0072DFA5 /* TextModel */,
 				6A00550828A28C63009C7393 /* Filemanager */,
 				9AAD920728A92A770021C70D /* ContentMenu */,
@@ -193,6 +196,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BE68E1D5289F88A40054150C /* Assets.xcassets in Resources */,
+				BE7CAE9E28A9847300741581 /* Alerts in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
