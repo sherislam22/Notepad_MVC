@@ -58,10 +58,7 @@ class TextViewer: UIViewController {
     
     func setnavigationBar() {
         
-        navigationController?.navigationBar.barStyle = .black
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "list.dash"), style: .done, target: self, action: #selector(menuButtonTapped))
-
-        navigationController?.navigationBar.isTranslucent = false
     }
     
     private func setTextView() {
