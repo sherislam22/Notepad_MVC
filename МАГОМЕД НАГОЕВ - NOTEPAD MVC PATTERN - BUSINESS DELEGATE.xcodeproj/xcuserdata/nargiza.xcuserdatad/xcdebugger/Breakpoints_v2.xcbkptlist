@@ -3,4 +3,22 @@
    uuid = "E4B7077F-7DE3-4711-A4FA-DF02ADB5A3E0"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "ED6A4ACC-E1E9-42B5-ABCA-0DAC397E7371"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "&#x41c;&#x410;&#x413;&#x41e;&#x41c;&#x415;&#x414; &#x41d;&#x410;&#x413;&#x41e;&#x415;&#x412; - NOTEPAD MVC PATTERN - BUSINESS DELEGATE/TextModel/TextController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "53"
+            endingLineNumber = "53"
+            landmarkName = "save()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

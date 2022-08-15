@@ -15,14 +15,12 @@ class FileManagerModel {
 
     func createFile(filename: String,
                     content: String,
-                    ext: String) {
+                    ext: String) -> URL {
         let filemanager = FileManager.default
        
-        let urls = filemanager.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(filename).appendingPathExtension(ext)
-       
-        do {
-             filemanager.createFile(atPath: urls.path, contents: content.data(using: .utf8), attributes: nil)
-        }
+        let url = filemanager.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(filename).appendingPathExtension(ext)
+        filemanager.createFile(atPath: url.path, contents: content.data(using: .utf8), attributes: nil)
+        return url
     }
     
     func createNtpURL() -> URL? {
@@ -39,6 +37,4 @@ class FileManagerModel {
     func createNtpFile(url: URL) -> Bool {
         return FileManager.default.createFile(atPath: url .path, contents: Data())
     }
-    
 }
-

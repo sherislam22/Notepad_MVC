@@ -6,21 +6,70 @@
 //
 
 import Foundation
+import UIKit
+import UniformTypeIdentifiers
 
-class TextController {
+class TextController: NSObject {
     
-    //MARK: - Properties
+    // MARK: Properties
     private let textViewer: TextViewer
     private var document: TextDocument?
+    private let fileManager: FileManagerModel
     
-    //MARK: - Initializer
+    // MARK: Initializer
     init(textViewer: TextViewer) {
+        self.fileManager = FileManagerModel()
         self.textViewer = textViewer
         
         textViewer.updateTitle(fileTitle: "Internship")
     }
+
+    // MARK: public methods
+    @objc public func new() {
+        if let document = document {
+            document.close { success in
+                self.document = nil
+                self.textViewer.updateTextView(text: "")
+            }
+        } else {
+            textViewer.updateTextView(text: "")
+        }
+    }
     
-    public func openDocument() {
+    @objc public func open() {
+        let pickerViewController = UIDocumentPickerViewController(forOpeningContentTypes: [UTType(filenameExtension: "ntp")!,
+            UTType(filenameExtension: "kt")!,
+            UTType(filenameExtension: "java")!,
+            UTType(filenameExtension: "text")!,
+            .swiftSource])
+        
+        pickerViewController.delegate = self
+
+        textViewer.present(pickerViewController, animated: true)
+    }
+    
+    @objc public func save() {
+        if let textDocument = document {
+            textDocument.save(to: textDocument.fileURL, for: .forOverwriting)
+        } else {
+            let url = fileManager.createFile(filename: "default", content: textViewer.getText(), ext: "ntp")
+            let pickerViewController = UIDocumentPickerViewController(
+                forExporting: [url], asCopy: false)
+            pickerViewController.delegate = self
+            textViewer.present(pickerViewController, animated: true)
+        }
+    }
+    
+    @objc public func saveAs() {
+        let url = fileManager.createFile(filename: document?.localizedName ?? "default", content: textViewer.getText(), ext: "ntp")
+        let pickerViewController = UIDocumentPickerViewController(
+            forExporting: [url], asCopy: false)
+        pickerViewController.delegate = self
+        textViewer.present(pickerViewController, animated: true)
+    }
+    
+    // MARK: private methods
+    private func openDocument() {
         // Access the document
         document?.open(completionHandler: { [textViewer, document] (success) in
             if success {
@@ -33,13 +82,24 @@ class TextController {
             }
         })
     }
+}
+
+// MARK: - UIDocumentPickerDelegate
+extension TextController: UIDocumentPickerDelegate {
     
-    public func createDocument(documentURL: URL) {
-        document = TextDocument(fileURL: documentURL)
-    }
-    
-    public func saveDocument() {
-        document?.text = textViewer.getText()
-        document?.updateChangeCount(.done)
+    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+        guard let url = urls.first else { return }
+        
+        if let document = document { // если есть открытый документ, мы его закрываем
+            document.close { success in
+                self.document = TextDocument(fileURL: url)
+                self.openDocument()
+            }
+        } else {
+            document = TextDocument(fileURL: url)
+            openDocument()
+        }
     }
 }
+
+
