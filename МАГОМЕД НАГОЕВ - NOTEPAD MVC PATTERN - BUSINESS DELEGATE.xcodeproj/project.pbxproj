@@ -22,7 +22,6 @@
 		BEEB1F4D28A417FB0072DFA5 /* TextController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEB1F4B28A417FB0072DFA5 /* TextController.swift */; };
 		BEEB1F5028A41DD50072DFA5 /* TextDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEB1F4F28A41DD50072DFA5 /* TextDocument.swift */; };
 		BEEB1F5228A571440072DFA5 /* NotePadToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEB1F5128A571440072DFA5 /* NotePadToolBar.swift */; };
-		F8EFC50A28A3AA6A000FFD33 /* DocumentBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8EFC50928A3AA6A000FFD33 /* DocumentBrowserViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,7 +42,6 @@
 		BEEB1F4B28A417FB0072DFA5 /* TextController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextController.swift; sourceTree = "<group>"; };
 		BEEB1F4F28A41DD50072DFA5 /* TextDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextDocument.swift; sourceTree = "<group>"; };
 		BEEB1F5128A571440072DFA5 /* NotePadToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotePadToolBar.swift; sourceTree = "<group>"; };
-		F8EFC50928A3AA6A000FFD33 /* DocumentBrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentBrowserViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,7 +100,6 @@
 			isa = PBXGroup;
 			children = (
 				BE68E1CB289F88A20054150C /* AppDelegate.swift */,
-				F8EFC50928A3AA6A000FFD33 /* DocumentBrowserViewController.swift */,
 				BECA334528A7D5E000011F92 /* LaunchView.swift */,
 				BECA334728A7DE9400011F92 /* UINavigationController+Ext.swift */,
 				BE7CAE9728A9445000741581 /* Router.swift */,
@@ -211,7 +208,6 @@
 				BECA334628A7D5E000011F92 /* LaunchView.swift in Sources */,
 				BEEB1F5228A571440072DFA5 /* NotePadToolBar.swift in Sources */,
 				BEEB1F4C28A417FB0072DFA5 /* TextViewer.swift in Sources */,
-				F8EFC50A28A3AA6A000FFD33 /* DocumentBrowserViewController.swift in Sources */,
 				9A01113528A7D9E500D82488 /* MenuViewController.swift in Sources */,
 				BE68E1CC289F88A20054150C /* AppDelegate.swift in Sources */,
 				6A00550728A28902009C7393 /* LineReader.swift in Sources */,
