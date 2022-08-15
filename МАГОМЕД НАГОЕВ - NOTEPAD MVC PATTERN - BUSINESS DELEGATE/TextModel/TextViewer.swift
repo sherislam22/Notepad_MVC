@@ -10,44 +10,52 @@ import UIKit
 class TextViewer: UIViewController {
     
     //MARK: - Properties
-    private var textView: UITextView
+    private let textView: UITextView
     private var textController: TextController?
     private var textViewBottomConstraint: NSLayoutConstraint?
+    let notePadToolBar: NotePadToolBar
+    private let notepadView: UIImageView
     
     //MARK: - Initialize
     
-    init() {
+    init(router: RouterProtocol) {
         textView = UITextView()
+        notePadToolBar = NotePadToolBar()
+        
+        notepadView = UIImageView()
+        notepadView.image = UIImage(named: "notepad")
         super.init(nibName: nil, bundle: nil)
-        textController = TextController(textViewer: self)
+        textController = TextController(textViewer: self,
+                                        router: router)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        setImageView()
         setTextView()
-        view.backgroundColor = .lightGray
+        view.backgroundColor = .white
         setupDismissKeyboardGesture()
         setupKeyboardHiding()
+        textView.inputAccessoryView = notePadToolBar
         setnavigationBar()
+        setZoom()
+//        setupNavigationItem()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        textController?.openDocument()
-    }
-
     //MARK: - Methods
     
+    func setZoom() {
+        textView.minimumZoomScale = 0.5
+        textView.maximumZoomScale = 2.0
+    }
+    
     func setnavigationBar() {
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(close))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(save))
-        navigationController?.navigationBar.isTranslucent = false
-        navigationController?.view.backgroundColor = .white
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "list.dash"), style: .done, target: self, action: #selector(menuButtonTapped))
     }
     
     private func setTextView() {
@@ -62,10 +70,24 @@ class TextViewer: UIViewController {
         
         view.addSubview(textView)
         NSLayoutConstraint.activate([
-            textView.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 5),
+            textView.topAnchor.constraint(equalTo: notepadView.bottomAnchor, constant: 0),
             textViewBottomConstraint,
             textView.leftAnchor.constraint(equalTo: safeArea.leftAnchor, constant: 5),
             textView.rightAnchor.constraint(equalTo: safeArea.rightAnchor, constant: -5)
+        ])
+    }
+    
+    func setImageView() {
+        let safeArea = view.safeAreaLayoutGuide
+        
+        notepadView.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(notepadView)
+        NSLayoutConstraint.activate([
+            notepadView.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 0),
+            notepadView.heightAnchor.constraint(equalToConstant: 18),
+            notepadView.leftAnchor.constraint(equalTo: safeArea.leftAnchor, constant: 0),
+            notepadView.rightAnchor.constraint(equalTo: safeArea.rightAnchor, constant: 0)
         ])
     }
     
@@ -81,19 +103,20 @@ class TextViewer: UIViewController {
         title = fileTitle
     }
     
-    public func getDocumentURL(url: URL) {
-        textController?.createDocument(documentURL: url)
+    @objc func menuButtonTapped() {
+        textController?.router.pushContentMenu()
+        //print("menuButtonTapped")
     }
 }
 
 extension TextViewer {
-
+    
     // MARK: - Keyboard
     private func setupDismissKeyboardGesture() {
         let dismissKeyboardTap = UITapGestureRecognizer(target: self, action: #selector(viewTapped(_: )))
         view.addGestureRecognizer(dismissKeyboardTap)
     }
-
+    
     private func setupKeyboardHiding() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(keyboardWillShow),
@@ -106,30 +129,46 @@ extension TextViewer {
     @objc func viewTapped(_ recognizer: UITapGestureRecognizer) {
         view.endEditing(true)
     }
-
+    
     @objc func keyboardWillShow(sender: NSNotification) {
         guard let userInfo = sender.userInfo,
               let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
         if textViewBottomConstraint?.constant == 0 {
-
+            
             let keyboardHeight = keyboardFrame.cgRectValue.height
             textViewBottomConstraint?.constant = -keyboardHeight
-
+            
             view.layoutIfNeeded()
         }
     }
-
+    
     @objc func keyboardWillHide(notification: NSNotification) {
         textViewBottomConstraint?.constant = 0
         view.layoutIfNeeded()
     }
     
-    @objc func close() {
-        presentingViewController?.dismiss(animated: true)
-    }
-    
-    @objc func save() {
-        presentingViewController?.dismiss(animated: true)
-        textController?.saveDocument()
+    func setupNavigationItem() {
+        let newButton = UIBarButtonItem(title: "new",
+                                        style: .plain,
+                                        target: textController,
+                                        action: #selector(TextController.new))
+        let openButton = UIBarButtonItem(title: "open",
+                                         style: .plain,
+                                         target: textController,
+                                         action: #selector(TextController.open))
+        let saveButton = UIBarButtonItem(title: "save",
+                                         style: .plain,
+                                         target: textController,
+                                         action: #selector(TextController.save))
+        let saveAsButton = UIBarButtonItem(title: "saveAs",
+                                           style: .plain,
+                                           target: textController,
+                                           action: #selector(TextController.saveAs))
+        
+        navigationItem.rightBarButtonItems
+        = [saveAsButton,
+           saveButton,
+           openButton,
+           newButton]
     }
 }

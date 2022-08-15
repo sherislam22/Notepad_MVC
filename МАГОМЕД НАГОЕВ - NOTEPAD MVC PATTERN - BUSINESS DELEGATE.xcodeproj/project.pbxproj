@@ -9,27 +9,39 @@
 /* Begin PBXBuildFile section */
 		6A00550728A28902009C7393 /* LineReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A00550628A28902009C7393 /* LineReader.swift */; };
 		6A3A8BFA28A274610051A1E9 /* Filemanager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A3A8BF928A274610051A1E9 /* Filemanager.swift */; };
+		9A01113528A7D9E500D82488 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A01113428A7D9E500D82488 /* MenuViewController.swift */; };
 		BE68E1CC289F88A20054150C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE68E1CB289F88A20054150C /* AppDelegate.swift */; };
 		BE68E1D5289F88A40054150C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE68E1D4289F88A40054150C /* Assets.xcassets */; };
 		BE68E205289FAAF90054150C /* InformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE68E204289FAAF90054150C /* InformationViewController.swift */; };
+		BE7CAE9828A9445000741581 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7CAE9728A9445000741581 /* Router.swift */; };
+		BE7CAE9E28A9847300741581 /* Alerts in Resources */ = {isa = PBXBuildFile; fileRef = BE7CAE9D28A9847300741581 /* Alerts */; };
+		BECA334428A7CDFF00011F92 /* TextViewer+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = BECA334328A7CDFF00011F92 /* TextViewer+Ext.swift */; };
+		BECA334628A7D5E000011F92 /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BECA334528A7D5E000011F92 /* LaunchView.swift */; };
+		BECA334828A7DE9400011F92 /* UINavigationController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = BECA334728A7DE9400011F92 /* UINavigationController+Ext.swift */; };
 		BEEB1F4C28A417FB0072DFA5 /* TextViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEB1F4A28A417FB0072DFA5 /* TextViewer.swift */; };
 		BEEB1F4D28A417FB0072DFA5 /* TextController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEB1F4B28A417FB0072DFA5 /* TextController.swift */; };
 		BEEB1F5028A41DD50072DFA5 /* TextDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEB1F4F28A41DD50072DFA5 /* TextDocument.swift */; };
-		F8EFC50A28A3AA6A000FFD33 /* DocumentBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8EFC50928A3AA6A000FFD33 /* DocumentBrowserViewController.swift */; };
+		BEEB1F5228A571440072DFA5 /* NotePadToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEB1F5128A571440072DFA5 /* NotePadToolBar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		6A00550628A28902009C7393 /* LineReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineReader.swift; sourceTree = "<group>"; };
 		6A3A8BF928A274610051A1E9 /* Filemanager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filemanager.swift; sourceTree = "<group>"; };
+		9A01113428A7D9E500D82488 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		BE68E1C8289F88A20054150C /* МАГОМЕД НАГОЕВ - NOTEPAD MVC PATTERN - BUSINESS DELEGATE.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "МАГОМЕД НАГОЕВ - NOTEPAD MVC PATTERN - BUSINESS DELEGATE.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE68E1CB289F88A20054150C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BE68E1D4289F88A40054150C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BE68E1D9289F88A40054150C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BE68E204289FAAF90054150C /* InformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationViewController.swift; sourceTree = "<group>"; };
+		BE7CAE9728A9445000741581 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		BE7CAE9D28A9847300741581 /* Alerts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Alerts; sourceTree = "<group>"; };
+		BECA334328A7CDFF00011F92 /* TextViewer+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextViewer+Ext.swift"; sourceTree = "<group>"; };
+		BECA334528A7D5E000011F92 /* LaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
+		BECA334728A7DE9400011F92 /* UINavigationController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Ext.swift"; sourceTree = "<group>"; };
 		BEEB1F4A28A417FB0072DFA5 /* TextViewer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextViewer.swift; sourceTree = "<group>"; };
 		BEEB1F4B28A417FB0072DFA5 /* TextController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextController.swift; sourceTree = "<group>"; };
 		BEEB1F4F28A41DD50072DFA5 /* TextDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextDocument.swift; sourceTree = "<group>"; };
-		F8EFC50928A3AA6A000FFD33 /* DocumentBrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentBrowserViewController.swift; sourceTree = "<group>"; };
+		BEEB1F5128A571440072DFA5 /* NotePadToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotePadToolBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +64,22 @@
 			path = Filemanager;
 			sourceTree = "<group>";
 		};
+		9AAD920728A92A770021C70D /* ContentMenu */ = {
+			isa = PBXGroup;
+			children = (
+				9A01113428A7D9E500D82488 /* MenuViewController.swift */,
+			);
+			path = ContentMenu;
+			sourceTree = "<group>";
+		};
+		9AAD920928A92AC00021C70D /* Cutstoms */ = {
+			isa = PBXGroup;
+			children = (
+				BEEB1F5128A571440072DFA5 /* NotePadToolBar.swift */,
+			);
+			path = Cutstoms;
+			sourceTree = "<group>";
+		};
 		BE68E1BF289F88A20054150C = {
 			isa = PBXGroup;
 			children = (
@@ -72,9 +100,14 @@
 			isa = PBXGroup;
 			children = (
 				BE68E1CB289F88A20054150C /* AppDelegate.swift */,
-				F8EFC50928A3AA6A000FFD33 /* DocumentBrowserViewController.swift */,
+				BECA334528A7D5E000011F92 /* LaunchView.swift */,
+				BECA334728A7DE9400011F92 /* UINavigationController+Ext.swift */,
+				BE7CAE9728A9445000741581 /* Router.swift */,
+				BE7CAE9D28A9847300741581 /* Alerts */,
 				BEEB1F4E28A4180E0072DFA5 /* TextModel */,
 				6A00550828A28C63009C7393 /* Filemanager */,
+				9AAD920728A92A770021C70D /* ContentMenu */,
+				9AAD920928A92AC00021C70D /* Cutstoms */,
 				BE68E204289FAAF90054150C /* InformationViewController.swift */,
 				BE68E200289FAA1B0054150C /* TabBarController.swift */,
 				BE68E1D4289F88A40054150C /* Assets.xcassets */,
@@ -97,6 +130,7 @@
 				BEEB1F4B28A417FB0072DFA5 /* TextController.swift */,
 				BEEB1F4A28A417FB0072DFA5 /* TextViewer.swift */,
 				BEEB1F4F28A41DD50072DFA5 /* TextDocument.swift */,
+				BECA334328A7CDFF00011F92 /* TextViewer+Ext.swift */,
 			);
 			path = TextModel;
 			sourceTree = "<group>";
@@ -160,6 +194,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BE68E1D5289F88A40054150C /* Assets.xcassets in Resources */,
+				BE7CAE9E28A9847300741581 /* Alerts in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -170,14 +205,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BECA334428A7CDFF00011F92 /* TextViewer+Ext.swift in Sources */,
+				BECA334628A7D5E000011F92 /* LaunchView.swift in Sources */,
+				BEEB1F5228A571440072DFA5 /* NotePadToolBar.swift in Sources */,
 				BEEB1F4C28A417FB0072DFA5 /* TextViewer.swift in Sources */,
-				F8EFC50A28A3AA6A000FFD33 /* DocumentBrowserViewController.swift in Sources */,
+				9A01113528A7D9E500D82488 /* MenuViewController.swift in Sources */,
 				BE68E1CC289F88A20054150C /* AppDelegate.swift in Sources */,
 				6A00550728A28902009C7393 /* LineReader.swift in Sources */,
 				BEEB1F4D28A417FB0072DFA5 /* TextController.swift in Sources */,
 				BE68E205289FAAF90054150C /* InformationViewController.swift in Sources */,
+				BECA334828A7DE9400011F92 /* UINavigationController+Ext.swift in Sources */,
 				6A3A8BFA28A274610051A1E9 /* Filemanager.swift in Sources */,
 				BEEB1F5028A41DD50072DFA5 /* TextDocument.swift in Sources */,
+				BE7CAE9828A9445000741581 /* Router.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
