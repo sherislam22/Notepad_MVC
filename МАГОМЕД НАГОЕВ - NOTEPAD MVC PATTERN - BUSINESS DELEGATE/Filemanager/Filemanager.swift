@@ -22,7 +22,6 @@ class FileManagerModel {
             } catch {
                 print(error.localizedDescription)
             }
-            
         }
     }
 

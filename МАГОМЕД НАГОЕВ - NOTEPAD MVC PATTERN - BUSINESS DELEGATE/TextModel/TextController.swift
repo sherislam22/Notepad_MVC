@@ -70,6 +70,10 @@ class TextController: NSObject {
         textViewer.present(pickerViewController, animated: true)
     }
     
+    func showMenu() {
+        router.pushContentMenu(delegate: self )
+    }
+    
     // MARK: private methods
     private func openDocument() {
         // Access the document
@@ -102,10 +106,28 @@ extension TextController: UIDocumentPickerDelegate {
             openDocument()
         }
     }
-    
-    func openContentMenu() {
+}
 
+// MARK: - MenuViewControllerDelegate
+extension TextController: MenuViewControllerDelegate {
+    
+    func menuViewController(didPressMenu menu: MenuOptions) {
+        switch menu {
+        case .new:
+            new()
+        case .open:
+            open()
+        case .save:
+            save()
+        case .saveAs:
+            saveAs()
+        case .print:
+            print("Print")
+        case .info:
+            router.pushInformationViewController()
+        }
     }
 }
+  
 
 

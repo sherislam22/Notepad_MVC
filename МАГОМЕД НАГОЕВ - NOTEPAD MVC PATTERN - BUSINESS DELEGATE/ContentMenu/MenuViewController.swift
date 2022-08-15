@@ -7,35 +7,40 @@
 
 import UIKit
 
+enum MenuOptions: String, CaseIterable {
+    case new = "New"
+    case open = "Open"
+    case save = "Save"
+    case saveAs = "Save as"
+    case print = "Print"
+    case info = "Info"
+    
+    fileprivate var imageName: String {
+        switch self {
+        case .new:
+            return "doc.badge.plus"
+        case .open:
+            return "envelope.open"
+        case .save:
+            return "square.and.arrow.down"
+        case .saveAs:
+            return "square.and.arrow.down.on.square"
+        case .print:
+            return "printer"
+        case .info:
+            return "info.circle"
+        }
+    }
+}
+
+protocol MenuViewControllerDelegate: AnyObject {
+    func menuViewController(didPressMenu menu: MenuOptions)
+}
+
 class MenuViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     let router: RouterProtocol
-
-    enum MenuOptions: String, CaseIterable {
-        case new = "New"
-        case open = "Open"
-        case save = "Save"
-        case saveAs = "Save as"
-        case print = "Print"
-        case info = "Info"
-        
-        var imageName: String {
-            switch self {
-            case .new:
-                return "doc.badge.plus"
-            case .open:
-                return "envelope.open"
-            case .save:
-                return "square.and.arrow.down"
-            case .saveAs:
-                return "square.and.arrow.down.on.square"
-            case .print:
-                return "printer"
-            case .info:
-                return "info.circle"
-            }
-        }
-    }
+    weak var delegate: MenuViewControllerDelegate?
     
     init(router: RouterProtocol) {
         self.router = router
@@ -86,21 +91,7 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let item = MenuOptions.allCases[indexPath.row]
-        switch item {
-            
-        case .new:
-            print("new")
-        case .open:
-            print("open")
-        case .save:
-            print("save")
-        case .saveAs:
-            print("saveAs")
-        case .print:
-            print("print")
-        case .info:
-            router.pushInformationViewController()
-        }
+        delegate?.menuViewController(didPressMenu: item)
+        navigationController?.popViewController(animated: true)
     }
-
 }
