@@ -18,15 +18,15 @@ class TextViewer: UIViewController {
     
     //MARK: - Initialize
     
-    init() {
+    init(router: RouterProtocol) {
         textView = UITextView()
         notePadToolBar = NotePadToolBar()
         
         notepadView = UIImageView()
         notepadView.image = UIImage(named: "notepad")
         super.init(nibName: nil, bundle: nil)
-        
-        textController = TextController(textViewer: self)
+        textController = TextController(textViewer: self,
+                                        router: router)
     }
     
     required init?(coder: NSCoder) {
@@ -44,7 +44,7 @@ class TextViewer: UIViewController {
         textView.inputAccessoryView = notePadToolBar
         setnavigationBar()
         setZoom()
-        setupNavigationItem()
+//        setupNavigationItem()
     }
     
     //MARK: - Methods
@@ -55,9 +55,7 @@ class TextViewer: UIViewController {
     }
     
     func setnavigationBar() {
-        
-        navigationController?.navigationBar.barStyle = .black
-        navigationController?.navigationBar.isTranslucent = false
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "list.dash"), style: .done, target: self, action: #selector(menuButtonTapped))
     }
     
     private func setTextView() {
@@ -103,6 +101,11 @@ class TextViewer: UIViewController {
     
     public func updateTitle(fileTitle: String) {
         title = fileTitle
+    }
+    
+    @objc func menuButtonTapped() {
+        textController?.router.pushContentMenu()
+        //print("menuButtonTapped")
     }
 }
 

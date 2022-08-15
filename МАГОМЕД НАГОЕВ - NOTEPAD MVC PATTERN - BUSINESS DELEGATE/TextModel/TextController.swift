@@ -15,12 +15,14 @@ class TextController: NSObject {
     private let textViewer: TextViewer
     private var document: TextDocument?
     private let fileManager: FileManagerModel
+    let router: RouterProtocol
     
-    // MARK: Initializer
-    init(textViewer: TextViewer) {
-        self.fileManager = FileManagerModel()
+    //MARK: - Initializer
+    init(textViewer: TextViewer,
+         router: RouterProtocol) {
         self.textViewer = textViewer
-        
+        self.fileManager = FileManagerModel()
+        self.router = router
         textViewer.updateTitle(fileTitle: "Internship")
     }
 
@@ -99,6 +101,10 @@ extension TextController: UIDocumentPickerDelegate {
             document = TextDocument(fileURL: url)
             openDocument()
         }
+    }
+    
+    func openContentMenu() {
+
     }
 }
 

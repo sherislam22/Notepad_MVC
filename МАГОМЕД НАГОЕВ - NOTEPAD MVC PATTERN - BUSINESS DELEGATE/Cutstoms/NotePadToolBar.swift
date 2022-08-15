@@ -9,20 +9,26 @@ import UIKit
 
 class NotePadToolBar: UIToolbar {
     //MARK: Toolbar's properties
-    let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-    var tempToolBarItems = [UIBarButtonItem]()
-    var goToRight: Bool = false
+    let flexibleSpace: UIBarButtonItem
+    var tempToolBarItems: [UIBarButtonItem]
+    var goToRight: Bool
     
     override init(frame: CGRect) {
+        flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        goToRight = false
+        tempToolBarItems = []
         super.init(frame: frame)
         setupToolBar()
     }
     
     required init?(coder: NSCoder) {
+        flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        goToRight = false
+        tempToolBarItems = []
         super.init(coder: coder)
         setupToolBar()
     }
-
+    
     func setupToolBar() {
         changeStateOfToolbar()
         sizeToFit()
@@ -30,17 +36,16 @@ class NotePadToolBar: UIToolbar {
     }
     
     func changeStateOfToolbar() {
-       
         if !goToRight {
             tempToolBarItems.removeAll()
-            let cut = UIBarButtonItem(image: UIImage(systemName: "scissors"), style: .plain, target: self, action: nil)
             let undo = UIBarButtonItem(image: UIImage(systemName: "arrow.uturn.backward.circle"), style: .plain, target: self, action: nil)
             let redo = UIBarButtonItem(image: UIImage(systemName: "arrow.uturn.forward.circle"), style: .plain, target: self, action: nil)
             let copy = UIBarButtonItem(image: UIImage(systemName: "doc.on.doc"), style: .plain, target: self, action: nil)
-            let remove = UIBarButtonItem(image: UIImage(systemName: "trash.slash.circle"), style: .plain, target: self, action: nil)
+            let fontSize = UIBarButtonItem(image: UIImage(systemName: "textformat.size"), style: .plain, target: self, action: nil)
+            let fontStyle = UIBarButtonItem(image: UIImage(systemName: "signature"), style: .plain, target: self, action: nil)
             let rightArrow = UIBarButtonItem(image: UIImage(systemName: "arrow.right.to.line"), style: .plain, target: self, action: #selector(rightArrowTapped))
             
-            [cut, flexibleSpace, undo, flexibleSpace, redo, flexibleSpace, copy, flexibleSpace, remove, flexibleSpace, rightArrow].forEach { tempToolBarItems.append($0) }
+            [fontSize, flexibleSpace, fontStyle, flexibleSpace, undo, flexibleSpace, redo, flexibleSpace, copy, flexibleSpace, rightArrow].forEach { tempToolBarItems.append($0) }
         } else {
             tempToolBarItems.removeAll()
             let leftArrow = UIBarButtonItem(image: UIImage(systemName: "arrow.left.to.line"), style: .plain, target: self, action: #selector(leftArrowTapped))
@@ -49,8 +54,10 @@ class NotePadToolBar: UIToolbar {
             let goTo = UIBarButtonItem(image: UIImage(systemName: "arrow.forward"), style: .plain, target: self, action: nil)
             let selectAll = UIBarButtonItem(image: UIImage(systemName: "rectangle.fill.badge.checkmark"), style: .plain, target: self, action: nil)
             let timeAndDate = UIBarButtonItem(image: UIImage(systemName: "calendar"), style: .plain, target: self, action: nil)
+            let remove = UIBarButtonItem(image: UIImage(systemName: "trash.slash.circle"), style: .plain, target: self, action: nil)
+            let cut = UIBarButtonItem(image: UIImage(systemName: "scissors"), style: .plain, target: self, action: nil)
             
-            [leftArrow, flexibleSpace, replace, flexibleSpace, find, flexibleSpace, goTo, flexibleSpace, selectAll, flexibleSpace, timeAndDate, flexibleSpace].forEach { tempToolBarItems.append($0) }
+            [leftArrow, flexibleSpace, replace, flexibleSpace, find, flexibleSpace, goTo, flexibleSpace, selectAll, flexibleSpace, remove, flexibleSpace, cut, flexibleSpace, timeAndDate, flexibleSpace].forEach { tempToolBarItems.append($0) }
         }
     }
     

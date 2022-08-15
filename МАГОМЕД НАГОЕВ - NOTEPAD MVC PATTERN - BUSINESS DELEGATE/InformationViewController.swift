@@ -11,6 +11,7 @@ class InformationViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "InformationViewController"
         view.backgroundColor = .yellow
     }
 }
