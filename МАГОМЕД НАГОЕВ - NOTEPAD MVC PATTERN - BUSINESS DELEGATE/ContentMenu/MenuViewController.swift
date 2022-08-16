@@ -92,6 +92,5 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.deselectRow(at: indexPath, animated: true)
         let item = MenuOptions.allCases[indexPath.row]
         delegate?.menuViewController(didPressMenu: item)
-        navigationController?.popViewController(animated: true)
     }
 }
