@@ -36,6 +36,9 @@ class TextController: NSObject {
         } else {
             textViewer.updateTextView(text: "")
         }
+
+        textViewer.navigationController?.popToRootViewController(animated: true)
+
     }
     
     @objc public func open() {
