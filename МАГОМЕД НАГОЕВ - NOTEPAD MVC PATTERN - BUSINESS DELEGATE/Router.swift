@@ -10,7 +10,7 @@ import UIKit
 
 protocol RouterProtocol {
     func initialViewController()
-    func pushContentMenu()
+    func pushContentMenu(delegate: MenuViewControllerDelegate)
     func pushInformationViewController()
 }
 
@@ -31,8 +31,9 @@ class Router: RouterProtocol {
         navigationController.viewControllers = [textViewer]
     }
     
-    func pushContentMenu() {
+    func pushContentMenu(delegate: MenuViewControllerDelegate) {
         let menuViewer = MenuViewController(router: self)
+        menuViewer.delegate = delegate
         navigationController.pushViewController(menuViewer, animated: true)
     }
     

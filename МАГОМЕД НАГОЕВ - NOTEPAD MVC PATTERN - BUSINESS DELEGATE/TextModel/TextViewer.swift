@@ -104,7 +104,7 @@ class TextViewer: UIViewController {
     }
     
     @objc func menuButtonTapped() {
-        textController?.router.pushContentMenu()
+        textController?.showMenu()
         //print("menuButtonTapped")
     }
 }
