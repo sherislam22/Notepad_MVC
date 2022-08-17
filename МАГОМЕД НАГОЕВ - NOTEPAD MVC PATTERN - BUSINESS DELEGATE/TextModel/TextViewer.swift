@@ -15,6 +15,7 @@ class TextViewer: UIViewController {
     private var textViewBottomConstraint: NSLayoutConstraint?
     let notePadToolBar: NotePadToolBar
     private let notepadView: UIImageView
+    private var atributedTextArray: [NSAttributedString] = []
     
     //MARK: - Initialize
     
@@ -36,6 +37,7 @@ class TextViewer: UIViewController {
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        textView.delegate = self
         setImageView()
         setTextView()
         view.backgroundColor = .white
@@ -44,7 +46,8 @@ class TextViewer: UIViewController {
         textView.inputAccessoryView = notePadToolBar
         setnavigationBar()
         setZoom()
-//        setupNavigationItem()
+        setupNavigationItem()
+
     }
     
     //MARK: - Methods
@@ -148,27 +151,53 @@ extension TextViewer {
     }
     
     func setupNavigationItem() {
-        let newButton = UIBarButtonItem(title: "new",
+        let undo = UIBarButtonItem(title: "undo",
                                         style: .plain,
-                                        target: textController,
-                                        action: #selector(TextController.new))
-        let openButton = UIBarButtonItem(title: "open",
+                                        target: self,
+                                        action: #selector(undoDidTap))
+        let redo = UIBarButtonItem(title: "redo",
                                          style: .plain,
-                                         target: textController,
-                                         action: #selector(TextController.open))
-        let saveButton = UIBarButtonItem(title: "save",
-                                         style: .plain,
-                                         target: textController,
-                                         action: #selector(TextController.save))
-        let saveAsButton = UIBarButtonItem(title: "saveAs",
-                                           style: .plain,
-                                           target: textController,
-                                           action: #selector(TextController.saveAs))
+                                         target: self,
+                                         action: #selector(redoDidTap))
         
-        navigationItem.rightBarButtonItems
-        = [saveAsButton,
-           saveButton,
-           openButton,
-           newButton]
+        navigationItem.leftBarButtonItems
+        = [undo,
+           redo]
+    }
+    
+    @objc
+    func undoDidTap() {
+        textController?.careTaker.undo()
+    }
+    
+    @objc
+    func redoDidTap() {
+        textController?.careTaker.redo()
+
+    }
+}
+
+//MARK: - Add undo and redo command
+extension TextViewer: TextWriterProtocol {
+    func saveState() -> TextMemento {
+        TextMemento(text: textView.text,
+                    textFont: textView.font ?? UIFont())
+    }
+    
+    func restore(state: TextMemento) {
+        updateTextView(text: state.text)
+    }
+}
+
+extension TextViewer: UITextViewDelegate {
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if text == " " {
+            textController?.careTaker.save()
+        }
+        return true
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        textController?.careTaker.save()
     }
 }
