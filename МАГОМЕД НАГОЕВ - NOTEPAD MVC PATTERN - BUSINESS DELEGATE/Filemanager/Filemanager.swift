@@ -1,4 +1,5 @@
 import Foundation
+
 class FileManagerModel {
     let filemanager = FileManager.default
     func openFile(fileNamePath: String) -> String {
@@ -13,14 +14,16 @@ class FileManagerModel {
         return text
     }
     
-    func saveFile(fileUrl: String, textFile: String) {
-        print(textFile)
-        let path = filemanager.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("default").appendingPathExtension("ntp").path
+    func saveFile(fileUrl: String,
+                  textFile: String,
+                  fileName: String) {
+        
+        let path = filemanager.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(fileName).appendingPathExtension("ntp").path
         
         if fileUrl == "" {
             do {
                 filemanager.createFile(atPath: path, contents: textFile.data(using: .utf8))
-                print(openFile(fileNamePath: path), "erro")
+                print(openFile(fileNamePath: path), "Debug: error")
                 }
         }
         if filemanager.fileExists(atPath: fileUrl) {
@@ -43,25 +46,31 @@ class FileManagerModel {
         return url
     }
     
-    func Filelist() -> [String] {
+    func filelist() -> [String] {
         let files = filemanager.urls(for: .documentDirectory, in: .userDomainMask)[0].path
         let list = try? filemanager.contentsOfDirectory(atPath: files)
         return list!
     }
-
-    func geturl() -> URL {
-        let url = filemanager.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        return url
+    
+    func getPaths() -> [String: String] {
+        let folderDocument = filemanager.urls(for: .documentDirectory,
+                                              in: .userDomainMask)[0].path
+        let list = try? filemanager.contentsOfDirectory(atPath: folderDocument)
+        guard let list = list else { return [String: String]() }
+        var listWithUrl: [String: String] = [:]
+        
+        for file in list {
+            let key = folderDocument + "/" + file
+            listWithUrl[key] = file
+        }
+        
+        return listWithUrl
     }
     
-    func createNtpURL() -> URL? {
-        let url = try? FileManager.default.url(
-            for: .applicationSupportDirectory,
-            in: .userDomainMask,
-            appropriateFor: nil,
-            create: true
-        ).appendingPathComponent("default.ntp")
-        return url
+    func getFileName(urlPath: String) -> String {
+        let url = URL(string: urlPath)
+        let name = url?.lastPathComponent
+        return name ?? "Default.ntp"
     }
 
     func createNtpFile(url: URL) -> Bool {
