@@ -22,4 +22,8 @@ class TextDocument: UIDocument {
             text = String(data: data, encoding: .utf8) ?? ""
         }
     }
+    
+    func find(_ string: String) {
+        
+    }
 }

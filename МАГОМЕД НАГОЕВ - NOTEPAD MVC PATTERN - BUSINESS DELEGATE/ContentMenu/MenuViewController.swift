@@ -91,7 +91,8 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let item = MenuOptions.allCases[indexPath.row]
+//        navigationController?.popViewController(animated: true)
+//       navigationController?.popToRootViewController(animated: true)
         delegate?.menuViewController(didPressMenu: item)
-        navigationController?.popViewController(animated: true)
     }
 }

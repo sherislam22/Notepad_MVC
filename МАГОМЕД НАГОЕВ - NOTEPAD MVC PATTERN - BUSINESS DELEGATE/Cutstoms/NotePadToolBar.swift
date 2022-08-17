@@ -13,6 +13,8 @@ class NotePadToolBar: UIToolbar {
     var tempToolBarItems: [UIBarButtonItem]
     var goToRight: Bool
     
+    var target: Any?
+    
     override init(frame: CGRect) {
         flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         goToRight = false

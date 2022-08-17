@@ -74,6 +74,10 @@ class TextController: NSObject {
         router.pushContentMenu(delegate: self )
     }
     
+    func find(_ string: String) {
+        
+    }
+    
     // MARK: private methods
     private func openDocument() {
         // Access the document
@@ -115,6 +119,7 @@ extension TextController: MenuViewControllerDelegate {
         switch menu {
         case .new:
             new()
+            textViewer.navigationController?.popToRootViewController(animated: true)
         case .open:
             open()
         case .save:
