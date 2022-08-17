@@ -16,6 +16,7 @@ class TextController: NSObject {
     private var document: TextDocument?
     private let fileManager: FileManagerModel
     let router: RouterProtocol
+    let careTaker: CareTaker
     
     //MARK: - Initializer
     init(textViewer: TextViewer,
@@ -24,6 +25,8 @@ class TextController: NSObject {
         self.fileManager = FileManagerModel()
         self.router = router
         textViewer.updateTitle(fileTitle: "Internship")
+        careTaker = CareTaker(textWriter: textViewer)
+        careTaker.save()
     }
 
     // MARK: public methods
