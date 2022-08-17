@@ -25,6 +25,7 @@ class DocumentViewer: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        title = "Documents"
         view.backgroundColor = .white
         setupCollectionView()
     }
