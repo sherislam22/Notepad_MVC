@@ -115,7 +115,6 @@
 				9AAD920928A92AC00021C70D /* Cutstoms */,
 				BE68E204289FAAF90054150C /* InformationViewController.swift */,
 				93B8FEAC28AAC16000C311EB /* CastomTableViewCell.swift */,
-				BE68E1D4289F88A40054150C /* Assets.xcassets */,
 				BE68E1DF289F93A50054150C /* Supporting files */,
 				BE68E1D9289F88A40054150C /* Info.plist */,
 			);
@@ -125,6 +124,7 @@
 		BE68E1DF289F93A50054150C /* Supporting files */ = {
 			isa = PBXGroup;
 			children = (
+				BE68E1D4289F88A40054150C /* Assets.xcassets */,
 			);
 			path = "Supporting files";
 			sourceTree = "<group>";
