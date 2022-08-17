@@ -9,9 +9,11 @@ import Foundation
 import UIKit
 
 protocol RouterProtocol {
-    func initialViewController()
-    func pushContentMenu(delegate: MenuViewControllerDelegate)
+    func initialViewController(urlPath: String)
+    func pushContentMenu(urlPath: String,
+                         text: String)
     func pushInformationViewController()
+    func pushDocumentViewer()
 }
 
 class Router: RouterProtocol {
@@ -25,16 +27,38 @@ class Router: RouterProtocol {
         navigationController.showLaunchView()
     }
     
-    func initialViewController() {
-        let textViewer = TextViewer(router: self)
+    func initialViewController(urlPath: String) {
+        let textViewer = TextViewer()
+        let textController = TextController(textViewer: textViewer,
+                                            urlPath: urlPath,
+                                            router: self)
+        textViewer.textController = textController
 
         navigationController.viewControllers = [textViewer]
     }
     
-    func pushContentMenu(delegate: MenuViewControllerDelegate) {
-        let menuViewer = MenuViewController(router: self)
-        menuViewer.delegate = delegate
-        navigationController.pushViewController(menuViewer, animated: true)
+    func pushDocumentViewer() {
+        let documentViewer = DocumentViewer()
+        let documentController = DocumentController(documentViewer: documentViewer,
+                                                    router: self)
+        documentViewer.documentController = documentController
+        
+        navigationController.pushViewController(documentViewer, animated: true)
+    }
+    
+    func pushContentMenu(urlPath: String,
+                         text: String) {
+
+        let menuViewer = MenuViewer()
+        let menuController = MenuController(menuViewer: menuViewer,
+                                            router: self,
+                                            urlPath: urlPath,
+                                            text: text)
+
+        menuViewer.menuController = menuController
+        
+        navigationController.pushViewController(menuViewer,
+                                                animated: true)
     }
     
     func pushInformationViewController() {

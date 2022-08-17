@@ -7,56 +7,24 @@
 
 import UIKit
 
-enum MenuOptions: String, CaseIterable {
-    case new = "New"
-    case open = "Open"
-    case save = "Save"
-    case saveAs = "Save as"
-    case print = "Print"
-    case info = "Info"
+class MenuViewer: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    private let tableView: UITableView
+    public var menuController: MenuController?
     
-    fileprivate var imageName: String {
-        switch self {
-        case .new:
-            return "doc.badge.plus"
-        case .open:
-            return "envelope.open"
-        case .save:
-            return "square.and.arrow.down"
-        case .saveAs:
-            return "square.and.arrow.down.on.square"
-        case .print:
-            return "printer"
-        case .info:
-            return "info.circle"
-        }
-    }
-}
-
-protocol MenuViewControllerDelegate: AnyObject {
-    func menuViewController(didPressMenu menu: MenuOptions)
-}
-
-class MenuViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
-    let router: RouterProtocol
-    weak var delegate: MenuViewControllerDelegate?
+    init() {
+        tableView = UITableView()
     
-    init(router: RouterProtocol) {
-        self.router = router
         super.init(nibName: nil, bundle: nil)
+
+        tableView.backgroundColor = nil
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private let tableView: UITableView = {
-        let table = UITableView()
-        table.backgroundColor = nil
-        table.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
-        return table
-    }()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -91,6 +59,19 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let item = MenuOptions.allCases[indexPath.row]
-        delegate?.menuViewController(didPressMenu: item)
+        switch item {
+        case .new:
+            break
+        case .open:
+            menuController?.router.pushDocumentViewer()
+        case .save:
+            menuController?.save()
+        case .saveAs:
+            print("change file type manager save")
+        case .print:
+            break
+        case .info:
+            navigationController?.pushViewController(InformationViewController(), animated: true)
+        }
     }
 }

@@ -11,23 +11,20 @@ class TextViewer: UIViewController {
     
     //MARK: - Properties
     private let textView: UITextView
-    private var textController: TextController?
+    public var textController: TextController?
     private var textViewBottomConstraint: NSLayoutConstraint?
     let notePadToolBar: NotePadToolBar
     private let notepadView: UIImageView
-    private var atributedTextArray: [NSAttributedString] = []
     private var urlFile: URL
     //MARK: - Initialize
     
-    init(router: RouterProtocol) {
+    init() {
         textView = UITextView()
         notePadToolBar = NotePadToolBar(frame: CGRect(x: 0, y: 0, width: 375, height: 44))
         self.urlFile = URL(fileURLWithPath: "")
         notepadView = UIImageView()
         notepadView.image = UIImage(named: "notepad")
         super.init(nibName: nil, bundle: nil)
-        textController = TextController(textViewer: self,
-                                        router: router)
     }
     
     required init?(coder: NSCoder) {
@@ -106,14 +103,10 @@ class TextViewer: UIViewController {
     public func updateTitle(fileTitle: String) {
         title = fileTitle
     }
-    
-    func getUrl(url: URL) {
-        self.urlFile = url
-    }
+
     
     @objc func menuButtonTapped() {
         textController?.showMenu()
-        //print("menuButtonTapped")
     }
 }
 
@@ -156,14 +149,15 @@ extension TextViewer {
     }
     
     func setupNavigationItem() {
-        let undo = UIBarButtonItem(title: "undo",
-                                        style: .plain,
-                                        target: self,
-                                        action: #selector(undoDidTap))
-        let redo = UIBarButtonItem(title: "redo",
-                                         style: .plain,
-                                         target: self,
-                                         action: #selector(redoDidTap))
+        let undo = UIBarButtonItem(image: UIImage(systemName: "arrow.uturn.backward.circle"),
+                                   style: .plain,
+                                   target: self,
+                                   action: #selector(undoDidTap))
+    
+        let redo = UIBarButtonItem(image: UIImage(systemName: "arrow.uturn.forward.circle"),
+                                   style: .plain,
+                                   target: self,
+                                   action: #selector(redoDidTap))
         
         navigationItem.leftBarButtonItems
         = [undo,
