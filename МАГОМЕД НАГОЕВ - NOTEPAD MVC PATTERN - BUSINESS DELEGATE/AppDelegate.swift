@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         let navigationController = UINavigationController()
         let router = Router(navigationController: navigationController)
-        router.initialViewController()
+        router.initialViewController(urlPath: "")
         
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
