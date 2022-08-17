@@ -13,11 +13,21 @@ class FileManagerModel {
         return text
     }
     
-    func saveFile(fileUrl: URL, text: String) {
-        if filemanager.fileExists(atPath: fileUrl.path) {
+    func saveFile(fileUrl: String, text: String) {
+        print(fileUrl)
+        let path = filemanager.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("Documents").appendingPathComponent("test2").appendingPathExtension("ntp").path
+        if fileUrl == "" {
             do {
-                try filemanager.removeItem(atPath: fileUrl.path)
-                filemanager.createFile(atPath: fileUrl.path, contents: text.data(using: .utf8))
+                filemanager.createFile(atPath: path, contents: text.data(using: .utf8))
+                let str = try? String(contentsOfFile: path)
+                print(str ?? "error", "ook")
+            } 
+        }
+        if filemanager.fileExists(atPath: fileUrl) {
+            do {
+                try filemanager.removeItem(atPath: fileUrl)
+                filemanager.createFile(atPath: fileUrl, contents: text.data(using: .utf8))
+                print("ok2")
                 
             } catch {
                 print(error.localizedDescription)
