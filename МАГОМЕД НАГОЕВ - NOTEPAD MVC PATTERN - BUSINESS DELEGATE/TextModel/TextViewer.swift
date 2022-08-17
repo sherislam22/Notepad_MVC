@@ -21,7 +21,7 @@ class TextViewer: UIViewController {
     
     init(router: RouterProtocol) {
         textView = UITextView()
-        notePadToolBar = NotePadToolBar()
+        notePadToolBar = NotePadToolBar(frame: CGRect(x: 0, y: 0, width: 375, height: 44))
         self.urlFile = URL(fileURLWithPath: "")
         notepadView = UIImageView()
         notepadView.image = UIImage(named: "notepad")
@@ -43,6 +43,7 @@ class TextViewer: UIViewController {
         view.backgroundColor = .white
         setupDismissKeyboardGesture()
         setupKeyboardHiding()
+        notePadToolBar.translatesAutoresizingMaskIntoConstraints = false
         textView.inputAccessoryView = notePadToolBar
         setnavigationBar()
         setZoom()
