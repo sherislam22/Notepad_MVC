@@ -60,11 +60,11 @@ class TextController: NSObject {
     
     @objc public func save() {
         print(self.url,"url")
-        fileManager.saveFile(fileUrl: self.url, text: textViewer.getText())
+        fileManager.saveFile(fileUrl: self.url, textFile: textViewer.getText())
     }
     
     @objc public func saveAs() {
-        let url = fileManager.createFile(filename: document?.localizedName ?? "default", content: textViewer.getText(), ext: "ntp")
+        let url = fileManager.saveAs(filename: document?.localizedName ?? "default", content: textViewer.getText(), ext: "ntp")
         let pickerViewController = UIDocumentPickerViewController(
             forExporting: [url], asCopy: false)
         pickerViewController.delegate = self
