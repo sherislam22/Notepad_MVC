@@ -16,13 +16,13 @@ class TextViewer: UIViewController {
     let notePadToolBar: NotePadToolBar
     private let notepadView: UIImageView
     private var atributedTextArray: [NSAttributedString] = []
-    
+    private var urlFile: URL
     //MARK: - Initialize
     
     init(router: RouterProtocol) {
         textView = UITextView()
         notePadToolBar = NotePadToolBar()
-        
+        self.urlFile = URL(fileURLWithPath: "")
         notepadView = UIImageView()
         notepadView.image = UIImage(named: "notepad")
         super.init(nibName: nil, bundle: nil)
@@ -66,7 +66,7 @@ class TextViewer: UIViewController {
         
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.backgroundColor = .white
-        
+        textView.textColor = .black
         textViewBottomConstraint = textView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0)
         
         guard let textViewBottomConstraint = textViewBottomConstraint else { return }
@@ -104,6 +104,10 @@ class TextViewer: UIViewController {
     
     public func updateTitle(fileTitle: String) {
         title = fileTitle
+    }
+    
+    func getUrl(url: URL) {
+        self.urlFile = url
     }
     
     @objc func menuButtonTapped() {

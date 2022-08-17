@@ -12,6 +12,7 @@ import UniformTypeIdentifiers
 class TextController: NSObject {
     
     // MARK: Properties
+    private var url: String
     private let textViewer: TextViewer
     private var document: TextDocument?
     private let fileManager: FileManagerModel
@@ -24,6 +25,7 @@ class TextController: NSObject {
         self.textViewer = textViewer
         self.fileManager = FileManagerModel()
         self.router = router
+        url = ""
         textViewer.updateTitle(fileTitle: "Internship")
         careTaker = CareTaker(textWriter: textViewer)
         careTaker.save()
@@ -57,15 +59,8 @@ class TextController: NSObject {
     }
     
     @objc public func save() {
-        if let textDocument = document {
-            textDocument.save(to: textDocument.fileURL, for: .forOverwriting)
-        } else {
-            let url = fileManager.createFile(filename: "default", content: textViewer.getText(), ext: "ntp")
-            let pickerViewController = UIDocumentPickerViewController(
-                forExporting: [url], asCopy: false)
-            pickerViewController.delegate = self
-            textViewer.present(pickerViewController, animated: true)
-        }
+        print(self.url,"url")
+        fileManager.saveFile(fileUrl: self.url, text: textViewer.getText())
     }
     
     @objc public func saveAs() {
@@ -82,17 +77,8 @@ class TextController: NSObject {
     
     // MARK: private methods
     private func openDocument() {
-        // Access the document
-        document?.open(completionHandler: { [textViewer, document] (success) in
-            if success {
-                // Display the content of the document, e.g.:
-                if let document =  document {
-                    textViewer.updateTextView(text: document.text)
-                }
-            } else {
-                // Make sure to handle the failed import appropriately, e.g., by presenting an error message to the user.
-            }
-        })
+        let file = fileManager.openFile(fileNamePath: self.url)
+        textViewer.updateTextView(text: file)
     }
 }
 
@@ -101,16 +87,11 @@ extension TextController: UIDocumentPickerDelegate {
     
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
         guard let url = urls.first else { return }
-        
-        if let document = document { // если есть открытый документ, мы его закрываем
-            document.close { success in
-                self.document = TextDocument(fileURL: url)
-                self.openDocument()
-            }
-        } else {
-            document = TextDocument(fileURL: url)
-            openDocument()
-        }
+        self.url = ""
+        self.url = url.path
+        print(self.url)
+        openDocument()
+        textViewer.getUrl(url: url)
     }
 }
 
@@ -125,6 +106,7 @@ extension TextController: MenuViewControllerDelegate {
             open()
         case .save:
             save()
+
         case .saveAs:
             saveAs()
         case .print:
