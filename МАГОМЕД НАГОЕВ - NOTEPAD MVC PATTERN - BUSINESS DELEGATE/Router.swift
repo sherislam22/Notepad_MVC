@@ -10,13 +10,14 @@ import UIKit
 
 protocol RouterProtocol {
     func initialViewController(urlPath: String)
-    func pushContentMenu(urlPath: String,
-                         text: String)
+    func pushContentMenu(delegate: MenuViewControllerDelegate)
     func pushInformationViewController()
     func pushDocumentViewer()
 }
 
 class Router: RouterProtocol {
+    
+    
 
     private let navigationController: UINavigationController
     
@@ -46,17 +47,10 @@ class Router: RouterProtocol {
         navigationController.pushViewController(documentViewer, animated: true)
     }
     
-    func pushContentMenu(urlPath: String,
-                         text: String) {
+    func pushContentMenu(delegate: MenuViewControllerDelegate) {
 
         let menuViewer = MenuViewer()
-        let menuController = MenuController(menuViewer: menuViewer,
-                                            router: self,
-                                            urlPath: urlPath,
-                                            text: text)
-
-        menuViewer.menuController = menuController
-        
+        menuViewer.delegate = delegate
         navigationController.pushViewController(menuViewer,
                                                 animated: true)
     }

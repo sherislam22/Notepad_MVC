@@ -63,7 +63,6 @@ class FileManagerModel {
         let list = try? filemanager.contentsOfDirectory(atPath: folderDocument)
         guard let list = list else { return [String: String]() }
         var listWithUrl: [String: String] = [:]
-        
         for file in list {
             let key = folderDocument + "/" + file
             listWithUrl[key] = file
@@ -76,6 +75,12 @@ class FileManagerModel {
         let url = URL(string: urlPath)
         let name = url?.lastPathComponent
         return name ?? "Default.ntp"
+    }
+    
+    func getPathExt(urlPath: String) -> String {
+        let url = URL(string: urlPath)
+        let name = url?.pathExtension
+        return name ?? "ntp"
     }
 
 }

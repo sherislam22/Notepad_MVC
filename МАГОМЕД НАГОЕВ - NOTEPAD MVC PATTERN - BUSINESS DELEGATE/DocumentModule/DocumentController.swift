@@ -38,4 +38,9 @@ class DocumentController {
     func setTextForTextViewer(path: String) {
         router.initialViewController(urlPath: path)
     }
+    
+    func getpathExt(path: String) -> String {
+        let ext = fileManager.getPathExt(urlPath: path)
+        return ext
+    }
 }
