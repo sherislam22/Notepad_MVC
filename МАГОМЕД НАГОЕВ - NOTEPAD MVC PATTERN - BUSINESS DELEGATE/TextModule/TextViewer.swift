@@ -101,7 +101,7 @@ class TextViewer: UIViewController {
         
         textView.backgroundColor = .white
         textView.textColor = .black
-        
+       
         stackView.addArrangedSubview(textView)
         
         notePadToolBar.translatesAutoresizingMaskIntoConstraints = false
@@ -110,10 +110,13 @@ class TextViewer: UIViewController {
     
     private func setupSearchAndReplaceView() {
         stackView.insertArrangedSubview(searchAndReplaceView, at: 0)
+        searchAndReplaceView.searchTextField.delegate = self
+        searchAndReplaceView.replaceTextField.delegate = self
     }
     
     private func setupSearchAndReplaceButtonView() {
         stackView.addArrangedSubview(searchAndReplaceButtonView)
+        
     }
     
     private func setupDismissKeyboardGesture() {
@@ -198,6 +201,14 @@ class TextViewer: UIViewController {
     func getFilename() -> String {
         return self.filename ?? "Default"
     }
+    
+    func highlightRanges(_ ranges: [NSRange]) {
+        let newAttributedText = NSMutableAttributedString(string: textView.text)
+        ranges.forEach { range in
+            newAttributedText.addAttribute(.backgroundColor, value: UIColor.yellow, range: range)
+        }
+        textView.attributedText = newAttributedText
+    }
 }
 
 extension TextViewer {
@@ -244,5 +255,15 @@ extension TextViewer: UITextViewDelegate {
     
     func textViewDidEndEditing(_ textView: UITextView) {
         textController?.careTaker.save()
+    }
+}
+extension TextViewer: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if (textField == searchAndReplaceView.searchTextField || textField == searchAndReplaceView.replaceTextField),
+            let text = searchAndReplaceView.searchTextField.text {
+            textController?.search(text)
+        }
+        return true
     }
 }

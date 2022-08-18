@@ -30,6 +30,7 @@
 		BEEB1F5228A571440072DFA5 /* NotePadToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEB1F5128A571440072DFA5 /* NotePadToolBar.swift */; };
 		F80070B928AE531100FCF512 /* SearchAndReplaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80070B728AE531100FCF512 /* SearchAndReplaceView.swift */; };
 		F80070BA28AE531100FCF512 /* SearchAndReplaceButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80070B828AE531100FCF512 /* SearchAndReplaceButtonsView.swift */; };
+		F80070BC28AE71F100FCF512 /* TextController+SearchAndReplace.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80070BB28AE71F100FCF512 /* TextController+SearchAndReplace.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +59,7 @@
 		BEEB1F5128A571440072DFA5 /* NotePadToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotePadToolBar.swift; sourceTree = "<group>"; };
 		F80070B728AE531100FCF512 /* SearchAndReplaceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchAndReplaceView.swift; sourceTree = "<group>"; };
 		F80070B828AE531100FCF512 /* SearchAndReplaceButtonsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchAndReplaceButtonsView.swift; sourceTree = "<group>"; };
+		F80070BB28AE71F100FCF512 /* TextController+SearchAndReplace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextController+SearchAndReplace.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -170,6 +172,7 @@
 				BEEB1F4B28A417FB0072DFA5 /* TextController.swift */,
 				BEEB1F4A28A417FB0072DFA5 /* TextViewer.swift */,
 				BECA334328A7CDFF00011F92 /* TextViewer+Ext.swift */,
+				F80070BB28AE71F100FCF512 /* TextController+SearchAndReplace.swift */,
 			);
 			path = TextModule;
 			sourceTree = "<group>";
@@ -263,6 +266,7 @@
 				F80070BA28AE531100FCF512 /* SearchAndReplaceButtonsView.swift in Sources */,
 				BE9F18DE28AD337A0030DD42 /* DocumentViewer.swift in Sources */,
 				93B8FEAD28AAC16000C311EB /* CastomTableViewCell.swift in Sources */,
+				F80070BC28AE71F100FCF512 /* TextController+SearchAndReplace.swift in Sources */,
 				BE7CAE9828A9445000741581 /* Router.swift in Sources */,
 				BE9F18E628AD62BA0030DD42 /* MenuOptions.swift in Sources */,
 			);
