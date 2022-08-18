@@ -24,6 +24,9 @@ class TextViewer: UIViewController {
     private var urlFile: URL
     public var filename: String?
     
+    private var ranges: [NSRange]
+    private var selectedRangeIndex: Int
+    
     //MARK: - Initialize
     
     init() {
@@ -34,6 +37,8 @@ class TextViewer: UIViewController {
         searchAndReplaceView = SearchAndReplaceView()
         searchAndReplaceButtonView = SearchAndReplaceButtonsView()
         urlFile = URL(fileURLWithPath: "")
+        ranges = []
+        selectedRangeIndex = 0
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -116,9 +121,31 @@ class TextViewer: UIViewController {
     
     private func setupSearchAndReplaceButtonView() {
         stackView.addArrangedSubview(searchAndReplaceButtonView)
-        
+        searchAndReplaceButtonView.backButton.addTarget(self,
+                                                        action: #selector(jumpToPreviousSearch),
+                                                        for: .touchUpInside)
+        searchAndReplaceButtonView.nextButton.addTarget(self,
+                                                        action: #selector(jumpToNExtSearch),
+                                                        for: .touchUpInside)
     }
     
+    @objc func jumpToPreviousSearch() {
+        guard !ranges.isEmpty else { return }
+        selectedRangeIndex -= 1
+        if selectedRangeIndex < 0 {
+            selectedRangeIndex = ranges.count - 1
+        }
+        updateHighlighting()
+    }
+    
+    @objc func jumpToNExtSearch() {
+        guard !ranges.isEmpty else { return }
+        selectedRangeIndex += 1
+        if selectedRangeIndex >= ranges.count {
+            selectedRangeIndex = 0
+        }
+        updateHighlighting()
+    }
     private func setupDismissKeyboardGesture() {
         let dismissKeyboardTap = UITapGestureRecognizer(target: self, action: #selector(viewTapped(_: )))
         view.addGestureRecognizer(dismissKeyboardTap)
@@ -203,9 +230,15 @@ class TextViewer: UIViewController {
     }
     
     func highlightRanges(_ ranges: [NSRange]) {
+        self.ranges = ranges
+        updateHighlighting()
+    }
+    
+    func updateHighlighting() {
         let newAttributedText = NSMutableAttributedString(string: textView.text)
-        ranges.forEach { range in
-            newAttributedText.addAttribute(.backgroundColor, value: UIColor.yellow, range: range)
+        ranges.enumerated().forEach { index, range in
+            let color = index == selectedRangeIndex ? UIColor.green : UIColor.yellow
+            newAttributedText.addAttribute(.backgroundColor, value: color, range: range)
         }
         textView.attributedText = newAttributedText
     }

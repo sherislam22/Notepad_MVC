@@ -9,10 +9,10 @@ import UIKit
 
 class SearchAndReplaceButtonsView: UIView {
     private let horizontalStackView: UIStackView
-    private let backButton: UIButton
-    private let nextButton: UIButton
-    private let replaceButton: UIButton
-    private let replaceAllButton: UIButton
+    let backButton: UIButton
+    let nextButton: UIButton
+    let replaceButton: UIButton
+    let replaceAllButton: UIButton
     
     override init(frame: CGRect) {
         horizontalStackView = UIStackView()
