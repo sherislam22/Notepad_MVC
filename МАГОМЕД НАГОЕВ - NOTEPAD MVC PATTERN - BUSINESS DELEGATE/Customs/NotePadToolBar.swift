@@ -86,9 +86,6 @@ class NotePadToolBar: UIToolbar {
     
     @objc func cutTapped(_ sender: UIButton) {
         pasteboard.string = textToCopy
-        textController?.updateTextViewerAfterCut(text: textToCopy)
-//        let text = textViewer.getText().replacingOccurrences(of: textToCopy, with: "")
-//        textViewer.updateTextView(text: text)
         
     }
 }

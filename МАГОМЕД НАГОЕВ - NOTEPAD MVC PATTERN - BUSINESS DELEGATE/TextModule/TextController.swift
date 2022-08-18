@@ -60,10 +60,4 @@ class TextController {
             textViewer.updateTextView(text: file)
         }
     }
-    //--------
-    func updateTextViewerAfterCut(text: String) {
-        textViewer.updateTextView(text: "")
-        let updatedText = textViewer.getText().replacingOccurrences(of: text, with: "")
-        textViewer.updateTextView(text: updatedText)
-    }
 }
