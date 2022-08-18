@@ -40,10 +40,15 @@ class FileManagerModel {
 
     func saveAs(filename: String,
                     content: String,
-                    ext: String) -> URL {
+                    ext: String) -> String {
         let url = filemanager.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(filename).appendingPathExtension(ext)
-        filemanager.createFile(atPath: url.path, contents: content.data(using: .utf8), attributes: nil)
-        return url
+        if filemanager.fileExists(atPath: url.path) {
+            return "error"
+        } else {
+            filemanager.createFile(atPath: url.path, contents: content.data(using: .utf8), attributes: nil)
+            return url.path
+        }
+        
     }
     
     func filelist() -> [String] {
@@ -73,7 +78,4 @@ class FileManagerModel {
         return name ?? "Default.ntp"
     }
 
-    func createNtpFile(url: URL) -> Bool {
-        return FileManager.default.createFile(atPath: url .path, contents: Data())
-    }
 }
