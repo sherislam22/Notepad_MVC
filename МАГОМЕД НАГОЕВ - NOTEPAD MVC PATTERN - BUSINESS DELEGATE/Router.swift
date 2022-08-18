@@ -9,12 +9,15 @@ import Foundation
 import UIKit
 
 protocol RouterProtocol {
-    func initialViewController()
+    func initialViewController(urlPath: String)
     func pushContentMenu(delegate: MenuViewControllerDelegate)
     func pushInformationViewController()
+    func pushDocumentViewer()
 }
 
 class Router: RouterProtocol {
+    
+    
 
     private let navigationController: UINavigationController
     
@@ -25,16 +28,31 @@ class Router: RouterProtocol {
         navigationController.showLaunchView()
     }
     
-    func initialViewController() {
-        let textViewer = TextViewer(router: self)
+    func initialViewController(urlPath: String) {
+        let textViewer = TextViewer()
+        let textController = TextController(textViewer: textViewer,
+                                            urlPath: urlPath,
+                                            router: self)
+        textViewer.textController = textController
 
         navigationController.viewControllers = [textViewer]
     }
     
+    func pushDocumentViewer() {
+        let documentViewer = DocumentViewer()
+        let documentController = DocumentController(documentViewer: documentViewer,
+                                                    router: self)
+        documentViewer.documentController = documentController
+        
+        navigationController.pushViewController(documentViewer, animated: true)
+    }
+    
     func pushContentMenu(delegate: MenuViewControllerDelegate) {
-        let menuViewer = MenuViewController(router: self)
+
+        let menuViewer = MenuViewer()
         menuViewer.delegate = delegate
-        navigationController.pushViewController(menuViewer, animated: true)
+        navigationController.pushViewController(menuViewer,
+                                                animated: true)
     }
     
     func pushInformationViewController() {

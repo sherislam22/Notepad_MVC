@@ -8,14 +8,14 @@
 import UIKit
 
 enum MenuOptions: String, CaseIterable {
-    case new = "New"
-    case open = "Open"
-    case save = "Save"
-    case saveAs = "Save as"
-    case print = "Print"
-    case info = "Info"
+    case new = "new"
+    case open = "open"
+    case save = "save"
+    case saveAs = "save as"
+    case print = "print"
+    case info = "info"
     
-    fileprivate var imageName: String {
+    var imageName: String {
         switch self {
         case .new:
             return "doc.badge.plus"
@@ -33,30 +33,29 @@ enum MenuOptions: String, CaseIterable {
     }
 }
 
+
 protocol MenuViewControllerDelegate: AnyObject {
     func menuViewController(didPressMenu menu: MenuOptions)
 }
 
-class MenuViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    let router: RouterProtocol
+class MenuViewer: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    private let tableView: UITableView
     weak var delegate: MenuViewControllerDelegate?
+    init() {
+        tableView = UITableView()
     
-    init(router: RouterProtocol) {
-        self.router = router
         super.init(nibName: nil, bundle: nil)
+
+        tableView.backgroundColor = nil
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private let tableView: UITableView = {
-        let table = UITableView()
-        table.backgroundColor = nil
-        table.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
-        return table
-    }()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
