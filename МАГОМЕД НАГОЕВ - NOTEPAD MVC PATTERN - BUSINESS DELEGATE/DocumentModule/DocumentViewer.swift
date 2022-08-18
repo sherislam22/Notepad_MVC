@@ -80,10 +80,10 @@ extension DocumentViewer: UICollectionViewDataSource,
         guard let documentController = documentController,
                 let cell = cell else {
             return DocumentCollectionViewCell() }
-        
+        let path = documentController.getPath(index: indexPath.item)
         let name = documentController.getFileName(index: indexPath.item)
-        
-        cell.setDataCell(fileType: "NTP",
+        let ext =  documentController.getpathExt(path: path)
+        cell.setDataCell(fileType:ext,
                           fileName: name)
         
         return cell
