@@ -12,11 +12,13 @@ class NotePadToolBar: UIToolbar {
     let flexibleSpace: UIBarButtonItem
     var tempToolBarItems: [UIBarButtonItem]
     var goToRight: Bool
+    var textToCopy: String
     
     override init(frame: CGRect) {
         flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         goToRight = false
         tempToolBarItems = []
+        textToCopy = ""
         super.init(frame: frame)
         setupToolBar()
     }
@@ -25,6 +27,7 @@ class NotePadToolBar: UIToolbar {
         flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         goToRight = false
         tempToolBarItems = []
+        textToCopy = ""
         super.init(coder: coder)
         setupToolBar()
     }
@@ -42,7 +45,7 @@ class NotePadToolBar: UIToolbar {
             let fontStyle = UIBarButtonItem(image: UIImage(systemName: "signature"), style: .plain, target: self, action: nil)
             let selectAll = UIBarButtonItem(image: UIImage(systemName: "rectangle.fill.badge.checkmark"), style: .plain, target: self, action: nil)
             let find = UIBarButtonItem(image: UIImage(systemName: "magnifyingglass"), style: .plain, target: self, action: nil)
-            let copy = UIBarButtonItem(image: UIImage(systemName: "doc.on.doc"), style: .plain, target: self, action: nil)
+            let copy = UIBarButtonItem(image: UIImage(systemName: "doc.on.doc"), style: .plain, target: self, action: #selector(copyTapped))
             let rightArrow = UIBarButtonItem(image: UIImage(systemName: "arrow.right.to.line"), style: .plain, target: self, action: #selector(rightArrowTapped))
             
             [fontSize, flexibleSpace, fontStyle, flexibleSpace, selectAll, flexibleSpace, find, flexibleSpace, copy, flexibleSpace, rightArrow].forEach { tempToolBarItems.append($0) }
@@ -56,6 +59,10 @@ class NotePadToolBar: UIToolbar {
             
             [leftArrow, flexibleSpace, replace, flexibleSpace, goTo, flexibleSpace, remove, flexibleSpace, cut, flexibleSpace, timeAndDate].forEach { tempToolBarItems.append($0) }
         }
+    }
+    
+    @objc func copyTapped(_ sender: UIButton) {
+        UIPasteboard.general.string = textToCopy
     }
     
     @objc func rightArrowTapped(_ sender: UIButton) {

@@ -78,6 +78,13 @@ class TextViewer: UIViewController {
         ])
     }
     
+    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        if let range = textView.selectedTextRange {
+            notePadToolBar.textToCopy = textView.text(in: range) ?? ""
+        }
+        return true
+    }
+    
     func setImageView() {
         let safeArea = view.safeAreaLayoutGuide
         
