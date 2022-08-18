@@ -72,7 +72,7 @@ class TextController {
         careTaker.states.removeAll()
         if urlPath != "" {
             let file = fileManager.openFile(fileNamePath: urlPath)
-            textViewer.updateTextView(text: file)
+            textViewer.updateTextView(text: textViewer.getFilename())
         }
     }
 }
