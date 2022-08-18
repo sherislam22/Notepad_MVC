@@ -27,18 +27,17 @@ class TextController {
         self.fileManager = FileManagerModel()
         self.router = router
         self.urlPath = urlPath
-
+        print(textViewer.getFilename())
         careTaker = CareTaker(textWriter: textViewer)
         careTaker.save()
-
         openDocument()
         setTitle()
     }
 
     // MARK: public methods
     
-    func showMenu() {
-        router.pushContentMenu(urlPath: urlPath, text: textViewer.getText())
+    @objc func showMenu() {
+        router.pushContentMenu(delegate: self)
     }
     
     func setTitle() {
@@ -50,14 +49,50 @@ class TextController {
         self.urlPath = urlPath
     }
     
+    @objc func save() {
+        fileManager.saveFile(fileUrl: urlPath,
+                             textFile: textViewer.getText(),
+                             fileName: "Test1")
+    }
+    
+   func saveAs() {
+        let filename = textViewer.getFilename().split(separator: ".")
+        let ext = filename.last
+        print(ext ?? "", "file")
+        let file = fileManager.saveAs(filename: String(filename[0]), content: textViewer.getText(), ext: String(ext ?? "ntp"))
+        if file == "error" {
+            print("error")
+        }
+    }
+    
+    
     // MARK: private methods
     private func openDocument() {
-        
+        textViewer.navigationController?.pushViewController(DocumentViewer(), animated: true)
         careTaker.states.removeAll()
-        
         if urlPath != "" {
             let file = fileManager.openFile(fileNamePath: urlPath)
             textViewer.updateTextView(text: file)
+        }
+    }
+}
+
+extension TextController: MenuViewControllerDelegate {
+    
+    func menuViewController(didPressMenu menu: MenuOptions) {
+        switch menu {
+        case .new:
+            break
+        case .open:
+            router.pushDocumentViewer()
+        case .save:
+            save()
+        case .saveAs:
+            textViewer.didTapSaveButton()
+        case .print:
+            print("Print")
+        case .info:
+            router.pushInformationViewController()
         }
     }
 }

@@ -63,7 +63,6 @@ class FileManagerModel {
         let list = try? filemanager.contentsOfDirectory(atPath: folderDocument)
         guard let list = list else { return [String: String]() }
         var listWithUrl: [String: String] = [:]
-        
         for file in list {
             let key = folderDocument + "/" + file
             listWithUrl[key] = file

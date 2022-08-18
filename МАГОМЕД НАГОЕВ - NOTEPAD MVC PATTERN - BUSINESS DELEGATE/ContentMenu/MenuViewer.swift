@@ -7,10 +7,41 @@
 
 import UIKit
 
+enum MenuOptions: String, CaseIterable {
+    case new = "new"
+    case open = "open"
+    case save = "save"
+    case saveAs = "save as"
+    case print = "print"
+    case info = "info"
+    
+    var imageName: String {
+        switch self {
+        case .new:
+            return "doc.badge.plus"
+        case .open:
+            return "envelope.open"
+        case .save:
+            return "square.and.arrow.down"
+        case .saveAs:
+            return "square.and.arrow.down.on.square"
+        case .print:
+            return "printer"
+        case .info:
+            return "info.circle"
+        }
+    }
+}
+
+
+protocol MenuViewControllerDelegate: AnyObject {
+    func menuViewController(didPressMenu menu: MenuOptions)
+}
+
+
 class MenuViewer: UIViewController, UITableViewDelegate, UITableViewDataSource {
     private let tableView: UITableView
-    public var menuController: MenuController?
-    
+    weak var delegate: MenuViewControllerDelegate?
     init() {
         tableView = UITableView()
     
@@ -57,21 +88,9 @@ class MenuViewer: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
+            tableView.deselectRow(at: indexPath, animated: true)
         let item = MenuOptions.allCases[indexPath.row]
-        switch item {
-        case .new:
-            break
-        case .open:
-            menuController?.router.pushDocumentViewer()
-        case .save:
-            menuController?.save()
-        case .saveAs:
-            print("change file type manager save")
-        case .print:
-            break
-        case .info:
-            navigationController?.pushViewController(InformationViewController(), animated: true)
+            delegate?.menuViewController(didPressMenu: item)
         }
-    }
+
 }

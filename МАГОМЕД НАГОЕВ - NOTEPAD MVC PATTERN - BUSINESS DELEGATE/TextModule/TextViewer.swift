@@ -16,6 +16,7 @@ class TextViewer: UIViewController {
     let notePadToolBar: NotePadToolBar
     private let notepadView: UIImageView
     private var urlFile: URL
+    public var filename: String?
     //MARK: - Initialize
     
     init() {
@@ -107,6 +108,34 @@ class TextViewer: UIViewController {
     
     @objc func menuButtonTapped() {
         textController?.showMenu()
+    }
+    
+    func didTapSaveButton(){
+            let alert = UIAlertController(title: "Name the file", message: nil, preferredStyle: .alert)
+    
+            let confirmAction = UIAlertAction(title: "Save", style: .default) { _ in
+                if let txtField = alert.textFields?.first, let text = txtField.text {
+                    // operations
+                    self.filename = text
+                    self.textController?.saveAs()
+                    
+                }
+            }
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { _ in }
+            alert.view.addSubview(UIView())
+            alert.addTextField { (textField) in
+                textField.placeholder = "File name"
+            }
+            alert.addAction(confirmAction)
+            alert.addAction(cancelAction)
+    
+            present(alert, animated: true, completion: nil)
+     
+        
+    }
+    
+    func getFilename() -> String {
+        return self.filename ?? "Default"
     }
 }
 
