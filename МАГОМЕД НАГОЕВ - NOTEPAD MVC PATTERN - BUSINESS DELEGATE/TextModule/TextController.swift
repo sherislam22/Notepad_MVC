@@ -61,7 +61,7 @@ class TextController {
         print(ext ?? "", "file")
         let file = fileManager.saveAs(filename: String(filename[0]), content: textViewer.getText(), ext: String(ext ?? "ntp"))
         if file == "error" {
-            print("error")
+            
         }
     }
     
@@ -72,7 +72,7 @@ class TextController {
         careTaker.states.removeAll()
         if urlPath != "" {
             let file = fileManager.openFile(fileNamePath: urlPath)
-            textViewer.updateTextView(text: textViewer.getFilename())
+            textViewer.updateTextView(text: file)
         }
     }
 }
