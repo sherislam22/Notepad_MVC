@@ -9,16 +9,21 @@ import UIKit
 
 class NotePadToolBar: UIToolbar {
     //MARK: Toolbar's properties
-    let flexibleSpace: UIBarButtonItem
-    var tempToolBarItems: [UIBarButtonItem]
-    var goToRight: Bool
+    private let flexibleSpace: UIBarButtonItem
+    private var tempToolBarItems: [UIBarButtonItem]
+    private var goToRight: Bool
+    private let pasteboard: UIPasteboard
     var textToCopy: String
+    public var textController: TextController?
+//    let textViewer: TextViewer
     
     override init(frame: CGRect) {
         flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         goToRight = false
         tempToolBarItems = []
         textToCopy = ""
+        pasteboard = UIPasteboard.general
+//        textViewer = TextViewer()
         super.init(frame: frame)
         setupToolBar()
     }
@@ -28,6 +33,8 @@ class NotePadToolBar: UIToolbar {
         goToRight = false
         tempToolBarItems = []
         textToCopy = ""
+        pasteboard = UIPasteboard.general
+//        textViewer = TextViewer()
         super.init(coder: coder)
         setupToolBar()
     }
@@ -55,14 +62,14 @@ class NotePadToolBar: UIToolbar {
             let goTo = UIBarButtonItem(image: UIImage(systemName: "arrow.forward"), style: .plain, target: self, action: nil)
             let timeAndDate = UIBarButtonItem(image: UIImage(systemName: "calendar"), style: .plain, target: self, action: nil)
             let remove = UIBarButtonItem(image: UIImage(systemName: "trash.slash.circle"), style: .plain, target: self, action: nil)
-            let cut = UIBarButtonItem(image: UIImage(systemName: "scissors"), style: .plain, target: self, action: nil)
+            let cut = UIBarButtonItem(image: UIImage(systemName: "scissors"), style: .plain, target: self, action: #selector(cutTapped))
             
             [leftArrow, flexibleSpace, replace, flexibleSpace, goTo, flexibleSpace, remove, flexibleSpace, cut, flexibleSpace, timeAndDate].forEach { tempToolBarItems.append($0) }
         }
     }
     
     @objc func copyTapped(_ sender: UIButton) {
-        UIPasteboard.general.string = textToCopy
+        pasteboard.string = textToCopy
     }
     
     @objc func rightArrowTapped(_ sender: UIButton) {
@@ -75,5 +82,13 @@ class NotePadToolBar: UIToolbar {
         goToRight = !goToRight
         changeStateOfToolbar()
         self.setItems(tempToolBarItems, animated: true)
+    }
+    
+    @objc func cutTapped(_ sender: UIButton) {
+        pasteboard.string = textToCopy
+        textController?.updateTextViewerAfterCut(text: textToCopy)
+//        let text = textViewer.getText().replacingOccurrences(of: textToCopy, with: "")
+//        textViewer.updateTextView(text: text)
+        
     }
 }
