@@ -61,7 +61,7 @@ class MenuViewer: UIViewController, UITableViewDelegate, UITableViewDataSource {
         let item = MenuOptions.allCases[indexPath.row]
         switch item {
         case .new:
-            break
+            menuController?.router.initialViewController(urlPath: "")
         case .open:
             menuController?.router.pushDocumentViewer()
         case .save:
