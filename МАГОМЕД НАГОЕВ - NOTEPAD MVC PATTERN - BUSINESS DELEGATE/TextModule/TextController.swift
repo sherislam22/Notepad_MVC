@@ -57,8 +57,10 @@ class TextController {
     
    func saveAs() {
         let filename = textViewer.getFilename().split(separator: ".")
-        let ext = filename.last
-        print(ext ?? "", "file")
+        var ext = filename.last
+       if filename.count == 1 {
+           ext = "ntp"
+       }
         let file = fileManager.saveAs(filename: String(filename[0]), content: textViewer.getText(), ext: String(ext ?? "ntp"))
         if file == "error" {
             
