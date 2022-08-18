@@ -86,12 +86,12 @@
 			path = ContentMenu;
 			sourceTree = "<group>";
 		};
-		9AAD920928A92AC00021C70D /* Cutstoms */ = {
+		9AAD920928A92AC00021C70D /* Customs */ = {
 			isa = PBXGroup;
 			children = (
 				BEEB1F5128A571440072DFA5 /* NotePadToolBar.swift */,
 			);
-			path = Cutstoms;
+			path = Customs;
 			sourceTree = "<group>";
 		};
 		BE68E1BF289F88A20054150C = {
@@ -122,7 +122,7 @@
 				BEEB1F4E28A4180E0072DFA5 /* TextModule */,
 				6A00550828A28C63009C7393 /* Filemanager */,
 				9AAD920728A92A770021C70D /* ContentMenu */,
-				9AAD920928A92AC00021C70D /* Cutstoms */,
+				9AAD920928A92AC00021C70D /* Customs */,
 				BE9F18E428AD37280030DD42 /* InformationModule */,
 				BE68E1DF289F93A50054150C /* Supporting files */,
 				BE68E1D9289F88A40054150C /* Info.plist */,
