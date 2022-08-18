@@ -61,7 +61,7 @@ class TextController {
         print(ext ?? "", "file")
         let file = fileManager.saveAs(filename: String(filename[0]), content: textViewer.getText(), ext: String(ext ?? "ntp"))
         if file == "error" {
-            print("error")
+            
         }
     }
     
