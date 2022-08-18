@@ -88,9 +88,8 @@ class MenuViewer: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-            tableView.deselectRow(at: indexPath, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
         let item = MenuOptions.allCases[indexPath.row]
-            delegate?.menuViewController(didPressMenu: item)
-        }
-
+        delegate?.menuViewController(didPressMenu: item)
+    }
 }
