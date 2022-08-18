@@ -82,7 +82,7 @@ extension TextController: MenuViewControllerDelegate {
     func menuViewController(didPressMenu menu: MenuOptions) {
         switch menu {
         case .new:
-            break
+            router.initialViewController(urlPath: "")
         case .open:
             router.pushDocumentViewer()
         case .save:
