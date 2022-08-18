@@ -2,19 +2,34 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CFBundleDocumentTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeName</key>
+			<string>ntp</string>
+			<key>LSHandlerRank</key>
+			<string>Owner</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>com.internlabs.notepad.ntp</string>
+			</array>
+		</dict>
+	</array>
+	<key>UIStatusBarStyle</key>
+	<string>UIStatusBarStyleDarkContent</string>
 	<key>UTExportedTypeDeclarations</key>
 	<array>
 		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
-				<string>public.plain-text</string>
+				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Internlabs notepad file</string>
 			<key>UTTypeIconFiles</key>
 			<array/>
 			<key>UTTypeIdentifier</key>
-			<string>com.internlabs.notepad.ntp</string>
+			<string>.ntp</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
