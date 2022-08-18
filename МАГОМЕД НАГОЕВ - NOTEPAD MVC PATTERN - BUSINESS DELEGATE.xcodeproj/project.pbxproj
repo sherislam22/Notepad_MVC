@@ -115,16 +115,15 @@
 			children = (
 				BE68E1CB289F88A20054150C /* AppDelegate.swift */,
 				BECA334528A7D5E000011F92 /* LaunchView.swift */,
-				BECA334728A7DE9400011F92 /* UINavigationController+Ext.swift */,
 				BE7CAE9728A9445000741581 /* Router.swift */,
 				BE9F18D728AC1B540030DD42 /* Memento.swift */,
-				BE9F18E128AD338F0030DD42 /* DocumentModel */,
+				BE9F18E128AD338F0030DD42 /* DocumentModule */,
 				BE7CAE9D28A9847300741581 /* Alerts */,
-				BEEB1F4E28A4180E0072DFA5 /* TextModel */,
+				BEEB1F4E28A4180E0072DFA5 /* TextModule */,
 				6A00550828A28C63009C7393 /* Filemanager */,
 				9AAD920728A92A770021C70D /* ContentMenu */,
 				9AAD920928A92AC00021C70D /* Cutstoms */,
-				BE9F18E428AD37280030DD42 /* InformationModel */,
+				BE9F18E428AD37280030DD42 /* InformationModule */,
 				BE68E1DF289F93A50054150C /* Supporting files */,
 				BE68E1D9289F88A40054150C /* Info.plist */,
 			);
@@ -134,38 +133,39 @@
 		BE68E1DF289F93A50054150C /* Supporting files */ = {
 			isa = PBXGroup;
 			children = (
+				BECA334728A7DE9400011F92 /* UINavigationController+Ext.swift */,
 				BE68E1D4289F88A40054150C /* Assets.xcassets */,
 			);
 			path = "Supporting files";
 			sourceTree = "<group>";
 		};
-		BE9F18E128AD338F0030DD42 /* DocumentModel */ = {
+		BE9F18E128AD338F0030DD42 /* DocumentModule */ = {
 			isa = PBXGroup;
 			children = (
 				BE9F18DD28AD337A0030DD42 /* DocumentViewer.swift */,
 				BE9F18E228AD36AB0030DD42 /* DocumentCell.swift */,
 				BE9F18DF28AD33860030DD42 /* DocumentController.swift */,
 			);
-			path = DocumentModel;
+			path = DocumentModule;
 			sourceTree = "<group>";
 		};
-		BE9F18E428AD37280030DD42 /* InformationModel */ = {
+		BE9F18E428AD37280030DD42 /* InformationModule */ = {
 			isa = PBXGroup;
 			children = (
 				BE68E204289FAAF90054150C /* InformationViewController.swift */,
 				93B8FEAC28AAC16000C311EB /* CastomTableViewCell.swift */,
 			);
-			path = InformationModel;
+			path = InformationModule;
 			sourceTree = "<group>";
 		};
-		BEEB1F4E28A4180E0072DFA5 /* TextModel */ = {
+		BEEB1F4E28A4180E0072DFA5 /* TextModule */ = {
 			isa = PBXGroup;
 			children = (
 				BEEB1F4B28A417FB0072DFA5 /* TextController.swift */,
 				BEEB1F4A28A417FB0072DFA5 /* TextViewer.swift */,
 				BECA334328A7CDFF00011F92 /* TextViewer+Ext.swift */,
 			);
-			path = TextModel;
+			path = TextModule;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
