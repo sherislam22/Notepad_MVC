@@ -76,5 +76,11 @@ class FileManagerModel {
         let name = url?.lastPathComponent
         return name ?? "Default.ntp"
     }
+    
+    func getPathExt(urlPath: String) -> String {
+        let url = URL(string: urlPath)
+        let name = url?.pathExtension
+        return name ?? "ntp"
+    }
 
 }
