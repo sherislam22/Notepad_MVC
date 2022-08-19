@@ -13,20 +13,47 @@ class TextViewer: UIViewController {
     public var textController: TextController?
     
     private let notepadView: UIImageView
-    private let stackView: UIStackView
-    private let textView: UITextView
+    let stackView: UIStackView
+    let textView: UITextView
     let notePadToolBar: NotePadToolBar
-    private let searchAndReplaceView: SearchAndReplaceView
-    private let searchAndReplaceButtonView: SearchAndReplaceButtonsView
+    let searchAndReplaceView: SearchAndReplaceView
+    let searchAndReplaceButtonView: SearchAndReplaceButtonsView
     
     private var stackViewBottomConstraint: NSLayoutConstraint?
     
     private var urlFile: URL
     public var filename: String?
     
-    private var ranges: [NSRange]
-    private var selectedRangeIndex: Int
+    var ranges: [NSRange] {
+        didSet {
+            let isEnabled = !ranges.isEmpty
+            searchAndReplaceButtonView.backButton.isEnabled = isEnabled
+            searchAndReplaceButtonView.nextButton.isEnabled = isEnabled
+            searchAndReplaceButtonView.replaceButton.isEnabled = isEnabled
+            searchAndReplaceButtonView.replaceAllButton.isEnabled = isEnabled
+        }
+    }
+    var selectedRangeIndex: Int
     
+    var mode: Mode = .default {
+        didSet {
+            switch mode {
+            case .default:
+                searchAndReplaceView.isHidden = true
+                searchAndReplaceButtonView.isHidden = true
+                navigationController?.setNavigationBarHidden(false, animated: true)
+                notepadView.isHidden = false
+                ranges = []
+                updateHighlighting()
+            case .searchAndReplace:
+                searchAndReplaceView.isHidden = false
+                searchAndReplaceButtonView.isHidden = false
+                navigationController?.setNavigationBarHidden(true, animated: true)
+                notepadView.isHidden = true
+                textView.resignFirstResponder()
+            }
+        }
+    }
     //MARK: - Initialize
     
     init() {
@@ -60,9 +87,35 @@ class TextViewer: UIViewController {
         setupDismissKeyboardGesture()
         setupKeyboardFrame()
         setupNavigationItem()
-        
         setupZoom()
         
+        ranges = []
+  
+        mode = .default
+
+        //  test buttons delete after
+        notePadToolBar.items?[2].target = self
+        notePadToolBar.items?[2].action = #selector(startSearch)
+        
+        notePadToolBar.items?[4].target = self
+        notePadToolBar.items?[4].action = #selector(startSearchAndReplace)
+    }
+    
+    @objc func startSearch() {
+        searchAndReplaceView.isReplacingEnabled = false
+        searchAndReplaceButtonView.isReplacingEnabled = false
+        mode = .searchAndReplace
+        UIView.animate(withDuration: 0.25) {
+            self.view.layoutIfNeeded()
+        }
+    }
+    @objc func startSearchAndReplace() {
+        searchAndReplaceView.isReplacingEnabled = true
+        searchAndReplaceButtonView.isReplacingEnabled = true
+        mode = .searchAndReplace
+        UIView.animate(withDuration: 0.25) {
+            self.view.layoutIfNeeded()
+        }
     }
     //MARK: - SetupMethods
     private func setupImageView() {
@@ -111,22 +164,6 @@ class TextViewer: UIViewController {
         
         notePadToolBar.translatesAutoresizingMaskIntoConstraints = false
         textView.inputAccessoryView = notePadToolBar
-    }
-    
-    private func setupSearchAndReplaceView() {
-        stackView.insertArrangedSubview(searchAndReplaceView, at: 0)
-        searchAndReplaceView.searchTextField.delegate = self
-        searchAndReplaceView.replaceTextField.delegate = self
-    }
-    
-    private func setupSearchAndReplaceButtonView() {
-        stackView.addArrangedSubview(searchAndReplaceButtonView)
-        searchAndReplaceButtonView.backButton.addTarget(self,
-                                                        action: #selector(jumpToPreviousSearch),
-                                                        for: .touchUpInside)
-        searchAndReplaceButtonView.nextButton.addTarget(self,
-                                                        action: #selector(jumpToNExtSearch),
-                                                        for: .touchUpInside)
     }
     
     private func setupDismissKeyboardGesture() {
@@ -212,36 +249,7 @@ class TextViewer: UIViewController {
         return self.filename ?? "Default"
     }
     
-    func highlightRanges(_ ranges: [NSRange]) {
-        self.ranges = ranges
-        updateHighlighting()
-    }
-    
-    func updateHighlighting() {
-        let newAttributedText = NSMutableAttributedString(string: textView.text)
-        ranges.enumerated().forEach { index, range in
-            let color = index == selectedRangeIndex ? UIColor.green : UIColor.yellow
-            newAttributedText.addAttribute(.backgroundColor, value: color, range: range)
-        }
-        textView.attributedText = newAttributedText
-    }
-    @objc func jumpToPreviousSearch() {
-        guard !ranges.isEmpty else { return }
-        selectedRangeIndex -= 1
-        if selectedRangeIndex < 0 {
-            selectedRangeIndex = ranges.count - 1
-        }
-        updateHighlighting()
-    }
-    
-    @objc func jumpToNExtSearch() {
-        guard !ranges.isEmpty else { return }
-        selectedRangeIndex += 1
-        if selectedRangeIndex >= ranges.count {
-            selectedRangeIndex = 0
-        }
-        updateHighlighting()
-    }
+   
 }
 
 extension TextViewer {
@@ -286,17 +294,12 @@ extension TextViewer: UITextViewDelegate {
         return true
     }
     
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        mode = .default
+    }
+    
     func textViewDidEndEditing(_ textView: UITextView) {
         textController?.careTaker.save()
     }
 }
-extension TextViewer: UITextFieldDelegate {
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if (textField == searchAndReplaceView.searchTextField || textField == searchAndReplaceView.replaceTextField),
-            let text = searchAndReplaceView.searchTextField.text {
-            textController?.search(text)
-        }
-        return true
-    }
-}
+

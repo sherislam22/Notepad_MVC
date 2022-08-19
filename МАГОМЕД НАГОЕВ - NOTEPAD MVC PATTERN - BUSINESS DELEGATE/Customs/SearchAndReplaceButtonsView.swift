@@ -13,6 +13,15 @@ class SearchAndReplaceButtonsView: UIView {
     let nextButton: UIButton
     let replaceButton: UIButton
     let replaceAllButton: UIButton
+    var isReplacingEnabled: Bool {
+        get {
+            return !replaceButton.isHidden && !replaceAllButton.isHidden
+        }
+        set {
+            replaceAllButton.isHidden = !newValue
+            replaceButton.isHidden = !newValue
+        }
+    }
     
     override init(frame: CGRect) {
         horizontalStackView = UIStackView()

@@ -12,7 +12,15 @@ class SearchAndReplaceView: UIView {
     private let verticalStackView: UIStackView
     let searchTextField: UITextField
     let replaceTextField: UITextField
-    private let doneButton: UIButton
+    let doneButton: UIButton
+    var isReplacingEnabled: Bool {
+        get {
+            return !replaceTextField.isHidden
+        }
+        set {
+            replaceTextField.isHidden = !newValue
+        }
+    }
     
     override init(frame: CGRect) {
         horizontalStackView = UIStackView()
@@ -42,8 +50,10 @@ class SearchAndReplaceView: UIView {
         
         searchTextField.returnKeyType = .search
         searchTextField.borderStyle = .roundedRect
+        searchTextField.placeholder = "Найти"
         replaceTextField.borderStyle = .roundedRect
         replaceTextField.returnKeyType = .search
+        replaceTextField.placeholder = "Заменить"
         doneButton.setContentHuggingPriority(.required, for: .horizontal)
     }
     

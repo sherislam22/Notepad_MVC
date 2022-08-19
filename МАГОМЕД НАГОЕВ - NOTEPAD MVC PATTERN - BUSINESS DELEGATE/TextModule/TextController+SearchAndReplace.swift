@@ -25,4 +25,12 @@ extension TextController {
         }
         textViewer.highlightRanges(result)
     }
+    func replace(ranges: [NSRange], replaceString: String) {
+        let allText = textViewer.getText()
+        var result = allText
+        for range in ranges.reversed() {
+            result = (result as NSString).replacingCharacters(in: range, with: replaceString)
+        }
+        textViewer.updateTextView(text: result)
+    }
 }
