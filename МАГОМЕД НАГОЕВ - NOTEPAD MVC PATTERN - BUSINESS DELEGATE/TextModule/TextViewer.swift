@@ -129,23 +129,6 @@ class TextViewer: UIViewController {
                                                         for: .touchUpInside)
     }
     
-    @objc func jumpToPreviousSearch() {
-        guard !ranges.isEmpty else { return }
-        selectedRangeIndex -= 1
-        if selectedRangeIndex < 0 {
-            selectedRangeIndex = ranges.count - 1
-        }
-        updateHighlighting()
-    }
-    
-    @objc func jumpToNExtSearch() {
-        guard !ranges.isEmpty else { return }
-        selectedRangeIndex += 1
-        if selectedRangeIndex >= ranges.count {
-            selectedRangeIndex = 0
-        }
-        updateHighlighting()
-    }
     private func setupDismissKeyboardGesture() {
         let dismissKeyboardTap = UITapGestureRecognizer(target: self, action: #selector(viewTapped(_: )))
         view.addGestureRecognizer(dismissKeyboardTap)
@@ -241,6 +224,23 @@ class TextViewer: UIViewController {
             newAttributedText.addAttribute(.backgroundColor, value: color, range: range)
         }
         textView.attributedText = newAttributedText
+    }
+    @objc func jumpToPreviousSearch() {
+        guard !ranges.isEmpty else { return }
+        selectedRangeIndex -= 1
+        if selectedRangeIndex < 0 {
+            selectedRangeIndex = ranges.count - 1
+        }
+        updateHighlighting()
+    }
+    
+    @objc func jumpToNExtSearch() {
+        guard !ranges.isEmpty else { return }
+        selectedRangeIndex += 1
+        if selectedRangeIndex >= ranges.count {
+            selectedRangeIndex = 0
+        }
+        updateHighlighting()
     }
 }
 
