@@ -93,12 +93,20 @@ class TextViewer: UIViewController {
   
         mode = .default
 
-        //  test buttons delete after
-        notePadToolBar.items?[2].target = self
-        notePadToolBar.items?[2].action = #selector(startSearch)
-        
-        notePadToolBar.items?[4].target = self
-        notePadToolBar.items?[4].action = #selector(startSearchAndReplace)
+//        //  test buttons delete after
+//        notePadToolBar.items?[2].target = self
+//        notePadToolBar.items?[2].action = #selector(startSearch)
+//        
+//        notePadToolBar.items?[4].target = self
+//        notePadToolBar.items?[4].action = #selector(startSearchAndReplace)
+    }
+    
+    //passes the value of the selected text to the textToCopy in NotePadToolBar()
+    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        if let range = textView.selectedTextRange {
+            notePadToolBar.textToCopy = textView.text(in: range) ?? ""
+        }
+        return true
     }
     
     @objc func startSearch() {
