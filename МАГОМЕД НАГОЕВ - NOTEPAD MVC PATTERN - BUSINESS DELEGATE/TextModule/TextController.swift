@@ -13,7 +13,7 @@ class TextController {
     
     // MARK: Properties
     private var urlPath: String
-    private let textViewer: TextViewer
+    let textViewer: TextViewer
     private let fileManager: FileManagerModel
     let router: RouterProtocol
     let careTaker: CareTaker
@@ -66,7 +66,6 @@ class TextController {
             
         }
     }
-    
     
     // MARK: private methods
     private func openDocument() {

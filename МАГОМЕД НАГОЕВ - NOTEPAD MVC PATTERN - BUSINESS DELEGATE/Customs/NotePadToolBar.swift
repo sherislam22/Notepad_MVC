@@ -17,6 +17,8 @@ class NotePadToolBar: UIToolbar {
     public var textController: TextController?
 //    let textViewer: TextViewer
     
+    var target: Any?
+    
     override init(frame: CGRect) {
         flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         goToRight = false
