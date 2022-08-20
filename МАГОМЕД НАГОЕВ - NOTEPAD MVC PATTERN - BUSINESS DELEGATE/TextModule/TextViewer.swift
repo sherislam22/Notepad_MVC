@@ -46,8 +46,33 @@ class TextViewer: UIViewController {
         setnavigationBar()
         setZoom()
         setupNavigationItem()
-
+        notePadToolBar.notePadDelegate = self
     }
+    
+    func updateTextViewFont(font: UIFont) {
+        textView.font = font
+    }
+    
+    func selectWholeText() {
+        textView.selectAll(self)
+    }
+
+//    public func setTextViewFont(_ font: UIFont){
+//        textView.font = font
+//    }
+//
+//    public func getTextViewFont() -> UIFont {
+//        guard let font = textView.font else { return UIFont()}
+//        return font
+//    }
+//  
+//    public func getFontData() -> FontData {
+//        return fontData
+//    }
+//
+//    func selectWholeText() {
+//        textView.selectAll(self)
+//    }
     
     //MARK: - Methods
     
