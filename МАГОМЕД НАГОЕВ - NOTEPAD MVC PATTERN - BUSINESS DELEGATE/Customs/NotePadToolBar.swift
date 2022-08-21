@@ -12,15 +12,16 @@ class NotePadToolBar: UIToolbar {
     let flexibleSpace: UIBarButtonItem
     var tempToolBarItems: [UIBarButtonItem]
     var goToRight: Bool
-    var textToCopy: String
-    private var fontData = FontData()
+    var selectedText: String
+    private var fontData: FontData
     weak var notePadDelegate: NotePadToolbarDelegate?
     
     override init(frame: CGRect) {
         flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         goToRight = false
         tempToolBarItems = []
-        textToCopy = ""
+        selectedText = ""
+        fontData = FontData()
         super.init(frame: frame)
         setupToolBar()
     }
@@ -29,7 +30,8 @@ class NotePadToolBar: UIToolbar {
         flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         goToRight = false
         tempToolBarItems = []
-        textToCopy = ""
+        selectedText = ""
+        fontData = FontData()
         super.init(coder: coder)
         setupToolBar()
     }
@@ -91,13 +93,17 @@ class NotePadToolBar: UIToolbar {
     }
     
     @objc func copyTapped(_ sender: UIButton) {
-        UIPasteboard.general.string = textToCopy
+        UIPasteboard.general.string = selectedText
     }
     
     @objc func rightArrowTapped(_ sender: UIButton) {
         goToRight = !goToRight
         changeStateOfToolbar()
         self.setItems(tempToolBarItems, animated: true)
+    }
+    
+    @objc func cutTapped(_ sender: UIButton) {
+        UIPasteboard.general.string = selectedText
     }
     
     @objc func leftArrowTapped(_ sender: UIButton) {

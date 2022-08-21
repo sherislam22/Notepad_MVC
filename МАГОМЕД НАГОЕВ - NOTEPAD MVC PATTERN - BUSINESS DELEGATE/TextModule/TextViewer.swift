@@ -107,7 +107,7 @@ class TextViewer: UIViewController {
     //passes the value of the selected text to the textToCopy in NotePadToolBar()
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
         if let range = textView.selectedTextRange {
-            notePadToolBar.textToCopy = textView.text(in: range) ?? ""
+            notePadToolBar.selectedText = textView.text(in: range) ?? ""
         }
         return true
     }
