@@ -65,19 +65,20 @@ class NotePadToolBar: UIToolbar {
             let replace = UIBarButtonItem(image: UIImage(systemName: "repeat.circle"), style: .plain, target: self, action: nil)
             let goTo = UIBarButtonItem(image: UIImage(systemName: "arrow.forward"), style: .plain, target: self, action: nil)
             let timeAndDate = UIBarButtonItem(image: UIImage(systemName: "calendar"), style: .plain, target: self, action: #selector(dataAndTimee))
-            let remove = UIBarButtonItem(image: UIImage(systemName: "trash.slash.circle"), style: .plain, target: self, action: nil)
+            let remove = UIBarButtonItem(image: UIImage(systemName: "trash.slash.circle"), style: .plain, target: self, action: #selector(removeTapped))
             let cut = UIBarButtonItem(image: UIImage(systemName: "scissors"), style: .plain, target: self, action: #selector(cutTapped))
             
             [leftArrow, flexibleSpace, replace, flexibleSpace, goTo, flexibleSpace, remove, flexibleSpace, cut, flexibleSpace, timeAndDate].forEach { tempToolBarItems.append($0) }
         }
     }
     
+    @objc func removeTapped() {
+        notePadToolbarDelegate?.removeSelectedTextDalegate(text: selectedText)
+    }
+    
     @objc func dataAndTimee() {
         notePadToolbarDelegate?.dataAndTimeDeligate()
-        }
-    
-    
-    
+    }
     
     @objc func selectWholeText() {
         notePadToolbarDelegate?.selectWholeTextDelegate()
@@ -120,7 +121,6 @@ class NotePadToolBar: UIToolbar {
     }
     
     @objc func cutTapped(_ sender: UIButton) {
-        pasteboard.string = selectedText
         notePadToolbarDelegate?.cutSelectedTextDelegate(text: selectedText)
     }
     
@@ -145,6 +145,9 @@ protocol NotePadToolbarDelegate: AnyObject {
     func pasteCopiedTextDelegate(text: String)
     
     func dataAndTimeDeligate()
+    
+    func removeSelectedTextDalegate(text: String)
+    
 }
 
 extension NotePadToolBar: UIFontPickerViewControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
