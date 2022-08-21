@@ -9,9 +9,9 @@
 import UIKit
 
 class PrintController {
-    let text: String
-    let font: UIFont
-    let printModel: PrintModel
+    private let text: String
+    private let font: UIFont
+    private let printModel: PrintModel
     
     init(printViewer: PrintViewer,
          text: String, font: UIFont) {
@@ -22,6 +22,6 @@ class PrintController {
     }
     
     func callPrint(text: String, font: UIFont) {
-        printModel.createImage(text: text)
+        printModel.createImage(text: text, font: font)
     }
 }
