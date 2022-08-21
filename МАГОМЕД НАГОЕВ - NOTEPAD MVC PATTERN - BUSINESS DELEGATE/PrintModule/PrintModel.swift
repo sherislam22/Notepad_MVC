@@ -36,9 +36,19 @@ class PrintModel {
             path.addRect(CGRect(origin: .zero, size: frame.size))
             
             let ctframe = CTFramesetterCreateFrame(framesetter, CFRangeMake(textPos, 0), path, nil)
+            
+            let image = render.image { renderContext in
+                renderContext.cgContext.translateBy(x: 0, y: frame.size.height)
+                renderContext.cgContext.scaleBy(x: 1.0, y: -1.0)
+                
+                CTFrameDraw(ctframe, renderContext.cgContext)
+            }
+            
+            
             let frameRange = CTFrameGetVisibleStringRange(ctframe)
             textPos += frameRange.length
          
+            images.append(image)
         }
         
         printViewer.setImage(image: images)
