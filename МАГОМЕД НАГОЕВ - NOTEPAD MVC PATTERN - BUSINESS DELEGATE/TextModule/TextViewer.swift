@@ -107,6 +107,10 @@ class TextViewer: UIViewController {
     func cutSelectedText(text: String) {
         textView.cut(text)
     }
+    
+    func pasteCopiedText(text: String) {
+        textView.paste(text)
+    }
 
     //passes the value of the selected text to the textToCopy in NotePadToolBar()
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {

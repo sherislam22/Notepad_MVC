@@ -21,5 +21,9 @@ extension TextViewer: NotePadToolbarDelegate {
     func cutSelectedTextDelegate(text: String) {
         cutSelectedText(text: text)
     }
+    
+    func pasteCopiedTextDelegate(text: String) {
+        pasteCopiedText(text: text)
+    }
 
 }

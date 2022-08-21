@@ -13,6 +13,7 @@ class NotePadToolBar: UIToolbar {
     var tempToolBarItems: [UIBarButtonItem]
     var goToRight: Bool
     var selectedText: String
+    var pasteboard: UIPasteboard
     private var fontData: FontData
     weak var notePadToolbarDelegate: NotePadToolbarDelegate?
     
@@ -21,6 +22,7 @@ class NotePadToolBar: UIToolbar {
         goToRight = false
         tempToolBarItems = []
         selectedText = ""
+        pasteboard = UIPasteboard.general
         fontData = FontData()
         super.init(frame: frame)
         setupToolBar()
@@ -31,6 +33,7 @@ class NotePadToolBar: UIToolbar {
         goToRight = false
         tempToolBarItems = []
         selectedText = ""
+        pasteboard = UIPasteboard.general
         fontData = FontData()
         super.init(coder: coder)
         setupToolBar()
@@ -53,9 +56,10 @@ class NotePadToolBar: UIToolbar {
             let selectAll = UIBarButtonItem(image: UIImage(systemName: "rectangle.fill.badge.checkmark"), style: .plain, target: self, action: #selector(selectWholeText))
             let find = UIBarButtonItem(image: UIImage(systemName: "magnifyingglass"), style: .plain, target: self, action: nil)
             let copy = UIBarButtonItem(image: UIImage(systemName: "doc.on.doc"), style: .plain, target: self, action: #selector(copyTapped))
+            let paste = UIBarButtonItem(image: UIImage(systemName: "doc.on.clipboard"), style: .plain, target: self, action: #selector(pasteTapped))
             let rightArrow = UIBarButtonItem(image: UIImage(systemName: "arrow.right.to.line"), style: .plain, target: self, action: #selector(rightArrowTapped))
             
-            [fontSize, flexibleSpace, fontStyle, flexibleSpace, selectAll, flexibleSpace, find, flexibleSpace, copy, flexibleSpace, rightArrow].forEach { tempToolBarItems.append($0) }
+            [fontSize, flexibleSpace, fontStyle, flexibleSpace, selectAll, flexibleSpace, find, flexibleSpace, copy, flexibleSpace, paste, flexibleSpace, rightArrow].forEach { tempToolBarItems.append($0) }
         } else {
             let leftArrow = UIBarButtonItem(image: UIImage(systemName: "arrow.left.to.line"), style: .plain, target: self, action: #selector(leftArrowTapped))
             let replace = UIBarButtonItem(image: UIImage(systemName: "repeat.circle"), style: .plain, target: self, action: nil)
@@ -93,7 +97,13 @@ class NotePadToolBar: UIToolbar {
     }
     
     @objc func copyTapped(_ sender: UIButton) {
-        UIPasteboard.general.string = selectedText
+        pasteboard.string = selectedText
+    }
+    
+    @objc func pasteTapped(_ sender: UIButton) {
+        if let text = pasteboard.string {
+            notePadToolbarDelegate?.pasteCopiedTextDelegate(text: text)
+        }
     }
     
     @objc func rightArrowTapped(_ sender: UIButton) {
@@ -103,7 +113,7 @@ class NotePadToolBar: UIToolbar {
     }
     
     @objc func cutTapped(_ sender: UIButton) {
-        UIPasteboard.general.string = selectedText
+        pasteboard.string = selectedText
         notePadToolbarDelegate?.cutSelectedTextDelegate(text: selectedText)
     }
     
@@ -124,6 +134,8 @@ protocol NotePadToolbarDelegate: AnyObject {
     func selectWholeTextDelegate()
     
     func cutSelectedTextDelegate(text: String)
+    
+    func pasteCopiedTextDelegate(text: String)
 }
 
 extension NotePadToolBar: UIFontPickerViewControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
