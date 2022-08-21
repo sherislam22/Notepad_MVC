@@ -9,11 +9,11 @@ import UIKit
 
 class NotePadToolBar: UIToolbar {
     //MARK: Toolbar's properties
-    let flexibleSpace: UIBarButtonItem
-    var tempToolBarItems: [UIBarButtonItem]
-    var goToRight: Bool
+    private let flexibleSpace: UIBarButtonItem
+    private var tempToolBarItems: [UIBarButtonItem]
+    private var goToRight: Bool
     var selectedText: String
-    var pasteboard: UIPasteboard
+    private var pasteboard: UIPasteboard
     private var fontData: FontData
     weak var notePadToolbarDelegate: NotePadToolbarDelegate?
     
@@ -103,7 +103,7 @@ class NotePadToolBar: UIToolbar {
     @objc func pasteTapped(_ sender: UIButton) {
         if let text = pasteboard.string {
             notePadToolbarDelegate?.pasteCopiedTextDelegate(text: text)
-        }
+        } 
     }
     
     @objc func rightArrowTapped(_ sender: UIButton) {
