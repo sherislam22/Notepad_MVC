@@ -69,7 +69,7 @@ class Router: RouterProtocol {
     
     func pushPrintViewer(text: String, font: UIFont) {
         let printViewer = PrintViewer(text: text, font: font)
-        printViewer.printInteractionController.present(animated: true)
+        printViewer.presentPrintInteractionController()
         
     }
 }
