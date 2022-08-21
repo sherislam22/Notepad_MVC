@@ -13,7 +13,7 @@ class TextController {
     
     // MARK: Properties
     private var urlPath: String
-    private let textViewer: TextViewer
+    let textViewer: TextViewer
     private let fileManager: FileManagerModel
     let router: RouterProtocol
     let careTaker: CareTaker
@@ -57,14 +57,15 @@ class TextController {
     
    func saveAs() {
         let filename = textViewer.getFilename().split(separator: ".")
-        let ext = filename.last
-        print(ext ?? "", "file")
+        var ext = filename.last
+       if filename.count == 1 {
+           ext = "ntp"
+       }
         let file = fileManager.saveAs(filename: String(filename[0]), content: textViewer.getText(), ext: String(ext ?? "ntp"))
         if file == "error" {
             
         }
     }
-    
     
     // MARK: private methods
     private func openDocument() {
