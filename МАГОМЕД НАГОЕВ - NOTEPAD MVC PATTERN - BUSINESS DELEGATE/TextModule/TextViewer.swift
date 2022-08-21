@@ -96,6 +96,19 @@ class TextViewer: UIViewController {
         mode = .default
     }
     
+    
+    
+    func dataAndTime() {
+        let date = Date()
+        let calendar = Calendar.current
+        let year = calendar.component(.year, from: date)
+        let month = calendar.component(.month, from: date)
+        let data = calendar.component(.day, from: date)
+        let hour = calendar.component(.hour, from: date)
+        let minute = calendar.component(.minute, from: date)
+        updateDataAndTime(text:" \n    \n    \(year)/\(month)/\(data) - \(hour):\(minute)")
+    }
+    
     func updateTextViewFont(font: UIFont) {
         textView.font = font
     }
@@ -229,6 +242,17 @@ class TextViewer: UIViewController {
     
     public func updateTextView(text: String) {
         textView.text = text
+    }
+    
+    var isData = false
+    public func updateDataAndTime(text: String) {
+        if !isData {
+            textView.text += text
+            isData = true
+        } else {
+            textView.text.removeLast(text.count)
+            isData = false
+        }
     }
     
     public func getText() -> String {

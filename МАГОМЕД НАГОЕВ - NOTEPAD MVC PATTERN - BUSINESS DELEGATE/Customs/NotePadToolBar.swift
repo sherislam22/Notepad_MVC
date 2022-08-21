@@ -64,13 +64,20 @@ class NotePadToolBar: UIToolbar {
             let leftArrow = UIBarButtonItem(image: UIImage(systemName: "arrow.left.to.line"), style: .plain, target: self, action: #selector(leftArrowTapped))
             let replace = UIBarButtonItem(image: UIImage(systemName: "repeat.circle"), style: .plain, target: self, action: nil)
             let goTo = UIBarButtonItem(image: UIImage(systemName: "arrow.forward"), style: .plain, target: self, action: nil)
-            let timeAndDate = UIBarButtonItem(image: UIImage(systemName: "calendar"), style: .plain, target: self, action: nil)
+            let timeAndDate = UIBarButtonItem(image: UIImage(systemName: "calendar"), style: .plain, target: self, action: #selector(dataAndTimee))
             let remove = UIBarButtonItem(image: UIImage(systemName: "trash.slash.circle"), style: .plain, target: self, action: nil)
             let cut = UIBarButtonItem(image: UIImage(systemName: "scissors"), style: .plain, target: self, action: #selector(cutTapped))
             
             [leftArrow, flexibleSpace, replace, flexibleSpace, goTo, flexibleSpace, remove, flexibleSpace, cut, flexibleSpace, timeAndDate].forEach { tempToolBarItems.append($0) }
         }
     }
+    
+    @objc func dataAndTimee() {
+        notePadToolbarDelegate?.dataAndTimeDeligate()
+        }
+    
+    
+    
     
     @objc func selectWholeText() {
         notePadToolbarDelegate?.selectWholeTextDelegate()
@@ -136,6 +143,8 @@ protocol NotePadToolbarDelegate: AnyObject {
     func cutSelectedTextDelegate(text: String)
     
     func pasteCopiedTextDelegate(text: String)
+    
+    func dataAndTimeDeligate()
 }
 
 extension NotePadToolBar: UIFontPickerViewControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
@@ -176,5 +185,6 @@ extension NotePadToolBar: UIFontPickerViewControllerDelegate, UIPickerViewDelega
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         fontData.setCurrentFontValue(UIFont(name: fontData.getFontValue().fontName, size: CGFloat(fontData.getFontSizes()[row]))!)
     }
-
+    
+    
 }

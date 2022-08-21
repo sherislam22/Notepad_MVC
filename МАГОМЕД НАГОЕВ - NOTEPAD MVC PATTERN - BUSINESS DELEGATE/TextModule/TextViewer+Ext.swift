@@ -25,5 +25,10 @@ extension TextViewer: NotePadToolbarDelegate {
     func pasteCopiedTextDelegate(text: String) {
         pasteCopiedText(text: text)
     }
-
+    
+    func dataAndTimeDeligate() {
+        dataAndTime()
+    }
+    
+    
 }
