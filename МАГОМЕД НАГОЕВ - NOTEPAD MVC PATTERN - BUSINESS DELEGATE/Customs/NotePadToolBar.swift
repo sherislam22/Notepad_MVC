@@ -14,7 +14,7 @@ class NotePadToolBar: UIToolbar {
     var goToRight: Bool
     var selectedText: String
     private var fontData: FontData
-    weak var notePadDelegate: NotePadToolbarDelegate?
+    weak var notePadToolbarDelegate: NotePadToolbarDelegate?
     
     override init(frame: CGRect) {
         flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
@@ -69,12 +69,12 @@ class NotePadToolBar: UIToolbar {
     }
     
     @objc func selectWholeText() {
-        notePadDelegate?.selectWholeTextDelegate()
+        notePadToolbarDelegate?.selectWholeTextDelegate()
     }
     
     @objc func setFont() {
         let fontPicker = fontData.getFontPicker()
-        notePadDelegate?.presentFontPicker(fontPicker: fontPicker)
+        notePadToolbarDelegate?.presentFontPicker(fontPicker: fontPicker)
     }
     
     @objc func setFontSize() {
@@ -85,11 +85,11 @@ class NotePadToolBar: UIToolbar {
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
 
-            self.notePadDelegate?.updateFont(font: self.fontData.getFontValue())
+            self.notePadToolbarDelegate?.updateFont(font: self.fontData.getFontValue())
 
         }))
         
-        notePadDelegate?.presentAlert(alert: alert)
+        notePadToolbarDelegate?.presentAlert(alert: alert)
     }
     
     @objc func copyTapped(_ sender: UIButton) {
@@ -104,6 +104,7 @@ class NotePadToolBar: UIToolbar {
     
     @objc func cutTapped(_ sender: UIButton) {
         UIPasteboard.general.string = selectedText
+        notePadToolbarDelegate?.cutSelectedTextDelegate(text: selectedText)
     }
     
     @objc func leftArrowTapped(_ sender: UIButton) {
@@ -121,6 +122,8 @@ protocol NotePadToolbarDelegate: AnyObject {
     func presentFontPicker(fontPicker: UIFontPickerViewController)
     
     func selectWholeTextDelegate()
+    
+    func cutSelectedTextDelegate(text: String)
 }
 
 extension NotePadToolBar: UIFontPickerViewControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
@@ -137,7 +140,7 @@ extension NotePadToolBar: UIFontPickerViewControllerDelegate, UIPickerViewDelega
             let selectedFont = UIFont(descriptor: descriptor, size: fontData.getFontSize())
             
             fontData.setCurrentFontValue(selectedFont)
-            notePadDelegate?.updateFont(font: selectedFont)
+            notePadToolbarDelegate?.updateFont(font: selectedFont)
         }
     
     

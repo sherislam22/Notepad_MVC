@@ -18,8 +18,8 @@ extension TextViewer: NotePadToolbarDelegate {
         selectWholeText()
     }
 
-    func cutText(text: String) {
-        
+    func cutSelectedTextDelegate(text: String)
+
     }
 
 }
