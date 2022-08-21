@@ -10,15 +10,18 @@ import UIKit
 
 class PrintController {
     let text: String
+    let font: UIFont
     let printModel: PrintModel
     
     init(printViewer: PrintViewer,
-         text: String) {
+         text: String, font: UIFont) {
         self.text = text
+        self.font = font
         printModel = PrintModel(printViewer: printViewer)
+       
     }
     
-    func callPrint(text: String) {
+    func callPrint(text: String, font: UIFont) {
         printModel.createImage(text: text)
     }
 }
