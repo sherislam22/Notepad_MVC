@@ -235,6 +235,13 @@ class TextViewer: UIViewController {
         return textView.text
     }
     
+    public func getFont() -> UIFont {
+        if let font = textView.font {
+            return font
+        }
+        return UIFont()
+    }
+    
     public func updateTitle(fileTitle: String) {
         title = fileTitle
     }
