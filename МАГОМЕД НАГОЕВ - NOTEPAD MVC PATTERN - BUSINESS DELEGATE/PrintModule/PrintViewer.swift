@@ -11,10 +11,10 @@ class PrintViewer {
     var printController: PrintController?
     var printInteractionController: UIPrintInteractionController
     
-    init(text: String) {
+    init(text: String, font: UIFont) {
         printInteractionController = UIPrintInteractionController.shared
-        printController = PrintController(printViewer: self, text: text)
-        printController?.callPrint(text: text)
+        printController = PrintController(printViewer: self, text: text, font: font)
+        printController?.callPrint(text: text, font: font)
     }
 
     func setImage(image: [UIImage]) {
