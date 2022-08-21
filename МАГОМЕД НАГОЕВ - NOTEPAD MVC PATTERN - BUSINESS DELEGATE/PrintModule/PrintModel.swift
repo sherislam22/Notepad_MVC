@@ -10,25 +10,26 @@ import Foundation
 import UIKit
 
 class PrintModel {
-    let printViewer: PrintViewer
-    var images: [UIImage]
+    private let printViewer: PrintViewer
+    private var images: [UIImage]
     
     init(printViewer: PrintViewer) {
         self.printViewer = printViewer
         images = []
     }
     
-    func createImage(text: String) {
+    func createImage(text: String,
+                     font: UIFont) {
+    
         let frame = CGRect(x: 0, y: 0, width: 595.2, height: 841.8)
         var textPos = 0
         
-        let myfont = CTFontCreateWithName("AvenirNext-bold" as CFString, 64, nil)
-        let attributes = [NSAttributedString.Key.font: myfont]
+        let attributes = [NSAttributedString.Key.font: font]
         let attrString = NSAttributedString(string: text, attributes: attributes)
         
 
         let render = UIGraphicsImageRenderer(size: frame.size)
-        print(render.format.bounds)
+
         while textPos < attrString.length {
             let framesetter = CTFramesetterCreateWithAttributedString(attrString)
             
