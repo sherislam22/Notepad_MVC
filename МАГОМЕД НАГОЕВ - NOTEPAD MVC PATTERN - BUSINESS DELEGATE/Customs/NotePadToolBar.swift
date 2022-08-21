@@ -38,15 +38,17 @@ class NotePadToolBar: UIToolbar {
         changeStateOfToolbar()
         sizeToFit()
         setItems(tempToolBarItems, animated: false)
-        fontData.fontPicker.delegate = self
+        fontData.setFontPickerDelegate(delegate: self)
+        fontData.setFontSizeDataSource(dataSource: self)
+        fontData.setFontSizeDelegate(delegate: self)
     }
     
     func changeStateOfToolbar() {
         tempToolBarItems.removeAll()
         if !goToRight {
-            let fontSize = UIBarButtonItem(image: UIImage(systemName: "textformat.size"), style: .plain, target: self, action: #selector(setFont))
-            let fontStyle = UIBarButtonItem(image: UIImage(systemName: "signature"), style: .plain, target: self.fontData, action: nil)
-            let selectAll = UIBarButtonItem(image: UIImage(systemName: "rectangle.fill.badge.checkmark"), style: .plain, target: self, action: #selector(test))
+            let fontSize = UIBarButtonItem(image: UIImage(systemName: "textformat.size"), style: .plain, target: self, action: #selector(setFontSize))
+            let fontStyle = UIBarButtonItem(image: UIImage(systemName: "signature"), style: .plain, target: self, action: #selector(setFont))
+            let selectAll = UIBarButtonItem(image: UIImage(systemName: "rectangle.fill.badge.checkmark"), style: .plain, target: self, action: #selector(selectWholeText))
             let find = UIBarButtonItem(image: UIImage(systemName: "magnifyingglass"), style: .plain, target: self, action: nil)
             let copy = UIBarButtonItem(image: UIImage(systemName: "doc.on.doc"), style: .plain, target: self, action: #selector(copyTapped))
             let rightArrow = UIBarButtonItem(image: UIImage(systemName: "arrow.right.to.line"), style: .plain, target: self, action: #selector(rightArrowTapped))
@@ -64,15 +66,28 @@ class NotePadToolBar: UIToolbar {
         }
     }
     
-    @objc func test() {
+    @objc func selectWholeText() {
         notePadDelegate?.selectWholeTextDelegate()
     }
     
     @objc func setFont() {
-        let fontPicker = fontData.fontPicker
+        let fontPicker = fontData.getFontPicker()
         notePadDelegate?.presentFontPicker(fontPicker: fontPicker)
-//        fontData.didTapPickFont()
-//        notePadDelegate?.updateFont(font: fontValue)
+    }
+    
+    @objc func setFontSize() {
+        let alert = UIAlertController(title: "Select size", message: "\n\n\n\n\n\n", preferredStyle: .alert)
+        let fontSizePickerView = fontData.getFontSizePicker()
+
+        alert.view.addSubview(fontSizePickerView)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
+
+            self.notePadDelegate?.updateFont(font: self.fontData.getFontValue())
+
+        }))
+        
+        notePadDelegate?.presentAlert(alert: alert)
     }
     
     @objc func copyTapped(_ sender: UIButton) {
@@ -102,7 +117,7 @@ protocol NotePadToolbarDelegate: AnyObject {
     func selectWholeTextDelegate()
 }
 
-extension NotePadToolBar: UIFontPickerViewControllerDelegate {
+extension NotePadToolBar: UIFontPickerViewControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
     
     //    PICKER VIEW PROTOCOL STUBS
         
@@ -113,13 +128,32 @@ extension NotePadToolBar: UIFontPickerViewControllerDelegate {
         func fontPickerViewControllerDidPickFont(_ viewController: UIFontPickerViewController) {
             viewController.dismiss(animated: true, completion: nil)
             guard let descriptor = viewController.selectedFontDescriptor else {return}
-            let fontSize = fontData.fontValue.pointSize
-            let selectedFont = UIFont(descriptor: descriptor, size: fontSize)
+            let selectedFont = UIFont(descriptor: descriptor, size: fontData.getFontSize())
             
+            fontData.setCurrentFontValue(selectedFont)
             notePadDelegate?.updateFont(font: selectedFont)
-            
-            print("Picker view protocol woooooorks!!")
-    //        setTextViewFont(selectedFont)
         }
+    
+    
+//    ALERT WITH PICKER VIEW PROTOCOL STUBS
+    
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        let fontSizes = fontData.getFontSizes()
+        return fontSizes.count
+    }
+
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        let fontSizes = fontData.getFontSizes()
+        return String(fontSizes[row])
+    }
+
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        fontData.setCurrentFontValue(UIFont(name: fontData.getFontValue().fontName, size: CGFloat(fontData.getFontSizes()[row]))!)
+    }
 
 }
