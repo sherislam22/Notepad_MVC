@@ -105,7 +105,7 @@ class TextViewer: UIViewController {
     }
     
     func cutSelectedText(text: String) {
-        
+        textView.cut(text)
     }
 
     //passes the value of the selected text to the textToCopy in NotePadToolBar()
