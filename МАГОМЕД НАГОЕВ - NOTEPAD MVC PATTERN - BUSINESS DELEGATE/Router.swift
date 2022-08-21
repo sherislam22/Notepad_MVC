@@ -13,6 +13,7 @@ protocol RouterProtocol {
     func pushContentMenu(delegate: MenuViewControllerDelegate)
     func pushInformationViewController()
     func pushDocumentViewer()
+    func pushPrintViewer(text: String, font: UIFont)
 }
 
 class Router: RouterProtocol {
@@ -38,6 +39,8 @@ class Router: RouterProtocol {
         navigationController.viewControllers = [textViewer]
     }
     
+    
+    
     func pushDocumentViewer() {
         let documentViewer = DocumentViewer()
         let documentController = DocumentController(documentViewer: documentViewer,
@@ -62,5 +65,11 @@ class Router: RouterProtocol {
     
     func closeContentMenu() {
         navigationController.popToRootViewController(animated: true)
+    }
+    
+    func pushPrintViewer(text: String, font: UIFont) {
+        let printViewer = PrintViewer(text: text, font: font)
+        printViewer.presentPrintInteractionController()
+        
     }
 }

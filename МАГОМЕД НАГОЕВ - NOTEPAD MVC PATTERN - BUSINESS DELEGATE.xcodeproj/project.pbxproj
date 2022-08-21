@@ -16,6 +16,9 @@
 		BE68E1D5289F88A40054150C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE68E1D4289F88A40054150C /* Assets.xcassets */; };
 		BE68E205289FAAF90054150C /* InformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE68E204289FAAF90054150C /* InformationViewController.swift */; };
 		BE7CAE9828A9445000741581 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7CAE9728A9445000741581 /* Router.swift */; };
+		BE8F56C528B2742D00882DAD /* PrintViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8F56C428B2742D00882DAD /* PrintViewer.swift */; };
+		BE8F56C728B2743D00882DAD /* PrintController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8F56C628B2743D00882DAD /* PrintController.swift */; };
+		BE8F56C928B2745200882DAD /* PrintModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8F56C828B2745200882DAD /* PrintModel.swift */; };
 		BE9F18D828AC1B540030DD42 /* Memento.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9F18D728AC1B540030DD42 /* Memento.swift */; };
 		BE9F18DE28AD337A0030DD42 /* DocumentViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9F18DD28AD337A0030DD42 /* DocumentViewer.swift */; };
 		BE9F18E028AD33860030DD42 /* DocumentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9F18DF28AD33860030DD42 /* DocumentController.swift */; };
@@ -46,6 +49,9 @@
 		BE68E1D9289F88A40054150C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BE68E204289FAAF90054150C /* InformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationViewController.swift; sourceTree = "<group>"; };
 		BE7CAE9728A9445000741581 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		BE8F56C428B2742D00882DAD /* PrintViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrintViewer.swift; sourceTree = "<group>"; };
+		BE8F56C628B2743D00882DAD /* PrintController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrintController.swift; sourceTree = "<group>"; };
+		BE8F56C828B2745200882DAD /* PrintModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrintModel.swift; sourceTree = "<group>"; };
 		BE9F18D728AC1B540030DD42 /* Memento.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Memento.swift; sourceTree = "<group>"; };
 		BE9F18DD28AD337A0030DD42 /* DocumentViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentViewer.swift; sourceTree = "<group>"; };
 		BE9F18DF28AD33860030DD42 /* DocumentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentController.swift; sourceTree = "<group>"; };
@@ -135,6 +141,7 @@
 				BECA334528A7D5E000011F92 /* LaunchView.swift */,
 				BE7CAE9728A9445000741581 /* Router.swift */,
 				BE9F18D728AC1B540030DD42 /* Memento.swift */,
+				BE8F56CA28B2745D00882DAD /* PrintModule */,
 				BE9F18E128AD338F0030DD42 /* DocumentModule */,
 				BEEB1F4E28A4180E0072DFA5 /* TextModule */,
 				197AAF6028AE425A0066CAD3 /* Alerts */,
@@ -155,6 +162,16 @@
 				BE68E1D4289F88A40054150C /* Assets.xcassets */,
 			);
 			path = "Supporting files";
+			sourceTree = "<group>";
+		};
+		BE8F56CA28B2745D00882DAD /* PrintModule */ = {
+			isa = PBXGroup;
+			children = (
+				BE8F56C428B2742D00882DAD /* PrintViewer.swift */,
+				BE8F56C628B2743D00882DAD /* PrintController.swift */,
+				BE8F56C828B2745200882DAD /* PrintModel.swift */,
+			);
+			path = PrintModule;
 			sourceTree = "<group>";
 		};
 		BE9F18E128AD338F0030DD42 /* DocumentModule */ = {
@@ -259,8 +276,10 @@
 			files = (
 				BECA334428A7CDFF00011F92 /* TextViewer+Ext.swift in Sources */,
 				BECA334628A7D5E000011F92 /* LaunchView.swift in Sources */,
+				BE8F56C528B2742D00882DAD /* PrintViewer.swift in Sources */,
 				BEEB1F5228A571440072DFA5 /* NotePadToolBar.swift in Sources */,
 				BEEB1F4C28A417FB0072DFA5 /* TextViewer.swift in Sources */,
+				BE8F56C728B2743D00882DAD /* PrintController.swift in Sources */,
 				BE9F18E828AD63AD0030DD42 /* MenuController.swift in Sources */,
 				9A01113528A7D9E500D82488 /* MenuViewer.swift in Sources */,
 				BE68E1CC289F88A20054150C /* AppDelegate.swift in Sources */,
@@ -281,6 +300,7 @@
 				F80070BE28AFDD5200FCF512 /* TextViewer+SearchAndReplaceExt.swift in Sources */,
 				BE7CAE9828A9445000741581 /* Router.swift in Sources */,
 				BE9F18E628AD62BA0030DD42 /* MenuOptions.swift in Sources */,
+				BE8F56C928B2745200882DAD /* PrintModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

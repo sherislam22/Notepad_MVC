@@ -91,7 +91,7 @@ extension TextController: MenuViewControllerDelegate {
         case .saveAs:
             textViewer.didTapSaveButton()
         case .print:
-            print("Print")
+            router.pushPrintViewer(text: textViewer.getText(), font: textViewer.getFont())
         case .info:
             router.pushInformationViewController()
         }
