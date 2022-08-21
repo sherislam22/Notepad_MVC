@@ -17,6 +17,13 @@ extension TextViewer: NotePadToolbarDelegate {
     func selectWholeTextDelegate() {
         selectWholeText()
     }
+
+    func cutSelectedTextDelegate(text: String) {
+        cutSelectedText(text: text)
+    }
     
+    func pasteCopiedTextDelegate(text: String) {
+        pasteCopiedText(text: text)
+    }
 
 }

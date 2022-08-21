@@ -87,7 +87,7 @@ class TextViewer: UIViewController {
         setupDismissKeyboardGesture()
         setupKeyboardFrame()
         setupNavigationItem()
-        notePadToolBar.notePadDelegate = self
+        notePadToolBar.notePadToolbarDelegate = self
         
         setupZoom()
         
@@ -103,11 +103,19 @@ class TextViewer: UIViewController {
     func selectWholeText() {
         textView.selectAll(self)
     }
+    
+    func cutSelectedText(text: String) {
+        textView.cut(text)
+    }
+    
+    func pasteCopiedText(text: String) {
+        textView.paste(text)
+    }
 
     //passes the value of the selected text to the textToCopy in NotePadToolBar()
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
         if let range = textView.selectedTextRange {
-            notePadToolBar.textToCopy = textView.text(in: range) ?? ""
+            notePadToolBar.selectedText = textView.text(in: range) ?? ""
         }
         return true
     }
