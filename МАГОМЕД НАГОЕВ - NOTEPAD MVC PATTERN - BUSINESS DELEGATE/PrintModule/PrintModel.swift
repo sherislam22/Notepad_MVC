@@ -38,14 +38,25 @@ class PrintModel {
             
             let ctframe = CTFramesetterCreateFrame(framesetter, CFRangeMake(textPos, 0), path, nil)
             
+            let linesCFArray: NSArray = CTFrameGetLines(ctframe)
+            let lines = linesCFArray as Array
+            
             let image = render.image { renderContext in
                 renderContext.cgContext.translateBy(x: 0, y: frame.size.height)
                 renderContext.cgContext.scaleBy(x: 1.0, y: -1.0)
-                
-                CTFrameDraw(ctframe, renderContext.cgContext)
+//
+                var index = CFIndex(0)
+                for line in lines {
+                    var lineOrigin: CGPoint = CGPoint.zero
+                    CTFrameGetLineOrigins(ctframe, CFRangeMake(index, 1), &lineOrigin)
+                    
+                    renderContext.cgContext.textPosition = .init(x: lineOrigin.x, y: lineOrigin.y)
+                    let ctline = line as! CTLine
+                        CTLineDraw(ctline, renderContext.cgContext)
+                    index += 1
+                }
             }
-            
-            
+
             let frameRange = CTFrameGetVisibleStringRange(ctframe)
             textPos += frameRange.length
          
