@@ -30,5 +30,8 @@ extension TextViewer: NotePadToolbarDelegate {
         dataAndTime()
     }
     
-    
+    func removeSelectedTextDalegate(text: String) {
+        let updatedText = getText().replacingOccurrences(of: text, with: "")
+        updateTextView(text: updatedText)
+    }
 }
