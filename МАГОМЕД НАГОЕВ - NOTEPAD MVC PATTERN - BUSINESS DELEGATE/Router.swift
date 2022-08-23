@@ -33,7 +33,7 @@ class Router: RouterProtocol {
         let textController = TextController(textViewer: textViewer,
                                             urlPath: urlPath,
                                             router: self)
-        textViewer.textController = textController
+        textViewer.setTextController(textController)
 
         navigationController.viewControllers = [textViewer]
     }
@@ -42,7 +42,8 @@ class Router: RouterProtocol {
         let documentViewer = DocumentViewer()
         let documentController = DocumentController(documentViewer: documentViewer,
                                                     router: self)
-        documentViewer.documentController = documentController
+        documentViewer.setDocumentController(documentController)
+//        documentViewer.documentController = documentController
         
         navigationController.pushViewController(documentViewer, animated: true)
     }
@@ -50,7 +51,8 @@ class Router: RouterProtocol {
     func pushContentMenu(delegate: MenuViewControllerDelegate) {
 
         let menuViewer = MenuViewer()
-        menuViewer.delegate = delegate
+        menuViewer.setDelegate(delegate)
+//        menuViewer.delegate = delegate
         navigationController.pushViewController(menuViewer,
                                                 animated: true)
     }

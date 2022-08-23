@@ -1,7 +1,8 @@
 import Foundation
 
 class FileManagerModel {
-    let filemanager = FileManager.default
+    private let filemanager = FileManager.default
+    
     func openFile(fileNamePath: String) -> String {
         var textArray: [String] = [String]()
         if let aStreamReader = LineReader(path: fileNamePath) {

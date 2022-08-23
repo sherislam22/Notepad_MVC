@@ -10,19 +10,20 @@ import UIKit
 class TextViewer: UIViewController {
     
     //MARK: - Properties
-    public var textController: TextController?
+    private var textController: TextController?
     
+    private var urlFile: URL
+    private var filename: String?
+    
+    private let textView: UITextView
+    private let notePadToolBar: NotePadToolBar
     private let notepadView: UIImageView
     let stackView: UIStackView
-    let textView: UITextView
-    let notePadToolBar: NotePadToolBar
     let searchAndReplaceView: SearchAndReplaceView
     let searchAndReplaceButtonView: SearchAndReplaceButtonsView
     
+    private var textViewBottomConstraint: NSLayoutConstraint?
     private var stackViewBottomConstraint: NSLayoutConstraint?
-    
-    private var urlFile: URL
-    public var filename: String?
     
     var ranges: [NSRange] {
         didSet {
@@ -35,25 +36,25 @@ class TextViewer: UIViewController {
     }
     var selectedRangeIndex: Int
     
-    var mode: Mode = .default {
-        didSet {
-            switch mode {
-            case .default:
-                searchAndReplaceView.isHidden = true
-                searchAndReplaceButtonView.isHidden = true
-                navigationController?.setNavigationBarHidden(false, animated: true)
-                notepadView.isHidden = false
-                ranges = []
-                updateHighlighting()
-            case .searchAndReplace:
-                searchAndReplaceView.isHidden = false
-                searchAndReplaceButtonView.isHidden = false
-                navigationController?.setNavigationBarHidden(true, animated: true)
-                notepadView.isHidden = true
-                textView.resignFirstResponder()
-            }
-        }
-    }
+//    var mode: Mode = .default {
+//        didSet {
+//            switch mode {
+//            case .default:
+//                searchAndReplaceView.isHidden = true
+//                searchAndReplaceButtonView.isHidden = true
+//                navigationController?.setNavigationBarHidden(false, animated: true)
+//                notepadView.isHidden = false
+//                ranges = []
+//                updateHighlighting()
+//            case .searchAndReplace:
+//                searchAndReplaceView.isHidden = false
+//                searchAndReplaceButtonView.isHidden = false
+//                navigationController?.setNavigationBarHidden(true, animated: true)
+//                notepadView.isHidden = true
+//                textView.resignFirstResponder()
+//            }
+//        }
+//    }
     //MARK: - Initialize
     
     init() {
@@ -76,24 +77,27 @@ class TextViewer: UIViewController {
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        textView.delegate = self
+        textView.font = notePadToolBar.getFont()
+//        setImageView()
+//        setTextView()
         view.backgroundColor = .white
         
         setupImageView()
         setupStackView()
         setupTextView()
-        setupSearchAndReplaceView()
-        setupSearchAndReplaceButtonView()
+//        setupSearchAndReplaceView()
+//        setupSearchAndReplaceButtonView()
         setupDismissKeyboardGesture()
         setupKeyboardFrame()
         setupNavigationItem()
-        notePadToolBar.notePadDelegate = self
+        notePadToolBar.setNotePadToolbarDelegate(self)
         
-        setupZoom()
-        
-        ranges = []
-  
-        mode = .default
+//        setupZoom()
+//
+//        ranges = []
+//
+//        mode = .default
     }
     
     func updateTextViewFont(font: UIFont) {
@@ -105,29 +109,40 @@ class TextViewer: UIViewController {
     }
 
     //passes the value of the selected text to the textToCopy in NotePadToolBar()
-    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
-        if let range = textView.selectedTextRange {
-            notePadToolBar.textToCopy = textView.text(in: range) ?? ""
-        }
-        return true
+//    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+//        if let range = textView.selectedTextRange {
+//            notePadToolBar.textToCopy = textView.text(in: range) ?? ""
+//        }
+//        return true
+//    }
+    
+    //MARK: - Methods
+    
+    func setTextController(_ textController: TextController) {
+        self.textController = textController
     }
     
-    @objc func startSearch() {
-        searchAndReplaceView.isReplacingEnabled = false
-        searchAndReplaceButtonView.isReplacingEnabled = false
-        mode = .searchAndReplace
-        UIView.animate(withDuration: 0.25) {
-            self.view.layoutIfNeeded()
-        }
+    func setZoom() {
+        textView.minimumZoomScale = 0.5
+        textView.maximumZoomScale = 2.0
     }
-    @objc func startSearchAndReplace() {
-        searchAndReplaceView.isReplacingEnabled = true
-        searchAndReplaceButtonView.isReplacingEnabled = true
-        mode = .searchAndReplace
-        UIView.animate(withDuration: 0.25) {
-            self.view.layoutIfNeeded()
-        }
-    }
+    
+//    @objc func startSearch() {
+//        searchAndReplaceView.isReplacingEnabled = false
+//        searchAndReplaceButtonView.isReplacingEnabled = false
+//        mode = .searchAndReplace
+//        UIView.animate(withDuration: 0.25) {
+//            self.view.layoutIfNeeded()
+//        }
+//    }
+//    @objc func startSearchAndReplace() {
+//        searchAndReplaceView.isReplacingEnabled = true
+//        searchAndReplaceButtonView.isReplacingEnabled = true
+//        mode = .searchAndReplace
+//        UIView.animate(withDuration: 0.25) {
+//            self.view.layoutIfNeeded()
+//        }
+//    }
     //MARK: - SetupMethods
     private func setupImageView() {
         let safeArea = view.safeAreaLayoutGuide
@@ -275,14 +290,12 @@ extension TextViewer {
         view.layoutIfNeeded()
     }
     
-    @objc
-    func undoDidTap() {
-        textController?.careTaker.undo()
+    @objc func undoDidTap() {
+        textController?.undoDidTap()
     }
     
-    @objc
-    func redoDidTap() {
-        textController?.careTaker.redo()
+    @objc func redoDidTap() {
+        textController?.redoDidTap()
     }
 }
 //MARK: - Add undo and redo command
@@ -300,17 +313,17 @@ extension TextViewer: TextWriterProtocol {
 extension TextViewer: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         if text == " " {
-            textController?.careTaker.save()
+            textController?.careTakerSave()
         }
         return true
     }
     
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        mode = .default
-    }
+//    func textViewDidBeginEditing(_ textView: UITextView) {
+//        mode = .default
+//    }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        textController?.careTaker.save()
+        textController?.careTakerSave()
     }
 }
 

@@ -15,8 +15,8 @@ class TextController {
     private var urlPath: String
     let textViewer: TextViewer
     private let fileManager: FileManagerModel
-    let router: RouterProtocol
-    let careTaker: CareTaker
+    private let router: RouterProtocol
+    private let careTaker: CareTaker
 //    private let text: String
     
     //MARK: - Initializer
@@ -35,6 +35,18 @@ class TextController {
     }
 
     // MARK: public methods
+    
+    func undoDidTap() {
+        careTaker.undo()
+    }
+    
+    func redoDidTap() {
+        careTaker.redo()
+    }
+    
+    func careTakerSave() {
+        careTaker.save()
+    }
     
     @objc func showMenu() {
         router.pushContentMenu(delegate: self)
@@ -70,7 +82,9 @@ class TextController {
     // MARK: private methods
     private func openDocument() {
         textViewer.navigationController?.pushViewController(DocumentViewer(), animated: true)
-        careTaker.states.removeAll()
+        var states = careTaker.getStates()
+        states.removeAll()
+//        careTaker.states.removeAll()
         if urlPath != "" {
             let file = fileManager.openFile(fileNamePath: urlPath)
             textViewer.updateTextView(text: file)

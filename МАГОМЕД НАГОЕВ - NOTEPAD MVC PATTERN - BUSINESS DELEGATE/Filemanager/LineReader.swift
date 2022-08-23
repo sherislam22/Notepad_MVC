@@ -1,7 +1,7 @@
 import Foundation
 class LineReader {
 
-    let path: String
+    private let path: String
 
     init?(path: String) {
         self.path = path

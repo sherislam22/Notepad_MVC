@@ -9,12 +9,12 @@ import UIKit
 
 class NotePadToolBar: UIToolbar {
     //MARK: Toolbar's properties
-    let flexibleSpace: UIBarButtonItem
-    var tempToolBarItems: [UIBarButtonItem]
-    var goToRight: Bool
-    var textToCopy: String
+    private let flexibleSpace: UIBarButtonItem
+    private var tempToolBarItems: [UIBarButtonItem]
+    private var goToRight: Bool
+    private var textToCopy: String
     private var fontData = FontData()
-    weak var notePadDelegate: NotePadToolbarDelegate?
+    private var notePadDelegate: NotePadToolbarDelegate?
     
     override init(frame: CGRect) {
         flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
@@ -41,6 +41,14 @@ class NotePadToolBar: UIToolbar {
         fontData.setFontPickerDelegate(delegate: self)
         fontData.setFontSizeDataSource(dataSource: self)
         fontData.setFontSizeDelegate(delegate: self)
+    }
+    
+    func getFont() -> UIFont {
+        return fontData.getFontValue()
+    }
+    
+    func setNotePadToolbarDelegate(_ delegate: NotePadToolbarDelegate) {
+        self.notePadDelegate = delegate
     }
     
     func changeStateOfToolbar() {

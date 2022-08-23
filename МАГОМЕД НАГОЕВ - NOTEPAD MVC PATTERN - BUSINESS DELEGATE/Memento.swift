@@ -24,14 +24,18 @@ final class TextMemento {
 }
 
 final class CareTaker {
-    var states: [TextMemento]
-    var currentIndex: Int
-    var textWriter: TextWriterProtocol
+    private var states: [TextMemento]
+    private var currentIndex: Int
+    private var textWriter: TextWriterProtocol
     
     init(textWriter: TextWriterProtocol) {
         states = []
         currentIndex = 0
         self.textWriter = textWriter
+    }
+    
+    func getStates() -> [TextMemento] {
+        return self.states
     }
     
     func save() {
