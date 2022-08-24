@@ -33,8 +33,11 @@ class PrintModel {
         while textPos < attrString.length {
             let framesetter = CTFramesetterCreateWithAttributedString(attrString)
             
+            
+            let textFrame = frame.insetBy(dx: 10, dy: 20)
+            let numberFrame = CGRect(x: frame.width - 60, y: frame.height - 20, width: 60, height: 20)
             let path = CGMutablePath()
-            path.addRect(CGRect(origin: .zero, size: frame.size))
+            path.addRect(textFrame)
             
             let ctframe = CTFramesetterCreateFrame(framesetter, CFRangeMake(textPos, 0), path, nil)
             
@@ -44,17 +47,23 @@ class PrintModel {
             let image = render.image { renderContext in
                 renderContext.cgContext.translateBy(x: 0, y: frame.size.height)
                 renderContext.cgContext.scaleBy(x: 1.0, y: -1.0)
-//
+
                 var index = CFIndex(0)
                 for line in lines {
                     var lineOrigin: CGPoint = CGPoint.zero
                     CTFrameGetLineOrigins(ctframe, CFRangeMake(index, 1), &lineOrigin)
                     
-                    renderContext.cgContext.textPosition = .init(x: lineOrigin.x, y: lineOrigin.y)
+                    renderContext.cgContext.textPosition = .init(x: lineOrigin.x + 10, y: lineOrigin.y + 20)
                     let ctline = line as! CTLine
                         CTLineDraw(ctline, renderContext.cgContext)
                     index += 1
                 }
+                
+                renderContext.cgContext.translateBy(x: 0, y: frame.size.height)
+                renderContext.cgContext.scaleBy(x: 1.0, y: -1.0)
+            
+                NSString(string: "\(images.count + 1)").draw(in: numberFrame)
+                
             }
 
             let frameRange = CTFrameGetVisibleStringRange(ctframe)
