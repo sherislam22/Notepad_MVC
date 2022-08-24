@@ -12,15 +12,18 @@ class NotePadToolBar: UIToolbar {
     private let flexibleSpace: UIBarButtonItem
     private var tempToolBarItems: [UIBarButtonItem]
     private var goToRight: Bool
-    private var textToCopy: String
-    private var fontData = FontData()
-    private var notePadDelegate: NotePadToolbarDelegate?
+    private var selectedText: String
+    private var pasteboard: UIPasteboard
+    private var fontData: FontData
+    private var notePadToolbarDelegate: NotePadToolbarDelegate?
     
     override init(frame: CGRect) {
         flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         goToRight = false
         tempToolBarItems = []
-        textToCopy = ""
+        selectedText = ""
+        pasteboard = UIPasteboard.general
+        fontData = FontData()
         super.init(frame: frame)
         setupToolBar()
     }
@@ -29,7 +32,9 @@ class NotePadToolBar: UIToolbar {
         flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         goToRight = false
         tempToolBarItems = []
-        textToCopy = ""
+        selectedText = ""
+        pasteboard = UIPasteboard.general
+        fontData = FontData()
         super.init(coder: coder)
         setupToolBar()
     }
@@ -48,7 +53,11 @@ class NotePadToolBar: UIToolbar {
     }
     
     func setNotePadToolbarDelegate(_ delegate: NotePadToolbarDelegate) {
-        self.notePadDelegate = delegate
+        self.notePadToolbarDelegate = delegate
+    }
+    
+    func setSelectedText(_ delegate: NotePadToolbarDelegate) {
+        self.notePadToolbarDelegate = delegate
     }
     
     func changeStateOfToolbar() {
@@ -57,30 +66,39 @@ class NotePadToolBar: UIToolbar {
             let fontSize = UIBarButtonItem(image: UIImage(systemName: "textformat.size"), style: .plain, target: self, action: #selector(setFontSize))
             let fontStyle = UIBarButtonItem(image: UIImage(systemName: "signature"), style: .plain, target: self, action: #selector(setFont))
             let selectAll = UIBarButtonItem(image: UIImage(systemName: "rectangle.fill.badge.checkmark"), style: .plain, target: self, action: #selector(selectWholeText))
-            let find = UIBarButtonItem(image: UIImage(systemName: "magnifyingglass"), style: .plain, target: self, action: nil)
+            let find = UIBarButtonItem(image: UIImage(systemName: "magnifyingglass"), style: .plain, target: self, action: #selector(tappedFindButton))
             let copy = UIBarButtonItem(image: UIImage(systemName: "doc.on.doc"), style: .plain, target: self, action: #selector(copyTapped))
+            let paste = UIBarButtonItem(image: UIImage(systemName: "doc.on.clipboard"), style: .plain, target: self, action: #selector(pasteTapped))
             let rightArrow = UIBarButtonItem(image: UIImage(systemName: "arrow.right.to.line"), style: .plain, target: self, action: #selector(rightArrowTapped))
             
-            [fontSize, flexibleSpace, fontStyle, flexibleSpace, selectAll, flexibleSpace, find, flexibleSpace, copy, flexibleSpace, rightArrow].forEach { tempToolBarItems.append($0) }
+            [fontSize, flexibleSpace, fontStyle, flexibleSpace, selectAll, flexibleSpace, find, flexibleSpace, copy, flexibleSpace, paste, flexibleSpace, rightArrow].forEach { tempToolBarItems.append($0) }
         } else {
             let leftArrow = UIBarButtonItem(image: UIImage(systemName: "arrow.left.to.line"), style: .plain, target: self, action: #selector(leftArrowTapped))
-            let replace = UIBarButtonItem(image: UIImage(systemName: "repeat.circle"), style: .plain, target: self, action: nil)
-            let goTo = UIBarButtonItem(image: UIImage(systemName: "arrow.forward"), style: .plain, target: self, action: nil)
-            let timeAndDate = UIBarButtonItem(image: UIImage(systemName: "calendar"), style: .plain, target: self, action: nil)
-            let remove = UIBarButtonItem(image: UIImage(systemName: "trash.slash.circle"), style: .plain, target: self, action: nil)
-            let cut = UIBarButtonItem(image: UIImage(systemName: "scissors"), style: .plain, target: self, action: nil)
+            let replace = UIBarButtonItem(image: UIImage(systemName: "repeat.circle"), style: .plain, target: self, action: #selector(tappedReplaceButton))
+            let goTo = UIBarButtonItem(image: UIImage(systemName: "arrow.forward"), style: .plain, target: self, action: #selector(tappedGoToButton))
+            let timeAndDate = UIBarButtonItem(image: UIImage(systemName: "calendar"), style: .plain, target: self, action: #selector(dataAndTimee))
+            let remove = UIBarButtonItem(image: UIImage(systemName: "trash.slash.circle"), style: .plain, target: self, action: #selector(removeTapped))
+            let cut = UIBarButtonItem(image: UIImage(systemName: "scissors"), style: .plain, target: self, action: #selector(cutTapped))
             
             [leftArrow, flexibleSpace, replace, flexibleSpace, goTo, flexibleSpace, remove, flexibleSpace, cut, flexibleSpace, timeAndDate].forEach { tempToolBarItems.append($0) }
         }
     }
     
+    @objc func removeTapped() {
+        notePadToolbarDelegate?.removeSelectedTextDalegate(text: selectedText)
+    }
+    
+    @objc func dataAndTimee() {
+        notePadToolbarDelegate?.dataAndTimeDeligate()
+    }
+    
     @objc func selectWholeText() {
-        notePadDelegate?.selectWholeTextDelegate()
+        notePadToolbarDelegate?.selectWholeTextDelegate()
     }
     
     @objc func setFont() {
         let fontPicker = fontData.getFontPicker()
-        notePadDelegate?.presentFontPicker(fontPicker: fontPicker)
+        notePadToolbarDelegate?.presentFontPicker(fontPicker: fontPicker)
     }
     
     @objc func setFontSize() {
@@ -91,15 +109,21 @@ class NotePadToolBar: UIToolbar {
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
 
-            self.notePadDelegate?.updateFont(font: self.fontData.getFontValue())
+            self.notePadToolbarDelegate?.updateFont(font: self.fontData.getFontValue())
 
         }))
         
-        notePadDelegate?.presentAlert(alert: alert)
+        notePadToolbarDelegate?.presentAlert(alert: alert)
     }
     
     @objc func copyTapped(_ sender: UIButton) {
-        UIPasteboard.general.string = textToCopy
+        pasteboard.string = selectedText
+    }
+    
+    @objc func pasteTapped(_ sender: UIButton) {
+        if let text = pasteboard.string {
+            notePadToolbarDelegate?.pasteCopiedTextDelegate(text: text)
+        } 
     }
     
     @objc func rightArrowTapped(_ sender: UIButton) {
@@ -108,10 +132,26 @@ class NotePadToolBar: UIToolbar {
         self.setItems(tempToolBarItems, animated: true)
     }
     
+    @objc func cutTapped(_ sender: UIButton) {
+        notePadToolbarDelegate?.cutSelectedTextDelegate(text: selectedText)
+    }
+    
     @objc func leftArrowTapped(_ sender: UIButton) {
         goToRight = !goToRight
         changeStateOfToolbar()
         self.setItems(tempToolBarItems, animated: true)
+    }
+    
+    @objc func tappedGoToButton() {
+        notePadToolbarDelegate?.didTapGoToButtonInNotePadToolBar(self)
+    }
+    
+    @objc func tappedFindButton() {
+        notePadToolbarDelegate?.didTapFindButtonInNotePadToolBar(self)
+    }
+    
+    @objc func tappedReplaceButton() {
+        notePadToolbarDelegate?.didTapReplaceButtonInNotePadToolBar(self)
     }
 }
 
@@ -123,6 +163,20 @@ protocol NotePadToolbarDelegate: AnyObject {
     func presentFontPicker(fontPicker: UIFontPickerViewController)
     
     func selectWholeTextDelegate()
+    
+    func cutSelectedTextDelegate(text: String)
+    
+    func pasteCopiedTextDelegate(text: String)
+    
+    func dataAndTimeDeligate()
+    
+    func removeSelectedTextDalegate(text: String)
+    
+    func didTapGoToButtonInNotePadToolBar(_ notePadToolBar: NotePadToolBar)
+    
+    func didTapFindButtonInNotePadToolBar(_ notePadToolBar: NotePadToolBar)
+    
+    func didTapReplaceButtonInNotePadToolBar(_ notePadToolBar: NotePadToolBar)
 }
 
 extension NotePadToolBar: UIFontPickerViewControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
@@ -139,7 +193,7 @@ extension NotePadToolBar: UIFontPickerViewControllerDelegate, UIPickerViewDelega
             let selectedFont = UIFont(descriptor: descriptor, size: fontData.getFontSize())
             
             fontData.setCurrentFontValue(selectedFont)
-            notePadDelegate?.updateFont(font: selectedFont)
+            notePadToolbarDelegate?.updateFont(font: selectedFont)
         }
     
     
@@ -163,5 +217,4 @@ extension NotePadToolBar: UIFontPickerViewControllerDelegate, UIPickerViewDelega
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         fontData.setCurrentFontValue(UIFont(name: fontData.getFontValue().fontName, size: CGFloat(fontData.getFontSizes()[row]))!)
     }
-
 }

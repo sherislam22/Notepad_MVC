@@ -36,25 +36,25 @@ class TextViewer: UIViewController {
     }
     var selectedRangeIndex: Int
     
-//    var mode: Mode = .default {
-//        didSet {
-//            switch mode {
-//            case .default:
-//                searchAndReplaceView.isHidden = true
-//                searchAndReplaceButtonView.isHidden = true
-//                navigationController?.setNavigationBarHidden(false, animated: true)
-//                notepadView.isHidden = false
-//                ranges = []
-//                updateHighlighting()
-//            case .searchAndReplace:
-//                searchAndReplaceView.isHidden = false
-//                searchAndReplaceButtonView.isHidden = false
-//                navigationController?.setNavigationBarHidden(true, animated: true)
-//                notepadView.isHidden = true
-//                textView.resignFirstResponder()
-//            }
-//        }
-//    }
+    var mode: Mode = .default {
+        didSet {
+            switch mode {
+            case .default:
+                searchAndReplaceView.isHidden = true
+                searchAndReplaceButtonView.isHidden = true
+                navigationController?.setNavigationBarHidden(false, animated: true)
+                notepadView.isHidden = false
+                ranges = []
+                updateHighlighting()
+            case .searchAndReplace:
+                searchAndReplaceView.isHidden = false
+                searchAndReplaceButtonView.isHidden = false
+                navigationController?.setNavigationBarHidden(true, animated: true)
+                notepadView.isHidden = true
+                textView.resignFirstResponder()
+            }
+        }
+    }
     //MARK: - Initialize
     
     init() {
@@ -79,25 +79,38 @@ class TextViewer: UIViewController {
         super.viewDidLoad()
         textView.delegate = self
         textView.font = notePadToolBar.getFont()
-//        setImageView()
-//        setTextView()
+        setImageView()
+        setTextView()
         view.backgroundColor = .white
         
         setupImageView()
         setupStackView()
         setupTextView()
-//        setupSearchAndReplaceView()
-//        setupSearchAndReplaceButtonView()
+        setupSearchAndReplaceView()
+        setupSearchAndReplaceButtonView()
         setupDismissKeyboardGesture()
         setupKeyboardFrame()
         setupNavigationItem()
         notePadToolBar.setNotePadToolbarDelegate(self)
         
-//        setupZoom()
-//
-//        ranges = []
-//
-//        mode = .default
+        setupZoom()
+
+        ranges = []
+
+        mode = .default
+    }
+    
+    
+    
+    func dataAndTime() {
+        let date = Date()
+        let calendar = Calendar.current
+        let year = calendar.component(.year, from: date)
+        let month = calendar.component(.month, from: date)
+        let data = calendar.component(.day, from: date)
+        let hour = calendar.component(.hour, from: date)
+        let minute = calendar.component(.minute, from: date)
+        updateDataAndTime(text:" \n    \n    \(year)/\(month)/\(data) - \(hour):\(minute)")
     }
     
     func updateTextViewFont(font: UIFont) {
@@ -107,14 +120,14 @@ class TextViewer: UIViewController {
     func selectWholeText() {
         textView.selectAll(self)
     }
-
-    //passes the value of the selected text to the textToCopy in NotePadToolBar()
-//    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
-//        if let range = textView.selectedTextRange {
-//            notePadToolBar.textToCopy = textView.text(in: range) ?? ""
-//        }
-//        return true
-//    }
+    
+    func cutSelectedText(text: String) {
+        textView.cut(text)
+    }
+    
+    func pasteCopiedText(text: String) {
+        textView.paste(text)
+    }
     
     //MARK: - Methods
     
@@ -127,22 +140,30 @@ class TextViewer: UIViewController {
         textView.maximumZoomScale = 2.0
     }
     
-//    @objc func startSearch() {
-//        searchAndReplaceView.isReplacingEnabled = false
-//        searchAndReplaceButtonView.isReplacingEnabled = false
-//        mode = .searchAndReplace
-//        UIView.animate(withDuration: 0.25) {
-//            self.view.layoutIfNeeded()
-//        }
-//    }
-//    @objc func startSearchAndReplace() {
-//        searchAndReplaceView.isReplacingEnabled = true
-//        searchAndReplaceButtonView.isReplacingEnabled = true
-//        mode = .searchAndReplace
-//        UIView.animate(withDuration: 0.25) {
-//            self.view.layoutIfNeeded()
-//        }
-//    }
+    @objc func startSearch() {
+        searchAndReplaceView.isReplacingEnabled = false
+        searchAndReplaceButtonView.isReplacingEnabled = false
+        mode = .searchAndReplace
+        UIView.animate(withDuration: 0.25) {
+            self.view.layoutIfNeeded()
+        }
+    }
+    @objc func startSearchAndReplace() {
+        searchAndReplaceView.isReplacingEnabled = true
+        searchAndReplaceButtonView.isReplacingEnabled = true
+        mode = .searchAndReplace
+        UIView.animate(withDuration: 0.25) {
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        if let range = textView.selectedTextRange {
+            notePadToolBar.selectedText = textView.text(in: range) ?? ""
+        }
+        return true
+    }
+    
     //MARK: - SetupMethods
     private func setupImageView() {
         let safeArea = view.safeAreaLayoutGuide
@@ -238,8 +259,26 @@ class TextViewer: UIViewController {
         textView.text = text
     }
     
+    var isData = false
+    public func updateDataAndTime(text: String) {
+        if !isData {
+            textView.text += text
+            isData = true
+        } else {
+            textView.text.removeLast(text.count)
+            isData = false
+        }
+    }
+    
     public func getText() -> String {
         return textView.text
+    }
+    
+    public func getFont() -> UIFont {
+        if let font = textView.font {
+            return font
+        }
+        return UIFont()
     }
     
     public func updateTitle(fileTitle: String) {
@@ -318,9 +357,9 @@ extension TextViewer: UITextViewDelegate {
         return true
     }
     
-//    func textViewDidBeginEditing(_ textView: UITextView) {
-//        mode = .default
-//    }
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        mode = .default
+    }
     
     func textViewDidEndEditing(_ textView: UITextView) {
         textController?.careTakerSave()
