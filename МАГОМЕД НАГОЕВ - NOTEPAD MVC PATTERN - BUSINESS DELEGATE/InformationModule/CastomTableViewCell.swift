@@ -13,7 +13,7 @@ class CastomTableViewCell: UITableViewCell {
     
     lazy var backeView: UIView = {
         //et view = UIView(frame: CGRect(x: 10, y: 6, width: self.frame.width - 20, height: 110))
-        let view = UIView(frame: CGRect(x: 7, y: 7, width: self.frame.width - 1, height: 75))
+        let view = UIView(frame: CGRect(x: 7, y: 7, width: 360, height: 75))
         view.backgroundColor = UIColor.white
         return view
     }()
@@ -25,7 +25,7 @@ class CastomTableViewCell: UITableViewCell {
     }()
     
     lazy var userLabel: UILabel = {
-        let lbl = UILabel(frame: CGRect(x: 90, y: 28, width: 150, height: 30))
+        let lbl = UILabel(frame: CGRect(x: 90, y: 28, width: 190, height: 30))
         lbl.textAlignment = .left
         lbl.font = UIFont.boldSystemFont(ofSize: 15)
         return lbl
