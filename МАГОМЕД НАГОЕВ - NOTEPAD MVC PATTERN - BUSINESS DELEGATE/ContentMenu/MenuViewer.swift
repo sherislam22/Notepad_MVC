@@ -70,7 +70,8 @@ class MenuViewer: UIViewController, UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let item = MenuOptions.allCases[indexPath.row]
-        delegate?.menuViewController(didPressMenu: item)
-        presentingViewController?.dismiss(animated: true)
+        presentingViewController?.dismiss(animated: true, completion: {
+            self.delegate?.menuViewController(didPressMenu: item)
+        })
     }
 }
