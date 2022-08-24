@@ -7,21 +7,24 @@
 
 import UIKit
 
-class PrintViewer {
+final class PrintViewer {
+    //MARK: - Properties
     private var printController: PrintController?
     private var printInteractionController: UIPrintInteractionController
     
+    //MARK: - Initialize
     init(text: String, font: UIFont) {
         printInteractionController = UIPrintInteractionController.shared
         printController = PrintController(printViewer: self, text: text, font: font)
         printController?.callPrint(text: text, font: font)
     }
     
+    //MARK: - Methods
     func presentPrintInteractionController() {
         printInteractionController.present(animated: true)
     }
 
-    func setImage(image: [UIImage]) {
+    func launchPrint(image: [UIImage]) {
         
         let printInfo = UIPrintInfo(dictionary: nil)
         
