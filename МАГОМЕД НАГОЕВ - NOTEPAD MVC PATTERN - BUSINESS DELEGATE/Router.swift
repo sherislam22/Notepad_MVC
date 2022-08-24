@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 protocol RouterProtocol {
-    func initialViewController(urlPath: String)
+    func initialViewController(fileUrl: URL?)
     func pushContentMenu(delegate: MenuViewControllerDelegate)
     func pushInformationViewController()
     func pushDocumentViewer()
@@ -29,10 +29,10 @@ class Router: RouterProtocol {
         navigationController.showLaunchView()
     }
     
-    func initialViewController(urlPath: String) {
+    func initialViewController(fileUrl: URL?) {
         let textViewer = TextViewer()
         let textController = TextController(textViewer: textViewer,
-                                            urlPath: urlPath,
+                                            fileUrl: fileUrl,
                                             router: self)
         textViewer.textController = textController
 
