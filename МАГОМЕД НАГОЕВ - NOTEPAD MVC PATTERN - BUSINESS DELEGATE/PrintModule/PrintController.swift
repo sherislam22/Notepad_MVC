@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PrintController {
+final class PrintController {
     private let text: String
     private let font: UIFont
     private let printModel: PrintModel
