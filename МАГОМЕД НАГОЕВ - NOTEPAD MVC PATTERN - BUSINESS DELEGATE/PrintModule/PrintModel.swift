@@ -36,6 +36,12 @@ class PrintModel {
             
             let textFrame = frame.insetBy(dx: 10, dy: 20)
             let numberFrame = CGRect(x: frame.width - 60, y: frame.height - 20, width: 60, height: 20)
+            
+            let paragraphStyle: NSMutableParagraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.alignment = NSTextAlignment.right
+
+            NSString(string: "\(images.count + 1)").draw(in: numberFrame, withAttributes: [NSAttributedString.Key.paragraphStyle: paragraphStyle])
+        
             let path = CGMutablePath()
             path.addRect(textFrame)
             
@@ -59,11 +65,6 @@ class PrintModel {
                         CTLineDraw(ctline, renderContext.cgContext)
                     index += 1
                 }
-                
-                renderContext.cgContext.translateBy(x: 0, y: frame.size.height)
-                renderContext.cgContext.scaleBy(x: 1.0, y: -1.0)
-            
-                NSString(string: "               \(images.count + 1)").draw(in: numberFrame)
                 
             }
 
