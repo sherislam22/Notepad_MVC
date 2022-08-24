@@ -43,7 +43,7 @@ extension TextViewer {
     }
     
     func updateHighlighting() {
-        let newAttributedText = NSMutableAttributedString(string: textView.text)
+        let newAttributedText = NSMutableAttributedString(string: textView.text, attributes: [.font : textView.font ?? .systemFont(ofSize: UIFont.systemFontSize)])
         ranges.enumerated().forEach { index, range in
             let color = index == selectedRangeIndex ? UIColor.green : UIColor.yellow
             newAttributedText.addAttribute(.backgroundColor, value: color, range: range)

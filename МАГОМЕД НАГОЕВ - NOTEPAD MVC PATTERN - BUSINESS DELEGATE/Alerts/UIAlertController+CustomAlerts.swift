@@ -31,19 +31,17 @@ extension UIAlertController {
 
 //    ALERT: Saving file name
 
-    class func getAlertNameTheFile() -> UIAlertController {
+    class func getAlertNameTheFile(completion: @escaping (_ fileName: String) -> Void) -> UIAlertController {
         let alert = UIAlertController(title: "Name the file", message: nil, preferredStyle: .alert)
 
         let confirmAction = UIAlertAction(title: "Save", style: .default) { _ in
             if let txtField = alert.textFields?.first, let text = txtField.text {
-                // operations
-                print("Test ////// File name: " + text)
+                completion(text)
             }
         }
 
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { _ in }
 
-        alert.view.addSubview(UIView())
         alert.addTextField { (textField) in
             textField.placeholder = "File name"
         }

@@ -41,7 +41,7 @@ class DocumentController {
             let alert = UIAlertController.createFileMaxSizeErrorAlert()
             documentViewer.present(alert, animated: true)
         } else {
-            router.initialViewController(urlPath: path)
+            router.initialViewController(fileUrl: URL(fileURLWithPath: path))
         }
     }
     
