@@ -55,6 +55,7 @@ class PrintModel {
                     
                     renderContext.cgContext.textPosition = .init(x: lineOrigin.x + 10, y: lineOrigin.y + 20)
                     let ctline = line as! CTLine
+                    // это у нас drawString()
                         CTLineDraw(ctline, renderContext.cgContext)
                     index += 1
                 }
@@ -62,7 +63,7 @@ class PrintModel {
                 renderContext.cgContext.translateBy(x: 0, y: frame.size.height)
                 renderContext.cgContext.scaleBy(x: 1.0, y: -1.0)
             
-                NSString(string: "\(images.count + 1)").draw(in: numberFrame)
+                NSString(string: "               \(images.count + 1)").draw(in: numberFrame)
                 
             }
 
