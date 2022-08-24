@@ -35,6 +35,7 @@
 		F80070BA28AE531100FCF512 /* SearchAndReplaceButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80070B828AE531100FCF512 /* SearchAndReplaceButtonsView.swift */; };
 		F80070BC28AE71F100FCF512 /* TextController+SearchAndReplace.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80070BB28AE71F100FCF512 /* TextController+SearchAndReplace.swift */; };
 		F80070BE28AFDD5200FCF512 /* TextViewer+SearchAndReplaceExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80070BD28AFDD5200FCF512 /* TextViewer+SearchAndReplaceExt.swift */; };
+		F855213028B5F4610060BC35 /* UIAlertController+CustomAlerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = F855212F28B5F4610060BC35 /* UIAlertController+CustomAlerts.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,6 +69,7 @@
 		F80070B828AE531100FCF512 /* SearchAndReplaceButtonsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchAndReplaceButtonsView.swift; sourceTree = "<group>"; };
 		F80070BB28AE71F100FCF512 /* TextController+SearchAndReplace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextController+SearchAndReplace.swift"; sourceTree = "<group>"; };
 		F80070BD28AFDD5200FCF512 /* TextViewer+SearchAndReplaceExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextViewer+SearchAndReplaceExt.swift"; sourceTree = "<group>"; };
+		F855212F28B5F4610060BC35 /* UIAlertController+CustomAlerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+CustomAlerts.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +87,7 @@
 			isa = PBXGroup;
 			children = (
 				197AAF6128AE42710066CAD3 /* FontData.swift */,
+				F855212F28B5F4610060BC35 /* UIAlertController+CustomAlerts.swift */,
 			);
 			path = Alerts;
 			sourceTree = "<group>";
@@ -292,6 +295,7 @@
 				BE68E205289FAAF90054150C /* InformationViewController.swift in Sources */,
 				BECA334828A7DE9400011F92 /* UINavigationController+Ext.swift in Sources */,
 				6A3A8BFA28A274610051A1E9 /* Filemanager.swift in Sources */,
+				F855213028B5F4610060BC35 /* UIAlertController+CustomAlerts.swift in Sources */,
 				BE9F18E328AD36AB0030DD42 /* DocumentCell.swift in Sources */,
 				F80070BA28AE531100FCF512 /* SearchAndReplaceButtonsView.swift in Sources */,
 				BE9F18DE28AD337A0030DD42 /* DocumentViewer.swift in Sources */,
