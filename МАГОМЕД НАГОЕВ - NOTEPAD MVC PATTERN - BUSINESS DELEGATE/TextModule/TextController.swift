@@ -63,8 +63,11 @@ class TextController {
        }
         let file = fileManager.saveAs(filename: String(filename[0]), content: textViewer.getText(), ext: String(ext ?? "ntp"))
         if file == "error" {
-            
         }
+    }
+   
+    func openAnotherDocument() {
+        router.pushDocumentViewer()
     }
     
     // MARK: private methods

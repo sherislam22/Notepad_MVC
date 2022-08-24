@@ -34,4 +34,8 @@ extension TextViewer: NotePadToolbarDelegate {
         let updatedText = getText().replacingOccurrences(of: text, with: "")
         updateTextView(text: updatedText)
     }
+    
+    func didTapGoToButtonInNotePadToolBar(_ notePadToolBar: NotePadToolBar) {
+        textController?.openAnotherDocument()
+    }
 }
