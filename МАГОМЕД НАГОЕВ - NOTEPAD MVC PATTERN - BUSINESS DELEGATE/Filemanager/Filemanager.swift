@@ -82,5 +82,11 @@ class FileManagerModel {
         let name = url?.pathExtension
         return name ?? "ntp"
     }
-
+    
+    func getFileSize(at path: String) -> Int? {
+        let attributes = try? filemanager.attributesOfItem(atPath: path)
+        let fileSize = attributes?[.size] as? Int
+        
+        return fileSize
+    }
 }
