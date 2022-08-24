@@ -254,8 +254,8 @@ class TextViewer: UIViewController {
         title = fileTitle
     }
     
-    @objc func menuButtonTapped() {
-        textController?.showMenu()
+    @objc func menuButtonTapped(_ sender: UIBarButtonItem) {
+        textController?.showMenu(barButtonItem: sender)
     }
 }
 
