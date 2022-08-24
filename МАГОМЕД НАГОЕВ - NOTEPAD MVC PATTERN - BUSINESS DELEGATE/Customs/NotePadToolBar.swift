@@ -54,7 +54,7 @@ class NotePadToolBar: UIToolbar {
             let fontSize = UIBarButtonItem(image: UIImage(systemName: "textformat.size"), style: .plain, target: self, action: #selector(setFontSize))
             let fontStyle = UIBarButtonItem(image: UIImage(systemName: "signature"), style: .plain, target: self, action: #selector(setFont))
             let selectAll = UIBarButtonItem(image: UIImage(systemName: "rectangle.fill.badge.checkmark"), style: .plain, target: self, action: #selector(selectWholeText))
-            let find = UIBarButtonItem(image: UIImage(systemName: "magnifyingglass"), style: .plain, target: self, action: nil)
+            let find = UIBarButtonItem(image: UIImage(systemName: "magnifyingglass"), style: .plain, target: self, action: #selector(tappedFindButton))
             let copy = UIBarButtonItem(image: UIImage(systemName: "doc.on.doc"), style: .plain, target: self, action: #selector(copyTapped))
             let paste = UIBarButtonItem(image: UIImage(systemName: "doc.on.clipboard"), style: .plain, target: self, action: #selector(pasteTapped))
             let rightArrow = UIBarButtonItem(image: UIImage(systemName: "arrow.right.to.line"), style: .plain, target: self, action: #selector(rightArrowTapped))
@@ -62,7 +62,7 @@ class NotePadToolBar: UIToolbar {
             [fontSize, flexibleSpace, fontStyle, flexibleSpace, selectAll, flexibleSpace, find, flexibleSpace, copy, flexibleSpace, paste, flexibleSpace, rightArrow].forEach { tempToolBarItems.append($0) }
         } else {
             let leftArrow = UIBarButtonItem(image: UIImage(systemName: "arrow.left.to.line"), style: .plain, target: self, action: #selector(leftArrowTapped))
-            let replace = UIBarButtonItem(image: UIImage(systemName: "repeat.circle"), style: .plain, target: self, action: nil)
+            let replace = UIBarButtonItem(image: UIImage(systemName: "repeat.circle"), style: .plain, target: self, action: #selector(tappedReplaceButton))
             let goTo = UIBarButtonItem(image: UIImage(systemName: "arrow.forward"), style: .plain, target: self, action: #selector(tappedGoToButton))
             let timeAndDate = UIBarButtonItem(image: UIImage(systemName: "calendar"), style: .plain, target: self, action: #selector(dataAndTimee))
             let remove = UIBarButtonItem(image: UIImage(systemName: "trash.slash.circle"), style: .plain, target: self, action: #selector(removeTapped))
@@ -133,6 +133,14 @@ class NotePadToolBar: UIToolbar {
     @objc func tappedGoToButton() {
         notePadToolbarDelegate?.didTapGoToButtonInNotePadToolBar(self)
     }
+    
+    @objc func tappedFindButton() {
+        notePadToolbarDelegate?.didTapFindButtonInNotePadToolBar(self)
+    }
+    
+    @objc func tappedReplaceButton() {
+        notePadToolbarDelegate?.didTapReplaceButtonInNotePadToolBar(self)
+    }
 }
 
 protocol NotePadToolbarDelegate: AnyObject {
@@ -153,6 +161,10 @@ protocol NotePadToolbarDelegate: AnyObject {
     func removeSelectedTextDalegate(text: String)
     
     func didTapGoToButtonInNotePadToolBar(_ notePadToolBar: NotePadToolBar)
+    
+    func didTapFindButtonInNotePadToolBar(_ notePadToolBar: NotePadToolBar)
+    
+    func didTapReplaceButtonInNotePadToolBar(_ notePadToolBar: NotePadToolBar)
 }
 
 extension NotePadToolBar: UIFontPickerViewControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
