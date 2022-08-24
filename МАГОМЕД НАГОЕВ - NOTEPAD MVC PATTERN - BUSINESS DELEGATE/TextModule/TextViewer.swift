@@ -133,22 +133,6 @@ class TextViewer: UIViewController {
         return true
     }
     
-    @objc func startSearch() {
-        searchAndReplaceView.isReplacingEnabled = false
-        searchAndReplaceButtonView.isReplacingEnabled = false
-        mode = .searchAndReplace
-        UIView.animate(withDuration: 0.25) {
-            self.view.layoutIfNeeded()
-        }
-    }
-    @objc func startSearchAndReplace() {
-        searchAndReplaceView.isReplacingEnabled = true
-        searchAndReplaceButtonView.isReplacingEnabled = true
-        mode = .searchAndReplace
-        UIView.animate(withDuration: 0.25) {
-            self.view.layoutIfNeeded()
-        }
-    }
     //MARK: - SetupMethods
     private func setupImageView() {
         let safeArea = view.safeAreaLayoutGuide
