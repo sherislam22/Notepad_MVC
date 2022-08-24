@@ -35,8 +35,8 @@ class TextController {
 
     // MARK: public methods
     
-    @objc func showMenu() {
-        router.pushContentMenu(delegate: self)
+    @objc func showMenu(barButtonItem: UIBarButtonItem) {
+        router.showContentMenu(over: barButtonItem, delegate: self)
     }
     
     func save() {

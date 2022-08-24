@@ -10,13 +10,13 @@ import UIKit
 
 protocol RouterProtocol {
     func initialViewController(fileUrl: URL?)
-    func pushContentMenu(delegate: MenuViewControllerDelegate)
+    func showContentMenu(over barButtonItem: UIBarButtonItem, delegate: MenuViewControllerDelegate)
     func pushInformationViewController()
     func pushDocumentViewer()
     func pushPrintViewer(text: String, font: UIFont)
 }
 
-class Router: RouterProtocol {
+class Router: NSObject, RouterProtocol {
     
     
 
@@ -50,11 +50,15 @@ class Router: RouterProtocol {
         navigationController.pushViewController(documentViewer, animated: true)
     }
     
-    func pushContentMenu(delegate: MenuViewControllerDelegate) {
+    func showContentMenu(over barButtonItem: UIBarButtonItem, delegate: MenuViewControllerDelegate) {
 
         let menuViewer = MenuViewer()
         menuViewer.delegate = delegate
-        navigationController.pushViewController(menuViewer,
+        menuViewer.modalPresentationStyle = .popover
+        let popoverPresentationController = menuViewer.popoverPresentationController
+        popoverPresentationController?.barButtonItem = barButtonItem
+        popoverPresentationController?.delegate = self
+        navigationController.present(menuViewer,
                                                 animated: true)
     }
     
@@ -63,13 +67,15 @@ class Router: RouterProtocol {
         navigationController.pushViewController(informationViewController, animated: true)
     }
     
-    func closeContentMenu() {
-        navigationController.popToRootViewController(animated: true)
-    }
-    
     func pushPrintViewer(text: String, font: UIFont) {
         let printViewer = PrintViewer(text: text, font: font)
         printViewer.presentPrintInteractionController()
         
+    }
+}
+
+extension Router: UIPopoverPresentationControllerDelegate {
+    func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+        return .none
     }
 }
