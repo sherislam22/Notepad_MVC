@@ -2,9 +2,9 @@ import Foundation
 
 class FileManagerModel {
     let filemanager = FileManager.default
-    func openFile(fileNamePath: String) -> String {
+    func openFile(_ fileUrl: URL) -> String {
         var textArray: [String] = [String]()
-        if let aStreamReader = LineReader(path: fileNamePath) {
+        if let aStreamReader = LineReader(path: fileUrl.path) {
             while let line = aStreamReader.nextLine{
                 textArray.append(line)
             }
@@ -14,41 +14,16 @@ class FileManagerModel {
         return text
     }
     
-    func saveFile(fileUrl: String,
-                  textFile: String,
-                  fileName: String) {
-        
-        let path = filemanager.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(fileName).appendingPathExtension("ntp").path
-        
-        if fileUrl == "" {
-            do {
-                filemanager.createFile(atPath: path, contents: textFile.data(using: .utf8))
-                print(openFile(fileNamePath: path), "Debug: error")
-                }
+    func generateFileUrl(fileName: String) -> URL {
+        var url = filemanager.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(fileName)
+        if url.pathExtension.isEmpty {
+            url.appendPathExtension("ntp")
         }
-        if filemanager.fileExists(atPath: fileUrl) {
-            do {
-                try filemanager.removeItem(atPath: fileUrl)
-                filemanager.createFile(atPath: fileUrl, contents: textFile.data(using: .utf8))
-                print("ok2")
-                
-            } catch {
-                print(error.localizedDescription)
-            }
-        }
+        return url
     }
 
-    func saveAs(filename: String,
-                    content: String,
-                    ext: String) -> String {
-        let url = filemanager.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(filename).appendingPathExtension(ext)
-        if filemanager.fileExists(atPath: url.path) {
-            return "error"
-        } else {
-            filemanager.createFile(atPath: url.path, contents: content.data(using: .utf8), attributes: nil)
-            return url.path
-        }
-        
+    func save(fileUrl: URL, content: String) {
+        filemanager.createFile(atPath: fileUrl.path, contents: content.data(using: .utf8))
     }
     
     func filelist() -> [String] {
@@ -71,16 +46,16 @@ class FileManagerModel {
         return listWithUrl
     }
     
-    func getFileName(urlPath: String) -> String {
-        let url = URL(string: urlPath)
-        let name = url?.lastPathComponent
-        return name ?? "Default.ntp"
-    }
-    
     func getPathExt(urlPath: String) -> String {
         let url = URL(string: urlPath)
         let name = url?.pathExtension
         return name ?? "ntp"
     }
-
+    
+    func getFileSize(at path: String) -> Int? {
+        let attributes = try? filemanager.attributesOfItem(atPath: path)
+        let fileSize = attributes?[.size] as? Int
+        
+        return fileSize
+    }
 }

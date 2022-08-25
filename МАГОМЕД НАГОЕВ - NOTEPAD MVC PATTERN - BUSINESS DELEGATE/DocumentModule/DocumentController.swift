@@ -36,7 +36,19 @@ class DocumentController {
     }
     
     func setTextForTextViewer(path: String) {
-        router.initialViewController(urlPath: path)
+        guard let fileSize = fileManager.getFileSize(at: path) else { return }
+        guard fileSize <= 5_629_273 else {
+            let alert = UIAlertController.createFileMaxSizeErrorAlert()
+            documentViewer.present(alert, animated: true)
+            return
+        }
+        let permittedExtansions = ["ntp", "java", "swift", "kt"]
+        guard permittedExtansions.contains(URL(fileURLWithPath: path).pathExtension) else {
+            let alert = UIAlertController.createFileExtansionErrorAlert()
+            documentViewer.present(alert, animated: true)
+            return
+        }
+        router.initialViewController(fileUrl: URL(fileURLWithPath: path))
     }
     
     func getpathExt(path: String) -> String {

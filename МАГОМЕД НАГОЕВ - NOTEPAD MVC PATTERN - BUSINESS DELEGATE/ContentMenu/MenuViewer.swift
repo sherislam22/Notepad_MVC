@@ -7,31 +7,6 @@
 
 import UIKit
 
-enum MenuOptions: String, CaseIterable {
-    case new = "new"
-    case open = "open"
-    case save = "save"
-    case saveAs = "save as"
-    case print = "print"
-    case info = "info"
-    
-    var imageName: String {
-        switch self {
-        case .new:
-            return "doc.badge.plus"
-        case .open:
-            return "envelope.open"
-        case .save:
-            return "square.and.arrow.down"
-        case .saveAs:
-            return "square.and.arrow.down.on.square"
-        case .print:
-            return "printer"
-        case .info:
-            return "info.circle"
-        }
-    }
-}
 
 
 protocol MenuViewControllerDelegate: AnyObject {
@@ -49,6 +24,10 @@ class MenuViewer: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
         tableView.backgroundColor = nil
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        
+        self.preferredContentSize = CGSize(
+            width: UIScreen.main.bounds.width * 0.6,
+            height: CGFloat(MenuOptions.allCases.count) * 44)
     }
     
     required init?(coder: NSCoder) {
@@ -63,6 +42,7 @@ class MenuViewer: UIViewController, UITableViewDelegate, UITableViewDataSource {
         tableView.delegate = self
         tableView.dataSource = self
         view.backgroundColor = .gray
+        tableView.rowHeight = 44
     }
     
     override func viewDidLayoutSubviews() {
@@ -90,6 +70,8 @@ class MenuViewer: UIViewController, UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let item = MenuOptions.allCases[indexPath.row]
-        delegate?.menuViewController(didPressMenu: item)
+        presentingViewController?.dismiss(animated: true, completion: {
+            self.delegate?.menuViewController(didPressMenu: item)
+        })
     }
 }
