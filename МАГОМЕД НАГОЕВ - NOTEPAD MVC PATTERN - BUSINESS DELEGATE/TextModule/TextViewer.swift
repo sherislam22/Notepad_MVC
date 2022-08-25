@@ -10,12 +10,12 @@ import UIKit
 class TextViewer: UIViewController {
     
     //MARK: - Properties
-    private var textController: TextController?
+    var textController: TextController?
     
     private var urlFile: URL
     private var filename: String?
     
-    private let textView: UITextView
+    let textView: UITextView
     private let notePadToolBar: NotePadToolBar
     private let notepadView: UIImageView
     let stackView: UIStackView
@@ -79,8 +79,8 @@ class TextViewer: UIViewController {
         super.viewDidLoad()
         textView.delegate = self
         textView.font = notePadToolBar.getFont()
-        setImageView()
-        setTextView()
+//        setupImageView()
+//        setupTextView()
         view.backgroundColor = .white
         
         setupImageView()
@@ -314,6 +314,14 @@ class TextViewer: UIViewController {
         return self.filename ?? "Default"
     }
     
+    func setAttributedText(_ newAttributedText: NSAttributedString) {
+        textView.attributedText = newAttributedText
+        textView.font = UIFont(name: "Arial", size: 47)
+    }
+    
+    func performScrollRangeToVisible(_ range: NSRange) {
+        textView.scrollRangeToVisible(range)
+    }
    
 }
 

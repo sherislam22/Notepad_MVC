@@ -12,7 +12,7 @@ class NotePadToolBar: UIToolbar {
     private let flexibleSpace: UIBarButtonItem
     private var tempToolBarItems: [UIBarButtonItem]
     private var goToRight: Bool
-    private var selectedText: String
+    var selectedText: String
     private var pasteboard: UIPasteboard
     private var fontData: FontData
     private var notePadToolbarDelegate: NotePadToolbarDelegate?
