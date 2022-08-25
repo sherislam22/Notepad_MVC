@@ -43,13 +43,13 @@ extension TextViewer {
     }
     
     func updateHighlighting() {
-        let newAttributedText = NSMutableAttributedString(string: getText())
+        let newAttributedText = NSMutableAttributedString(string: textView.text, attributes: [.font : textView.font ?? .systemFont(ofSize: UIFont.systemFontSize)])
         ranges.enumerated().forEach { index, range in
             let color = index == selectedRangeIndex ? UIColor.green : UIColor.yellow
             newAttributedText.addAttribute(.backgroundColor, value: color, range: range)
         }
-//        textView.attributedText = newAttributedText
-        setAttributedText(newAttributedText)
+        textView.attributedText = newAttributedText
+//        setAttributedText(newAttributedText)
     }
 
     @objc func jumpToPreviousSearch() {
@@ -59,8 +59,8 @@ extension TextViewer {
             selectedRangeIndex = ranges.count - 1
         }
         updateHighlighting()
-//        textView.scrollRangeToVisible(ranges[selectedRangeIndex])
-        performScrollRangeToVisible(ranges[selectedRangeIndex])
+        textView.scrollRangeToVisible(ranges[selectedRangeIndex])
+//        performScrollRangeToVisible(ranges[selectedRangeIndex])
     }
     
     @objc func jumpToNextSearch() {
@@ -70,8 +70,8 @@ extension TextViewer {
             selectedRangeIndex = 0
         }
         updateHighlighting()
-//        textView.scrollRangeToVisible(ranges[selectedRangeIndex])
-        performScrollRangeToVisible(ranges[selectedRangeIndex])
+        textView.scrollRangeToVisible(ranges[selectedRangeIndex])
+//        performScrollRangeToVisible(ranges[selectedRangeIndex])
     }
     
     @objc func replaceSearchText() {
@@ -95,8 +95,8 @@ extension TextViewer: UITextFieldDelegate {
             textField.resignFirstResponder()
             selectedRangeIndex = 0
             if !ranges.isEmpty {
-//                textView.scrollRangeToVisible(ranges[selectedRangeIndex])
-                performScrollRangeToVisible(ranges[selectedRangeIndex])
+                textView.scrollRangeToVisible(ranges[selectedRangeIndex])
+//                performScrollRangeToVisible(ranges[selectedRangeIndex])
             }
         }
         return true

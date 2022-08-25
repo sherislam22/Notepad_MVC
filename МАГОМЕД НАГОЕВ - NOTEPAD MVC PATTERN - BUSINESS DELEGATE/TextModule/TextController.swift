@@ -12,7 +12,8 @@ import UIKit
 class TextController {
     
     // MARK: Properties
-    private var urlPath: String
+    private var fileUrl: URL?
+    
     let textViewer: TextViewer
     private let fileManager: FileManagerModel
     private let router: RouterProtocol
@@ -21,17 +22,15 @@ class TextController {
     
     //MARK: - Initializer
     init(textViewer: TextViewer,
-         urlPath: String,
+         fileUrl: URL?,
          router: RouterProtocol) {
         self.textViewer = textViewer
         self.fileManager = FileManagerModel()
         self.router = router
-        self.urlPath = urlPath
-        print(textViewer.getFilename())
+        self.fileUrl = fileUrl
         careTaker = CareTaker(textWriter: textViewer)
         careTaker.save()
         openDocument()
-        setTitle()
     }
 
     // MARK: public methods
@@ -48,34 +47,28 @@ class TextController {
         careTaker.save()
     }
     
-    @objc func showMenu() {
-        router.pushContentMenu(delegate: self)
+    @objc func showMenu(barButtonItem: UIBarButtonItem) {
+        router.showContentMenu(over: barButtonItem, delegate: self)
     }
     
-    func setTitle() {
-        let name = fileManager.getFileName(urlPath: urlPath)
-        textViewer.updateTitle(fileTitle: name)
-    }
-    
-    func setUrl(urlPath: String) {
-        self.urlPath = urlPath
-    }
-    
-    @objc func save() {
-        fileManager.saveFile(fileUrl: urlPath,
-                             textFile: textViewer.getText(),
-                             fileName: "Test1")
+    func save() {
+        if let fileUrl = fileUrl {
+            fileManager.save(fileUrl: fileUrl, content: self.textViewer.getText())
+        } else {
+            saveAs()
+        }
     }
     
    func saveAs() {
-        let filename = textViewer.getFilename().split(separator: ".")
-        var ext = filename.last
-       if filename.count == 1 {
-           ext = "ntp"
-       }
-        let file = fileManager.saveAs(filename: String(filename[0]), content: textViewer.getText(), ext: String(ext ?? "ntp"))
-        if file == "error" {
-        }
+       let alert = UIAlertController.getAlertNameTheFile(completion: { fileName in
+           let fileUrl = self.fileManager.generateFileUrl(fileName: fileName)
+           self.fileManager.save(fileUrl: fileUrl, content: self.textViewer.getText())
+           self.fileUrl = fileUrl
+           self.textViewer.updateTitle(fileTitle: fileUrl.lastPathComponent)
+       })
+       textViewer.present(alert, animated: true)
+       
+       
     }
    
     func openAnotherDocument() {
@@ -85,12 +78,22 @@ class TextController {
     // MARK: private methods
     private func openDocument() {
         textViewer.navigationController?.pushViewController(DocumentViewer(), animated: true)
+//<<<<<<< HEAD
         var states = careTaker.getStates()
         states.removeAll()
+////        careTaker.states.removeAll()
+//        if urlPath != "" {
+//            let file = fileManager.openFile(fileNamePath: urlPath)
+//            textViewer.updateTextView(text: file)
+//=======
 //        careTaker.states.removeAll()
-        if urlPath != "" {
-            let file = fileManager.openFile(fileNamePath: urlPath)
-            textViewer.updateTextView(text: file)
+        if let fileUrl = fileUrl {
+            let text = fileManager.openFile(fileUrl)
+            textViewer.updateTextView(text: text)
+            textViewer.updateTitle(fileTitle: fileUrl.lastPathComponent)
+        } else {
+            textViewer.updateTitle(fileTitle: "Untitled")
+//>>>>>>> origin/dev
         }
     }
 }
@@ -100,13 +103,13 @@ extension TextController: MenuViewControllerDelegate {
     func menuViewController(didPressMenu menu: MenuOptions) {
         switch menu {
         case .new:
-            router.initialViewController(urlPath: "")
+            router.initialViewController(fileUrl: nil)
         case .open:
             router.pushDocumentViewer()
         case .save:
             save()
         case .saveAs:
-            textViewer.didTapSaveButton()
+            saveAs()
         case .print:
             router.pushPrintViewer(text: textViewer.getText(), font: textViewer.getFont())
         case .info:

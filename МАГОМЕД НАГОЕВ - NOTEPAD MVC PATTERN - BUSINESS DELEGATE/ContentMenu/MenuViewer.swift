@@ -25,6 +25,10 @@ class MenuViewer: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
         tableView.backgroundColor = nil
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        
+        self.preferredContentSize = CGSize(
+            width: UIScreen.main.bounds.width * 0.6,
+            height: CGFloat(MenuOptions.allCases.count) * 44)
     }
     
     required init?(coder: NSCoder) {
@@ -39,6 +43,7 @@ class MenuViewer: UIViewController, UITableViewDelegate, UITableViewDataSource {
         tableView.delegate = self
         tableView.dataSource = self
         view.backgroundColor = .gray
+        tableView.rowHeight = 44
     }
     
     override func viewDidLayoutSubviews() {
@@ -70,8 +75,8 @@ class MenuViewer: UIViewController, UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let item = MenuOptions.allCases[indexPath.row]
-//        navigationController?.popViewController(animated: true)
-//       navigationController?.popToRootViewController(animated: true)
-        delegate?.menuViewController(didPressMenu: item)
+        presentingViewController?.dismiss(animated: true, completion: {
+            self.delegate?.menuViewController(didPressMenu: item)
+        })
     }
 }

@@ -161,7 +161,7 @@ class TextViewer: UIViewController {
         if let range = textView.selectedTextRange {
             notePadToolBar.selectedText = textView.text(in: range) ?? ""
         }
-        return true
+        return super.canPerformAction(action, withSender: sender)
     }
     
     //MARK: - SetupMethods
@@ -285,8 +285,8 @@ class TextViewer: UIViewController {
         title = fileTitle
     }
     
-    @objc func menuButtonTapped() {
-        textController?.showMenu()
+    @objc func menuButtonTapped(_ sender: UIBarButtonItem) {
+        textController?.showMenu(barButtonItem: sender)
     }
     
     func didTapSaveButton(){
@@ -322,7 +322,6 @@ class TextViewer: UIViewController {
     func performScrollRangeToVisible(_ range: NSRange) {
         textView.scrollRangeToVisible(range)
     }
-   
 }
 
 extension TextViewer {
