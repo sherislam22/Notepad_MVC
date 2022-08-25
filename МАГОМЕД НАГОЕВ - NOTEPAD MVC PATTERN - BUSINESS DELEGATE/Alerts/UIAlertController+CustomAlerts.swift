@@ -60,4 +60,13 @@ extension UIAlertController {
         
         return alert
     }
+    
+    class func createFileExtansionErrorAlert() -> UIAlertController {
+        let alert = UIAlertController(title: "Type Error", message: "Unsupported file type", preferredStyle: .alert)
+        let confirmAction = UIAlertAction(title: "Ok", style: .cancel)
+        
+        alert.addAction(confirmAction)
+        
+        return alert
+    }
 }

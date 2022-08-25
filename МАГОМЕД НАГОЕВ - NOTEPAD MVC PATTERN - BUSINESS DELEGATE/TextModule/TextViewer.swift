@@ -130,7 +130,7 @@ class TextViewer: UIViewController {
         if let range = textView.selectedTextRange {
             notePadToolBar.selectedText = textView.text(in: range) ?? ""
         }
-        return true
+        return super.canPerformAction(action, withSender: sender)
     }
     
     //MARK: - SetupMethods
