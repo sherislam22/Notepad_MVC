@@ -1,10 +1,3 @@
-//
-//  CharReader.swift
-//  МАГОМЕД НАГОЕВ - NOTEPAD MVC PATTERN - BUSINESS DELEGATE
-//
-//  Created by Nargiza Beishekenova on 25/8/22.
-//
-
 import Foundation
 
 class CharacterReader {

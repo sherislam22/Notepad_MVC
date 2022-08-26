@@ -23,7 +23,7 @@ extension TextController {
                 break
             }
         }
-//        textViewer.highlightRanges(result)
+        textViewer.highlightRanges(result)
     }
     func replace(ranges: [NSRange], replaceString: String) {
         let allText = textViewer.getText()
