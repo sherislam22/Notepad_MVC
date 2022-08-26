@@ -81,8 +81,8 @@ class TextController {
         var states = careTaker.getStates()
         states.removeAll()
         if let fileUrl = fileUrl {
-//            let text = fileManager.openFile(fileUrl)
-            let text = fileManager.readFileByCharacter(fileUrl)
+            let text = fileManager.openFile(fileUrl)
+//            let text = fileManager.readFileByCharacter(fileUrl)  // для чтение по символам закоментируйте верхнюю линию и расскоментируйте данную
             textViewer.updateTextView(text: text)
             textViewer.updateTitle(fileTitle: fileUrl.lastPathComponent)
         } else {
