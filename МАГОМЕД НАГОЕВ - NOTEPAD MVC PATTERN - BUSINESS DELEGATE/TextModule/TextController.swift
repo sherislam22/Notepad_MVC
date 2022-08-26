@@ -60,11 +60,27 @@ class TextController {
     }
     
    func saveAs() {
-       let alert = UIAlertController.getAlertNameTheFile(completion: { fileName in
+       let alert = UIAlertController.createGetFileNameAlert(completion: { alertController, fileName in
            let fileUrl = self.fileManager.generateFileUrl(fileName: fileName)
-           self.fileManager.save(fileUrl: fileUrl, content: self.textViewer.getText())
-           self.fileUrl = fileUrl
-           self.textViewer.updateTitle(fileTitle: fileUrl.lastPathComponent)
+           
+           let performReplace = {
+               self.fileManager.save(fileUrl: fileUrl, content: self.textViewer.getText())
+               self.fileUrl = fileUrl
+               self.textViewer.updateTitle(fileTitle: fileUrl.lastPathComponent)
+           }
+           
+           if self.fileManager.fileExists(fileUrl) {
+               let renameReplaceAlert = UIAlertController.createRenameOrOverwriteAlert(
+                onRename: {
+                    self.textViewer.present(alertController, animated: true)
+                },
+                onReplace: {
+                    performReplace()
+                })
+               self.textViewer.present(renameReplaceAlert, animated: true)
+           } else {
+               performReplace()
+           }
        })
        textViewer.present(alert, animated: true)
        

@@ -68,4 +68,8 @@ class FileManagerModel {
         
         return fileSize
     }
+    
+    func fileExists(_ fileUrl: URL) -> Bool {
+        return filemanager.fileExists(atPath: fileUrl.path)
+    }
 }
