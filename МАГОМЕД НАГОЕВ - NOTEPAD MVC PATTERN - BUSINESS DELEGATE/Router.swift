@@ -34,7 +34,7 @@ class Router: NSObject, RouterProtocol {
         let textController = TextController(textViewer: textViewer,
                                             fileUrl: fileUrl,
                                             router: self)
-        textViewer.textController = textController
+        textViewer.setTextController(textController)
 
         navigationController.viewControllers = [textViewer]
     }
@@ -45,7 +45,8 @@ class Router: NSObject, RouterProtocol {
         let documentViewer = DocumentViewer()
         let documentController = DocumentController(documentViewer: documentViewer,
                                                     router: self)
-        documentViewer.documentController = documentController
+        documentViewer.setDocumentController(documentController)
+//        documentViewer.documentController = documentController
         
         navigationController.pushViewController(documentViewer, animated: true)
     }
@@ -53,12 +54,18 @@ class Router: NSObject, RouterProtocol {
     func showContentMenu(over barButtonItem: UIBarButtonItem, delegate: MenuViewControllerDelegate) {
 
         let menuViewer = MenuViewer()
-        menuViewer.delegate = delegate
+//<<<<<<< HEAD
+        menuViewer.setDelegate(delegate)
+////        menuViewer.delegate = delegate
+//        navigationController.pushViewController(menuViewer,
+//=======
+//        menuViewer.delegate = delegate
         menuViewer.modalPresentationStyle = .popover
         let popoverPresentationController = menuViewer.popoverPresentationController
         popoverPresentationController?.barButtonItem = barButtonItem
         popoverPresentationController?.delegate = self
         navigationController.present(menuViewer,
+//>>>>>>> origin/dev
                                                 animated: true)
     }
     

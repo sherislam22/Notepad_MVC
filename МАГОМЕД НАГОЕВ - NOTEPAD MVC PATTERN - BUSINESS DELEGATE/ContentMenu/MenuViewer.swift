@@ -16,7 +16,8 @@ protocol MenuViewControllerDelegate: AnyObject {
 
 class MenuViewer: UIViewController, UITableViewDelegate, UITableViewDataSource {
     private let tableView: UITableView
-    weak var delegate: MenuViewControllerDelegate?
+    private var delegate: MenuViewControllerDelegate?
+    
     init() {
         tableView = UITableView()
     
@@ -49,6 +50,10 @@ class MenuViewer: UIViewController, UITableViewDelegate, UITableViewDataSource {
         super.viewDidLayoutSubviews()
         tableView.frame = CGRect(x: 0, y: view.safeAreaInsets.top, width: view.bounds.size.width, height: view.bounds.size.height)
 
+    }
+    
+    func setDelegate(_ delegate: MenuViewControllerDelegate) {
+        self.delegate = delegate
     }
 
     //table

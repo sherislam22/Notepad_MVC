@@ -10,19 +10,20 @@ import UIKit
 class TextViewer: UIViewController {
     
     //MARK: - Properties
-    public var textController: TextController?
+    var textController: TextController?
     
+    private var urlFile: URL
+    private var filename: String?
+    
+    let textView: UITextView
+    private let notePadToolBar: NotePadToolBar
     private let notepadView: UIImageView
     let stackView: UIStackView
-    let textView: UITextView
-    let notePadToolBar: NotePadToolBar
     let searchAndReplaceView: SearchAndReplaceView
     let searchAndReplaceButtonView: SearchAndReplaceButtonsView
     
+    private var textViewBottomConstraint: NSLayoutConstraint?
     private var stackViewBottomConstraint: NSLayoutConstraint?
-    
-    private var urlFile: URL
-    public var filename: String?
     
     var ranges: [NSRange] {
         didSet {
@@ -76,7 +77,10 @@ class TextViewer: UIViewController {
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        textView.delegate = self
+        textView.font = notePadToolBar.getFont()
+//        setupImageView()
+//        setupTextView()
         view.backgroundColor = .white
         
         setupImageView()
@@ -87,12 +91,12 @@ class TextViewer: UIViewController {
         setupDismissKeyboardGesture()
         setupKeyboardFrame()
         setupNavigationItem()
-        notePadToolBar.notePadToolbarDelegate = self
+        notePadToolBar.setNotePadToolbarDelegate(self)
         
         setupZoom()
-        
+
         ranges = []
-  
+
         mode = .default
     }
     
@@ -124,8 +128,35 @@ class TextViewer: UIViewController {
     func pasteCopiedText(text: String) {
         textView.paste(text)
     }
-
-    //passes the value of the selected text to the textToCopy in NotePadToolBar()
+    
+    //MARK: - Methods
+    
+    func setTextController(_ textController: TextController) {
+        self.textController = textController
+    }
+    
+    func setZoom() {
+        textView.minimumZoomScale = 0.5
+        textView.maximumZoomScale = 2.0
+    }
+    
+    @objc func startSearch() {
+        searchAndReplaceView.isReplacingEnabled = false
+        searchAndReplaceButtonView.isReplacingEnabled = false
+        mode = .searchAndReplace
+        UIView.animate(withDuration: 0.25) {
+            self.view.layoutIfNeeded()
+        }
+    }
+    @objc func startSearchAndReplace() {
+        searchAndReplaceView.isReplacingEnabled = true
+        searchAndReplaceButtonView.isReplacingEnabled = true
+        mode = .searchAndReplace
+        UIView.animate(withDuration: 0.25) {
+            self.view.layoutIfNeeded()
+        }
+    }
+    
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
         if let range = textView.selectedTextRange {
             notePadToolBar.selectedText = textView.text(in: range) ?? ""
@@ -257,6 +288,40 @@ class TextViewer: UIViewController {
     @objc func menuButtonTapped(_ sender: UIBarButtonItem) {
         textController?.showMenu(barButtonItem: sender)
     }
+    
+    func didTapSaveButton(){
+        let alert = UIAlertController(title: "Name the file", message: nil, preferredStyle: .alert)
+        
+        let confirmAction = UIAlertAction(title: "Save", style: .default) { _ in
+            if let txtField = alert.textFields?.first, let text = txtField.text {
+                // operations
+                self.filename = text
+                self.textController?.saveAs()
+            }
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { _ in }
+        alert.view.addSubview(UIView())
+        alert.addTextField { (textField) in
+            textField.placeholder = "File name"
+        }
+        alert.addAction(confirmAction)
+        alert.addAction(cancelAction)
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func getFilename() -> String {
+        return self.filename ?? "Default"
+    }
+    
+    func setAttributedText(_ newAttributedText: NSAttributedString) {
+        textView.attributedText = newAttributedText
+        textView.font = UIFont(name: "Arial", size: 47)
+    }
+    
+    func performScrollRangeToVisible(_ range: NSRange) {
+        textView.scrollRangeToVisible(range)
+    }
 }
 
 extension TextViewer {
@@ -271,14 +336,12 @@ extension TextViewer {
         view.layoutIfNeeded()
     }
     
-    @objc
-    func undoDidTap() {
-        textController?.careTaker.undo()
+    @objc func undoDidTap() {
+        textController?.undoDidTap()
     }
     
-    @objc
-    func redoDidTap() {
-        textController?.careTaker.redo()
+    @objc func redoDidTap() {
+        textController?.redoDidTap()
     }
 }
 //MARK: - Add undo and redo command
@@ -296,7 +359,7 @@ extension TextViewer: TextWriterProtocol {
 extension TextViewer: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         if text == " " {
-            textController?.careTaker.save()
+            textController?.careTakerSave()
         }
         return true
     }
@@ -306,7 +369,7 @@ extension TextViewer: UITextViewDelegate {
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        textController?.careTaker.save()
+        textController?.careTakerSave()
     }
 }
 

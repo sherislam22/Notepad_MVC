@@ -1,4 +1,4 @@
-//
+
 //  TextViewer+SearchAndReplaceExt.swift
 //  МАГОМЕД НАГОЕВ - NOTEPAD MVC PATTERN - BUSINESS DELEGATE
 //
@@ -49,6 +49,7 @@ extension TextViewer {
             newAttributedText.addAttribute(.backgroundColor, value: color, range: range)
         }
         textView.attributedText = newAttributedText
+//        setAttributedText(newAttributedText)
     }
 
     @objc func jumpToPreviousSearch() {
@@ -59,6 +60,7 @@ extension TextViewer {
         }
         updateHighlighting()
         textView.scrollRangeToVisible(ranges[selectedRangeIndex])
+//        performScrollRangeToVisible(ranges[selectedRangeIndex])
     }
     
     @objc func jumpToNextSearch() {
@@ -69,6 +71,7 @@ extension TextViewer {
         }
         updateHighlighting()
         textView.scrollRangeToVisible(ranges[selectedRangeIndex])
+//        performScrollRangeToVisible(ranges[selectedRangeIndex])
     }
     
     @objc func replaceSearchText() {
@@ -93,6 +96,7 @@ extension TextViewer: UITextFieldDelegate {
             selectedRangeIndex = 0
             if !ranges.isEmpty {
                 textView.scrollRangeToVisible(ranges[selectedRangeIndex])
+//                performScrollRangeToVisible(ranges[selectedRangeIndex])
             }
         }
         return true

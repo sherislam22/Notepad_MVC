@@ -16,8 +16,8 @@ class TextController {
     
     let textViewer: TextViewer
     private let fileManager: FileManagerModel
-    let router: RouterProtocol
-    let careTaker: CareTaker
+    private let router: RouterProtocol
+    private let careTaker: CareTaker
 //    private let text: String
     
     //MARK: - Initializer
@@ -34,6 +34,18 @@ class TextController {
     }
 
     // MARK: public methods
+    
+    func undoDidTap() {
+        careTaker.undo()
+    }
+    
+    func redoDidTap() {
+        careTaker.redo()
+    }
+    
+    func careTakerSave() {
+        careTaker.save()
+    }
     
     @objc func showMenu(barButtonItem: UIBarButtonItem) {
         router.showContentMenu(over: barButtonItem, delegate: self)
@@ -82,9 +94,11 @@ class TextController {
     // MARK: private methods
     private func openDocument() {
         textViewer.navigationController?.pushViewController(DocumentViewer(), animated: true)
-        careTaker.states.removeAll()
+        var states = careTaker.getStates()
+        states.removeAll()
         if let fileUrl = fileUrl {
             let text = fileManager.openFile(fileUrl)
+//            let text = fileManager.readFileByCharacter(fileUrl)  // для чтение по символам закоментируйте верхнюю линию и расскоментируйте данную
             textViewer.updateTextView(text: text)
             textViewer.updateTitle(fileTitle: fileUrl.lastPathComponent)
         } else {

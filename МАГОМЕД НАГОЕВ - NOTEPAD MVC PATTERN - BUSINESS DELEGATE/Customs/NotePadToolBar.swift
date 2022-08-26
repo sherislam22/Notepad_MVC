@@ -15,7 +15,7 @@ class NotePadToolBar: UIToolbar {
     var selectedText: String
     private var pasteboard: UIPasteboard
     private var fontData: FontData
-    weak var notePadToolbarDelegate: NotePadToolbarDelegate?
+    private var notePadToolbarDelegate: NotePadToolbarDelegate?
     
     override init(frame: CGRect) {
         flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
@@ -46,6 +46,18 @@ class NotePadToolBar: UIToolbar {
         fontData.setFontPickerDelegate(delegate: self)
         fontData.setFontSizeDataSource(dataSource: self)
         fontData.setFontSizeDelegate(delegate: self)
+    }
+    
+    func getFont() -> UIFont {
+        return fontData.getFontValue()
+    }
+    
+    func setNotePadToolbarDelegate(_ delegate: NotePadToolbarDelegate) {
+        self.notePadToolbarDelegate = delegate
+    }
+    
+    func setSelectedText(_ delegate: NotePadToolbarDelegate) {
+        self.notePadToolbarDelegate = delegate
     }
     
     func changeStateOfToolbar() {

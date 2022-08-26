@@ -11,7 +11,7 @@ class DocumentViewer: UIViewController {
     
     private var collectionView: UICollectionView!
     private let cellId: String
-    public var documentController: DocumentController?
+    private var documentController: DocumentController?
     
     init() {
         cellId = "DocumentCollectionViewCell"
@@ -29,6 +29,11 @@ class DocumentViewer: UIViewController {
         view.backgroundColor = .white
         setupCollectionView()
     }
+    
+    func setDocumentController(_ documentController: DocumentController) {
+        self.documentController = documentController
+    }
+    
     
     func setupCollectionView() {
         let layout = UICollectionViewFlowLayout()

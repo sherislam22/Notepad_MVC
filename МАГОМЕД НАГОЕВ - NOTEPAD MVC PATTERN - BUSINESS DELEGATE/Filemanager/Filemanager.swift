@@ -2,6 +2,7 @@ import Foundation
 
 class FileManagerModel {
     let filemanager = FileManager.default
+    
     func openFile(_ fileUrl: URL) -> String {
         var textArray: [String] = [String]()
         if let aStreamReader = LineReader(path: fileUrl.path) {
@@ -13,7 +14,16 @@ class FileManagerModel {
         textArray.removeAll()
         return text
     }
-    
+        
+    func readFileByCharacter(_ fileUrl: URL) -> String {
+        do {
+            return try (CharacterReader(fileUrl: fileUrl).read())!
+        } catch {
+            print("Could not open the file")
+            return ""
+        }
+    }
+
     func generateFileUrl(fileName: String) -> URL {
         var url = filemanager.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(fileName)
         if url.pathExtension.isEmpty {
