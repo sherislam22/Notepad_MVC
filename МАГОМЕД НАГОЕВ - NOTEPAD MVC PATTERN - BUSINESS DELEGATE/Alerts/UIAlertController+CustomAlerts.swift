@@ -30,13 +30,14 @@ extension UIAlertController {
     }
 
 //    ALERT: Saving file name
-
-    class func getAlertNameTheFile(completion: @escaping (_ fileName: String) -> Void) -> UIAlertController {
+    typealias GetFileNameAlertCompletion = (_ alertController: UIAlertController, _ fileName: String) -> Void
+    
+    class func createGetFileNameAlert(completion: @escaping GetFileNameAlertCompletion) -> UIAlertController {
         let alert = UIAlertController(title: "Name the file", message: nil, preferredStyle: .alert)
 
         let confirmAction = UIAlertAction(title: "Save", style: .default) { _ in
             if let txtField = alert.textFields?.first, let text = txtField.text {
-                completion(text)
+                completion(alert, text)
             }
         }
 
@@ -49,6 +50,17 @@ extension UIAlertController {
         alert.addAction(cancelAction)
 
         
+        return alert
+    }
+    
+    class func createRenameOrOverwriteAlert(onRename: @escaping () -> Void,
+                                            onReplace: @escaping () -> Void) -> UIAlertController {
+       
+        let alert = UIAlertController(title: "Please rename", message: "File name is already exist", preferredStyle: .alert)
+        let renameAction = UIAlertAction(title: "Rename", style: .default) { _ in onRename() }
+        let replaceAction = UIAlertAction(title: "Replace", style: .default) { _ in onReplace() }
+        alert.addAction(renameAction)
+        alert.addAction(replaceAction)
         return alert
     }
     
