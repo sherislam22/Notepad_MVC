@@ -78,22 +78,15 @@ class TextController {
     // MARK: private methods
     private func openDocument() {
         textViewer.navigationController?.pushViewController(DocumentViewer(), animated: true)
-//<<<<<<< HEAD
         var states = careTaker.getStates()
         states.removeAll()
-////        careTaker.states.removeAll()
-//        if urlPath != "" {
-//            let file = fileManager.openFile(fileNamePath: urlPath)
-//            textViewer.updateTextView(text: file)
-//=======
-//        careTaker.states.removeAll()
         if let fileUrl = fileUrl {
-            let text = fileManager.openFile(fileUrl)
+//            let text = fileManager.openFile(fileUrl)
+            let text = fileManager.readFileByCharacter(fileUrl)
             textViewer.updateTextView(text: text)
             textViewer.updateTitle(fileTitle: fileUrl.lastPathComponent)
         } else {
             textViewer.updateTitle(fileTitle: "Untitled")
-//>>>>>>> origin/dev
         }
     }
 }

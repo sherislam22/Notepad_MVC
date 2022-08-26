@@ -15,7 +15,6 @@ extension TextViewer: NotePadToolbarDelegate {
     }
     
     func selectWholeTextDelegate() {
-        
         selectWholeText()
     }
 
