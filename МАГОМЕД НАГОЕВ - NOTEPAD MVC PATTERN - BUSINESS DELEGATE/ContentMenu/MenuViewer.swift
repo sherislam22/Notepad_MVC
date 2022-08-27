@@ -16,7 +16,7 @@ protocol MenuViewControllerDelegate: AnyObject {
 
 class MenuViewer: UIViewController, UITableViewDelegate, UITableViewDataSource {
     private let tableView: UITableView
-    private var delegate: MenuViewControllerDelegate?
+    weak var delegate: MenuViewControllerDelegate?
     
     init() {
         tableView = UITableView()

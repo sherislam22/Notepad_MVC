@@ -15,7 +15,7 @@ class NotePadToolBar: UIToolbar {
     var selectedText: String
     private var pasteboard: UIPasteboard
     private var fontData: FontData
-    private var notePadToolbarDelegate: NotePadToolbarDelegate?
+    weak var notePadToolbarDelegate: NotePadToolbarDelegate?
     
     override init(frame: CGRect) {
         flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
