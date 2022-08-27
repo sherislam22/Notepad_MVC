@@ -47,14 +47,6 @@ class PrintModel {
             //Создаем frame для нумерации страниц
             let numberFrame = CGRect(x: 0, y: frame.height - 20, width: frame.width - 10, height: 20)
 
-            //Создаем стиль для выравнивания номеров страниц по правому краю
-            let paragraphStyle: NSMutableParagraphStyle = NSMutableParagraphStyle()
-            paragraphStyle.alignment = NSTextAlignment.right
-            let numberAttribute = [NSAttributedString.Key.paragraphStyle: paragraphStyle]
-
-            //Создаем номер страницы
-            let numberString = String(images.count + 1)
-
             let path = CGMutablePath()
             path.addRect(textFrame)
 
@@ -89,12 +81,15 @@ class PrintModel {
                     index += 1
                 }
 
-                //Возвращаем начало координат для рисования номера страницы
-                renderContext.cgContext.translateBy(x: 0, y: frame.size.height)
-                renderContext.cgContext.scaleBy(x: 1.0, y: -1.0)
-
+                //Создаем номер страницы
+                let numberString = String(images.count + 1)
+                let numberAttributedString = NSAttributedString(string: numberString)
+                let numberLine = CTLineCreateWithAttributedString(numberAttributedString)
+                
+                renderContext.cgContext.textPosition = .init(x: numberFrame.width/2, y: 5)
+                
                 //Прорисовываем номер страницы
-                numberString.draw(in: numberFrame, withAttributes: numberAttribute)
+                CTLineDraw(numberLine, renderContext.cgContext)
             }
 
             //Добавляем диапазон символов, которые фактически поместились во фрейм.
