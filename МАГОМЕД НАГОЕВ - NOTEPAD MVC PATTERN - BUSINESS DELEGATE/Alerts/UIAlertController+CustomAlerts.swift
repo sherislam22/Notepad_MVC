@@ -81,4 +81,33 @@ extension UIAlertController {
         
         return alert
     }
+    
+    class func callStandartAlert(title: String,
+                                 message: String,
+                                 completion: @escaping () -> Void) -> UIAlertController {
+        let alert = UIAlertController(title: title,
+                                      message: message,
+                                      preferredStyle: .alert)
+
+        let confirmAction = UIAlertAction(title: "Ok", style: .default) { _ in
+            completion()
+        }
+
+        alert.addAction(confirmAction)
+        
+        return alert
+    }
+    
+    class func callStandartAlert(title: String,
+                                 message: String) -> UIAlertController {
+        let alert = UIAlertController(title: title,
+                                      message: message,
+                                      preferredStyle: .alert)
+
+        let confirmAction = UIAlertAction(title: "Ok", style: .default)
+
+        alert.addAction(confirmAction)
+        
+        return alert
+    }
 }
