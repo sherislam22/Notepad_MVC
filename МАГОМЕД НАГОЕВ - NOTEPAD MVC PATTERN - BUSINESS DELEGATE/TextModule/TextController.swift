@@ -79,6 +79,18 @@ class TextController {
 
 extension TextController: MenuViewControllerDelegate {
     
+    func textIsEmpty() {
+        let alert = UIAlertController(title: "Warning!", message: "You can't print empty page.", preferredStyle: .alert)
+
+        let okAction = UIAlertAction(title: "Ok", style: .default,
+                                      handler: nil)
+
+        alert.addAction(okAction)
+        if textViewer.getText().isEmpty {
+            textViewer.presentAlert(alert: alert)
+        }
+    }
+    
     func menuViewController(didPressMenu menu: MenuOptions) {
         switch menu {
         case .new:
@@ -90,6 +102,7 @@ extension TextController: MenuViewControllerDelegate {
         case .saveAs:
             saveAs()
         case .print:
+            textIsEmpty()
             router.pushPrintViewer(text: textViewer.getText(), font: textViewer.getFont())
         case .info:
             router.pushInformationViewController()
