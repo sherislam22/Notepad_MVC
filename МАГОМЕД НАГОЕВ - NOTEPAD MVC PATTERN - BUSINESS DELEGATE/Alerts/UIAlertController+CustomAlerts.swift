@@ -77,7 +77,7 @@ extension UIAlertController {
                                       message: message,
                                       preferredStyle: .alert)
 
-        let confirmAction = UIAlertAction(title: "Ok", style: .cancel) { _ in
+        let confirmAction = UIAlertAction(title: "Ok", style: .default) { _ in
             completion()
         }
 
@@ -92,7 +92,7 @@ extension UIAlertController {
                                       message: message,
                                       preferredStyle: .alert)
 
-        let confirmAction = UIAlertAction(title: "Ok", style: .cancel)
+        let confirmAction = UIAlertAction(title: "Ok", style: .default)
 
         alert.addAction(confirmAction)
         
