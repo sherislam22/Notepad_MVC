@@ -10,8 +10,8 @@ class FontData: NSObject {
     
     // MARK: Initializer
     override init() {
-        fontSizes = Array(16...47)
-        fontValue = UIFont(name: "Arial", size: 16)!
+        fontSizes = Array(10...47)
+        fontValue = UIFont(name: "Arial", size: 10)!
         
         let config = UIFontPickerViewController.Configuration()
         config.includeFaces = true
