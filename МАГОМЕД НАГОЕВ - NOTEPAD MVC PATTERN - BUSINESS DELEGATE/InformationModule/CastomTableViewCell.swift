@@ -6,11 +6,7 @@
 //
 
 import UIKit
-
-
 class CastomTableViewCell: UITableViewCell {
-    
-    
     lazy var backeView: UIView = {
         //et view = UIView(frame: CGRect(x: 10, y: 6, width: self.frame.width - 20, height: 110))
         let view = UIView(frame: CGRect(x: 7, y: 7, width: 360, height: 75))
@@ -30,15 +26,6 @@ class CastomTableViewCell: UITableViewCell {
         lbl.font = UIFont.boldSystemFont(ofSize: 15)
         return lbl
     }()
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-        
-        
-    }
-    
-    
     override func layoutSubviews() {
         contentView.backgroundColor = UIColor.clear
         backgroundColor = UIColor.clear
@@ -47,7 +34,6 @@ class CastomTableViewCell: UITableViewCell {
         userImage.layer.cornerRadius = 36
         userImage.clipsToBounds = true
     }
-
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         addSubview(backeView)
