@@ -49,7 +49,6 @@ extension TextViewer {
             newAttributedText.addAttribute(.backgroundColor, value: color, range: range)
         }
         textView.attributedText = newAttributedText
-//        setAttributedText(newAttributedText)
     }
 
     @objc func jumpToPreviousSearch() {
@@ -60,7 +59,6 @@ extension TextViewer {
         }
         updateHighlighting()
         textView.scrollRangeToVisible(ranges[selectedRangeIndex])
-//        performScrollRangeToVisible(ranges[selectedRangeIndex])
     }
     
     @objc func jumpToNextSearch() {
@@ -71,7 +69,6 @@ extension TextViewer {
         }
         updateHighlighting()
         textView.scrollRangeToVisible(ranges[selectedRangeIndex])
-//        performScrollRangeToVisible(ranges[selectedRangeIndex])
     }
     
     @objc func replaceSearchText() {
@@ -79,10 +76,12 @@ extension TextViewer {
         textController?.replace(ranges: [ranges[selectedRangeIndex]],
                                                        replaceString: searchAndReplaceView.replaceTextField.text ?? "")
         textController?.search(searchAndReplaceView.searchTextField.text ?? "")
+        textController?.careTakerSave()
     }
     @objc func replaceAllSearchText() {
         textController?.replace(ranges: ranges, replaceString: searchAndReplaceView.replaceTextField.text ?? "")
         textController?.search(searchAndReplaceView.searchTextField.text ?? "")
+        textController?.careTakerSave()
     }
 }
 extension TextViewer: UITextFieldDelegate {
@@ -96,7 +95,6 @@ extension TextViewer: UITextFieldDelegate {
             selectedRangeIndex = 0
             if !ranges.isEmpty {
                 textView.scrollRangeToVisible(ranges[selectedRangeIndex])
-//                performScrollRangeToVisible(ranges[selectedRangeIndex])
             }
         }
         return true
