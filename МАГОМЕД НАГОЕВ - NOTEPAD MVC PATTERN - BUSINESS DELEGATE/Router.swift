@@ -76,8 +76,7 @@ class Router: NSObject, RouterProtocol {
     
     func pushPrintViewer(text: String, font: UIFont) {
         let printViewer = PrintViewer(text: text, font: font)
-        printViewer.presentPrintInteractionController()
-        
+        navigationController.present(printViewer, animated: true)
     }
 }
 

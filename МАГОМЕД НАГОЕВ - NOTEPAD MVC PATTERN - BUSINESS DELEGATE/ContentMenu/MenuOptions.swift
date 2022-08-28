@@ -8,6 +8,7 @@
 import Foundation
 
 enum MenuOptions: String, CaseIterable {
+    //name of options
     case new = "new"
     case open = "open"
     case save = "save"
@@ -15,6 +16,7 @@ enum MenuOptions: String, CaseIterable {
     case print = "print"
     case info = "info"
     
+    //images of each options
     var imageName: String {
         switch self {
         case .new:

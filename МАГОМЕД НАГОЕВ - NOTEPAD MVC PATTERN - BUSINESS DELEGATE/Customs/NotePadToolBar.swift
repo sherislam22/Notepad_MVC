@@ -17,6 +17,7 @@ class NotePadToolBar: UIToolbar {
     private var fontData: FontData
     weak var notePadToolbarDelegate: NotePadToolbarDelegate?
     
+    //MARK: - Initialisers
     override init(frame: CGRect) {
         flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         goToRight = false
@@ -62,6 +63,7 @@ class NotePadToolBar: UIToolbar {
     
     func changeStateOfToolbar() {
         tempToolBarItems.removeAll()
+        
         if !goToRight {
             let fontSize = UIBarButtonItem(image: UIImage(systemName: "textformat.size"), style: .plain, target: self, action: #selector(setFontSize))
             let fontStyle = UIBarButtonItem(image: UIImage(systemName: "signature"), style: .plain, target: self, action: #selector(setFont))
