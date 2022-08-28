@@ -83,8 +83,10 @@ class TextController {
            }
        })
        textViewer.present(alert, animated: true)
-       
-       
+    }
+    
+    func exitFromApp(){
+        exit(0)
     }
    
     func openAnotherDocument() {
@@ -133,6 +135,8 @@ extension TextController: MenuViewControllerDelegate {
             printText()
         case .info:
             router.pushInformationViewController()
+        case .exit:
+            exitFromApp()
         }
     }
 }
