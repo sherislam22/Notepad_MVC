@@ -13,11 +13,13 @@ protocol MenuViewControllerDelegate: AnyObject {
     func menuViewController(didPressMenu menu: MenuOptions)
 }
 
-
 class MenuViewer: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
+    //MARK: - Properties
     private let tableView: UITableView
     weak var delegate: MenuViewControllerDelegate?
     
+    //MARK: - Initialisers
     init() {
         tableView = UITableView()
     
@@ -34,8 +36,6 @@ class MenuViewer: UIViewController, UITableViewDelegate, UITableViewDataSource {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,7 +56,7 @@ class MenuViewer: UIViewController, UITableViewDelegate, UITableViewDataSource {
         self.delegate = delegate
     }
 
-    //table
+    //MARK: - table
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return MenuOptions.allCases.count
     }
