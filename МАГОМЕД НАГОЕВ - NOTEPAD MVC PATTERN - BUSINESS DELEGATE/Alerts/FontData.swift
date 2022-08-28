@@ -2,11 +2,13 @@ import UIKit
 
 class FontData: NSObject {
     
+    // MARK: Properties
     private let fontSizes: Array<Int>
     private var fontValue: UIFont
     private let fontPicker: UIFontPickerViewController
     private let fontSizePicker: UIPickerView
     
+    // MARK: Initializer
     override init() {
         fontSizes = Array(16...47)
         fontValue = UIFont(name: "Arial", size: 16)!
@@ -18,6 +20,7 @@ class FontData: NSObject {
         fontSizePicker = UIPickerView(frame: CGRect(x: 5, y: 30, width: 250, height: 140))
     }
     
+    // MARK: Getters and setters
     func getFontSizes() -> Array<Int> {
         return fontSizes
     }

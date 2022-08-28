@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 extension UIAlertController {
-    //Alert delet file and open New
+//    ALERT: Deleting current file and opening new one
     class func getAlertNewFile() -> UIAlertController {
         let alert = UIAlertController(title: "Delete current file?", message: "Are you sure you want to delete the current file and open new?", preferredStyle: .alert)
 
@@ -30,6 +30,7 @@ extension UIAlertController {
     }
 
 //    ALERT: Saving file name
+    
     typealias GetFileNameAlertCompletion = (_ alertController: UIAlertController, _ fileName: String) -> Void
     
     class func createGetFileNameAlert(completion: @escaping GetFileNameAlertCompletion) -> UIAlertController {
@@ -53,6 +54,8 @@ extension UIAlertController {
         return alert
     }
     
+//    ALERT: Renaming or replacing the file
+    
     class func createRenameOrOverwriteAlert(onRename: @escaping () -> Void,
                                             onReplace: @escaping () -> Void) -> UIAlertController {
        
@@ -64,6 +67,8 @@ extension UIAlertController {
         return alert
     }
     
+//    ALERT: Maximum size error
+    
     class func createFileMaxSizeErrorAlert() -> UIAlertController {
         let alert = UIAlertController(title: "Max Size Error", message: "The file exceeded maximum size", preferredStyle: .alert)
         let confirmAction = UIAlertAction(title: "Ok", style: .cancel)
@@ -72,6 +77,9 @@ extension UIAlertController {
         
         return alert
     }
+    
+    //    ALERT: File extension error
+        
     
     class func createFileExtansionErrorAlert() -> UIAlertController {
         let alert = UIAlertController(title: "Type Error", message: "Unsupported file type", preferredStyle: .alert)
