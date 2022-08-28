@@ -26,7 +26,6 @@
 		BE9F18E028AD33860030DD42 /* DocumentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9F18DF28AD33860030DD42 /* DocumentController.swift */; };
 		BE9F18E328AD36AB0030DD42 /* DocumentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9F18E228AD36AB0030DD42 /* DocumentCell.swift */; };
 		BE9F18E628AD62BA0030DD42 /* MenuOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9F18E528AD62BA0030DD42 /* MenuOptions.swift */; };
-		BE9F18E828AD63AD0030DD42 /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9F18E728AD63AD0030DD42 /* MenuController.swift */; };
 		BECA334428A7CDFF00011F92 /* TextViewer+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = BECA334328A7CDFF00011F92 /* TextViewer+Ext.swift */; };
 		BECA334628A7D5E000011F92 /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BECA334528A7D5E000011F92 /* LaunchView.swift */; };
 		BECA334828A7DE9400011F92 /* UINavigationController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = BECA334728A7DE9400011F92 /* UINavigationController+Ext.swift */; };
@@ -62,7 +61,6 @@
 		BE9F18DF28AD33860030DD42 /* DocumentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentController.swift; sourceTree = "<group>"; };
 		BE9F18E228AD36AB0030DD42 /* DocumentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentCell.swift; sourceTree = "<group>"; };
 		BE9F18E528AD62BA0030DD42 /* MenuOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuOptions.swift; sourceTree = "<group>"; };
-		BE9F18E728AD63AD0030DD42 /* MenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
 		BECA334328A7CDFF00011F92 /* TextViewer+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextViewer+Ext.swift"; sourceTree = "<group>"; };
 		BECA334528A7D5E000011F92 /* LaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
 		BECA334728A7DE9400011F92 /* UINavigationController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Ext.swift"; sourceTree = "<group>"; };
@@ -110,7 +108,6 @@
 			isa = PBXGroup;
 			children = (
 				9A01113428A7D9E500D82488 /* MenuViewer.swift */,
-				BE9F18E728AD63AD0030DD42 /* MenuController.swift */,
 				BE9F18E528AD62BA0030DD42 /* MenuOptions.swift */,
 			);
 			path = ContentMenu;
@@ -289,7 +286,6 @@
 				BEEB1F5228A571440072DFA5 /* NotePadToolBar.swift in Sources */,
 				BEEB1F4C28A417FB0072DFA5 /* TextViewer.swift in Sources */,
 				BE8F56C728B2743D00882DAD /* PrintController.swift in Sources */,
-				BE9F18E828AD63AD0030DD42 /* MenuController.swift in Sources */,
 				9A01113528A7D9E500D82488 /* MenuViewer.swift in Sources */,
 				BE68E1CC289F88A20054150C /* AppDelegate.swift in Sources */,
 				BE9F18E028AD33860030DD42 /* DocumentController.swift in Sources */,
