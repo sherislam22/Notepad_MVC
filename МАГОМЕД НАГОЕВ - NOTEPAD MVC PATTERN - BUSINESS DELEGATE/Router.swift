@@ -54,19 +54,12 @@ class Router: NSObject, RouterProtocol {
     func showContentMenu(over barButtonItem: UIBarButtonItem, delegate: MenuViewControllerDelegate) {
 
         let menuViewer = MenuViewer()
-//<<<<<<< HEAD
         menuViewer.setDelegate(delegate)
-////        menuViewer.delegate = delegate
-//        navigationController.pushViewController(menuViewer,
-//=======
-//        menuViewer.delegate = delegate
         menuViewer.modalPresentationStyle = .popover
         let popoverPresentationController = menuViewer.popoverPresentationController
         popoverPresentationController?.barButtonItem = barButtonItem
         popoverPresentationController?.delegate = self
-        navigationController.present(menuViewer,
-//>>>>>>> origin/dev
-                                                animated: true)
+        navigationController.present(menuViewer, animated: true)
     }
     
     func pushInformationViewController() {

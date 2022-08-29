@@ -8,6 +8,8 @@
 import UIKit
 
 class SearchAndReplaceButtonsView: UIView {
+    
+//    MARK: Properties
     private let horizontalStackView: UIStackView
     let backButton: UIButton
     let nextButton: UIButton
@@ -23,6 +25,7 @@ class SearchAndReplaceButtonsView: UIView {
         }
     }
     
+//    MARK: Initializers
     override init(frame: CGRect) {
         horizontalStackView = UIStackView()
         backButton = UIButton(type: .system)
@@ -49,12 +52,11 @@ class SearchAndReplaceButtonsView: UIView {
         
         backButton.setImage(UIImage(systemName: "chevron.backward.circle"), for: .normal)
         nextButton.setImage(UIImage(systemName: "chevron.forward.circle"), for: .normal)
-        replaceButton.setTitle("Заменить", for: .normal)
-        replaceAllButton.setTitle("Заменить все", for: .normal)
+        replaceButton.setTitle("Replace", for: .normal)
+        replaceAllButton.setTitle("Replace all", for: .normal)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
 }

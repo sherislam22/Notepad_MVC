@@ -1,12 +1,16 @@
 import Foundation
 
 class CharacterReader {
+    
+    // MARK: Properties
     let fileUrl: URL
     
+    // MARK: Initializer
     init(fileUrl: URL) {
         self.fileUrl = fileUrl
     }
     
+    // MARK: public methods
     func read() throws -> String? {
         do {
             let handle = try FileHandle(forReadingFrom: fileUrl)
