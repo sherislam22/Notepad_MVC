@@ -16,9 +16,9 @@ extension TextViewer {
     }
     func setupSearchAndReplaceView() {
         stackView.insertArrangedSubview(searchAndReplaceView, at: 0)
-        searchAndReplaceView.searchTextField.delegate = self
-        searchAndReplaceView.replaceTextField.delegate = self
-        searchAndReplaceView.doneButton.addTarget(self, action: #selector(closeSearchView), for: .touchUpInside)
+        searchAndReplaceView.setSearchTextFieldDelegate(self)
+        searchAndReplaceView.setReplaceTextFieldDelegate(self)
+        searchAndReplaceView.setTargetToDoneButton(self, #selector(closeSearchView), .touchUpInside)
     }
     
     func setupSearchAndReplaceButtonView() {
@@ -74,21 +74,21 @@ extension TextViewer {
     @objc func replaceSearchText() {
         guard !ranges.isEmpty else { return }
         textController?.replace(ranges: [ranges[selectedRangeIndex]],
-                                                       replaceString: searchAndReplaceView.replaceTextField.text ?? "")
-        textController?.search(searchAndReplaceView.searchTextField.text ?? "")
+                                                       replaceString: searchAndReplaceView.getTextReplaceTextField() ?? "")
+        textController?.search(searchAndReplaceView.getTextSearchTextField() ?? "")
         textController?.careTakerSave()
     }
     @objc func replaceAllSearchText() {
-        textController?.replace(ranges: ranges, replaceString: searchAndReplaceView.replaceTextField.text ?? "")
-        textController?.search(searchAndReplaceView.searchTextField.text ?? "")
+        textController?.replace(ranges: ranges, replaceString: searchAndReplaceView.getTextReplaceTextField() ?? "")
+        textController?.search(searchAndReplaceView.getTextSearchTextField() ?? "")
         textController?.careTakerSave()
     }
 }
 extension TextViewer: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if (textField == searchAndReplaceView.searchTextField || textField == searchAndReplaceView.replaceTextField),
-            let text = searchAndReplaceView.searchTextField.text
+        if (textField == searchAndReplaceView.getSearchTextField() || textField == searchAndReplaceView.getReplaceTextField()),
+           let text = searchAndReplaceView.getTextSearchTextField()
         {
             textController?.search(text)
             textField.resignFirstResponder()

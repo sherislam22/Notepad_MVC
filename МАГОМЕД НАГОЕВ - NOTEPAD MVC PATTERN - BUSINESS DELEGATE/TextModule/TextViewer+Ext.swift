@@ -2,6 +2,7 @@ import UIKit
 
 extension TextViewer: NotePadToolbarDelegate {
     
+    // MARK: Public methods from protocol
     func updateFont(font: UIFont) {
         updateTextViewFont(font: font)
         textController?.careTakerSave()
