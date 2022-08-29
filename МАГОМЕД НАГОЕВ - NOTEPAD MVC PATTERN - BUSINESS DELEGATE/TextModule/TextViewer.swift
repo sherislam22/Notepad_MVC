@@ -97,6 +97,7 @@ class TextViewer: UIViewController {
         notePadToolBar.setNotePadToolbarDelegate(self)
         textView.delegate = self
         textView.font = notePadToolBar.getFont()
+        notePadToolBar.setSelectedRow()
     }
     
     private func setupImageView() {

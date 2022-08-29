@@ -105,9 +105,7 @@ class NotePadToolBar: UIToolbar {
     
     @objc func setFontSize() {
         let alert = UIAlertController(title: "Select size", message: "\n\n\n\n\n\n", preferredStyle: .alert)
-        let fontSizePickerView = fontData.getFontSizePicker()
-
-        alert.view.addSubview(fontSizePickerView)
+        alert.view.addSubview(fontData.getFontSizePicker())
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
 
@@ -155,6 +153,10 @@ class NotePadToolBar: UIToolbar {
     @objc func tappedReplaceButton() {
         notePadToolbarDelegate?.didTapReplaceButtonInNotePadToolBar(self)
     }
+    
+    func setSelectedRow() {
+        fontData.setSelectedRow()
+    }
 }
 
 protocol NotePadToolbarDelegate: AnyObject {
@@ -200,7 +202,6 @@ extension NotePadToolBar: UIFontPickerViewControllerDelegate, UIPickerViewDelega
     
     
 //    ALERT WITH PICKER VIEW PROTOCOL STUBS
-    
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
