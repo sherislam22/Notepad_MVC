@@ -33,23 +33,30 @@ extension UIAlertController {
     
     typealias GetFileNameAlertCompletion = (_ alertController: UIAlertController, _ fileName: String) -> Void
     
-    class func createGetFileNameAlert(completion: @escaping GetFileNameAlertCompletion) -> UIAlertController {
+    class func createGetFileNameAlert(
+        textFieldDelegate: UITextFieldDelegate,
+        completion: @escaping GetFileNameAlertCompletion) -> UIAlertController
+    {
         let alert = UIAlertController(title: "Name the file", message: nil, preferredStyle: .alert)
 
-        let confirmAction = UIAlertAction(title: "Save", style: .default) { _ in
+        let saveAction = SaveAction(title: "Save", style: .default) { _ in
             if let txtField = alert.textFields?.first, let text = txtField.text {
                 completion(alert, text)
             }
         }
+        saveAction.isEnabled = false
 
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { _ in }
 
-        alert.addTextField { (textField) in
+        alert.addTextField { textField in
             textField.placeholder = "File name"
+            textField.delegate = textFieldDelegate
+            textField.addTarget(saveAction,
+                                action: #selector(SaveAction.didUpdateTextFieldEditing),
+                                for: .editingChanged)
         }
-        alert.addAction(confirmAction)
+        alert.addAction(saveAction)
         alert.addAction(cancelAction)
-
         
         return alert
     }
@@ -117,5 +124,12 @@ extension UIAlertController {
         alert.addAction(confirmAction)
         
         return alert
+    }
+}
+
+private class SaveAction: UIAlertAction {
+    
+    @objc func didUpdateTextFieldEditing(_ textField: UITextField) {
+        self.isEnabled = !(textField.text ?? "").isEmpty
     }
 }
