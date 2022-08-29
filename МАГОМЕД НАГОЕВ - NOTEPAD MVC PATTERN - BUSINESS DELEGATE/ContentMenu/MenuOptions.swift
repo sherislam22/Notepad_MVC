@@ -15,6 +15,7 @@ enum MenuOptions: String, CaseIterable {
     case saveAs = "save as"
     case print = "print"
     case info = "info"
+    case exit = "exit"
     
     //images of each options
     var imageName: String {
@@ -31,6 +32,8 @@ enum MenuOptions: String, CaseIterable {
             return "printer"
         case .info:
             return "info.circle"
+        case .exit:
+            return "power"
         }
     }
 }
