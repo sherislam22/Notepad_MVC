@@ -38,6 +38,10 @@ final class CareTaker {
         return self.states
     }
     
+    func removeStates() {
+        states.removeAll()
+    }
+    
     func save() {
         if states.count >= 5 {
             states.removeFirst() }

@@ -13,12 +13,10 @@ class TextController {
     
     // MARK: Properties
     private var fileUrl: URL?
-    
-    let textViewer: TextViewer
+    private let textViewer: TextViewer
     private let fileManager: FileManagerModel
     private let router: RouterProtocol
     private let careTaker: CareTaker
-//    private let text: String
     
     //MARK: - Initializer
     init(textViewer: TextViewer,
@@ -33,7 +31,7 @@ class TextController {
         openDocument()
     }
 
-    // MARK: public methods
+    // MARK: Public methods
     
     func undoDidTap() {
         careTaker.undo()
@@ -50,7 +48,7 @@ class TextController {
     @objc func showMenu(barButtonItem: UIBarButtonItem) {
         router.showContentMenu(over: barButtonItem, delegate: self)
     }
-    
+
     func save() {
         if let fileUrl = fileUrl {
             fileManager.save(fileUrl: fileUrl, content: self.textViewer.getText())
@@ -88,28 +86,14 @@ class TextController {
     func exitFromApp(){
         exit(0)
     }
+    
+    func getViewer() -> TextViewer {
+         return textViewer
+    }
    
     func openAnotherDocument() {
         router.pushDocumentViewer()
     }
-    
-    // MARK: private methods
-    private func openDocument() {
-        textViewer.navigationController?.pushViewController(DocumentViewer(), animated: true)
-        var states = careTaker.getStates()
-        states.removeAll()
-        if let fileUrl = fileUrl {
-            let text = fileManager.openFile(fileUrl)
-//            let text = fileManager.readFileByCharacter(fileUrl)  // для чтение по символам закоментируйте верхнюю линию и расскоментируйте данную
-            textViewer.updateTextView(text: text)
-            textViewer.updateTitle(fileTitle: fileUrl.lastPathComponent)
-        } else {
-            textViewer.updateTitle(fileTitle: "Untitled")
-        }
-    }
-}
-
-extension TextController: MenuViewControllerDelegate {
     
     func printText() {
         let alert = UIAlertController.callStandartAlert(title: "Warning.",
@@ -120,6 +104,25 @@ extension TextController: MenuViewControllerDelegate {
             router.pushPrintViewer(text: textViewer.getText(), font: textViewer.getFont())
         }
     }
+    
+    // MARK: Private methods
+    private func openDocument() {
+        textViewer.navigationController?.pushViewController(DocumentViewer(), animated: true)
+        careTaker.removeStates()
+        if let fileUrl = fileUrl {
+            let text = fileManager.openFile(fileUrl)
+//             Для чтение по символам закоментируйте верхнюю линию и расскоментируйте нижнюю
+//            let text = fileManager.readFileByCharacter(fileUrl)
+            textViewer.updateTextView(text: text)
+            textViewer.updateTitle(fileTitle: fileUrl.lastPathComponent)
+        } else {
+            textViewer.updateTitle(fileTitle: "Untitled")
+        }
+    }
+}
+
+//MARK: - MenuViewControllerDelegate
+extension TextController: MenuViewControllerDelegate {
     
     func menuViewController(didPressMenu menu: MenuOptions) {
         switch menu {

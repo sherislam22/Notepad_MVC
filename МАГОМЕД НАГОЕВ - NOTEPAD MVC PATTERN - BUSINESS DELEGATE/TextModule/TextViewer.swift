@@ -10,10 +10,11 @@ import UIKit
 class TextViewer: UIViewController {
     
     //MARK: - Properties
-    var textController: TextController?
+    private(set) var textController: TextController?
     
     private var urlFile: URL
     private var filename: String?
+    var isDate: Bool
     
     let textView: UITextView
     private let notePadToolBar: NotePadToolBar
@@ -56,7 +57,6 @@ class TextViewer: UIViewController {
         }
     }
     //MARK: - Initialize
-    
     init() {
         notepadView = UIImageView(image: UIImage(named: "notepad"))
         stackView = UIStackView()
@@ -67,6 +67,7 @@ class TextViewer: UIViewController {
         urlFile = URL(fileURLWithPath: "")
         ranges = []
         selectedRangeIndex = 0
+        isDate = false
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -77,12 +78,13 @@ class TextViewer: UIViewController {
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        textView.delegate = self
-        textView.font = notePadToolBar.getFont()
-//        setupImageView()
-//        setupTextView()
         view.backgroundColor = .white
-        
+        setupViews()
+        mode = .default
+    }
+    
+    //MARK: - SetupMethods
+    private func setupViews() {
         setupImageView()
         setupStackView()
         setupTextView()
@@ -91,80 +93,12 @@ class TextViewer: UIViewController {
         setupDismissKeyboardGesture()
         setupKeyboardFrame()
         setupNavigationItem()
-        notePadToolBar.setNotePadToolbarDelegate(self)
-        
         setupZoom()
-
-        ranges = []
-
-        mode = .default
+        notePadToolBar.setNotePadToolbarDelegate(self)
+        textView.delegate = self
+        textView.font = notePadToolBar.getFont()
     }
     
-    
-    
-    func dataAndTime() {
-        let date = Date()
-        let calendar = Calendar.current
-        let year = calendar.component(.year, from: date)
-        let month = calendar.component(.month, from: date)
-        let data = calendar.component(.day, from: date)
-        let hour = calendar.component(.hour, from: date)
-        let minute = calendar.component(.minute, from: date)
-        updateDataAndTime(text:" \n    \n    \(year)/\(month)/\(data) - \(hour):\(minute)")
-    }
-    
-    func updateTextViewFont(font: UIFont) {
-        textView.font = font
-    }
-    
-    func selectWholeText() {
-        textView.selectAll(self)
-    }
-    
-    func cutSelectedText(text: String) {
-        textView.cut(text)
-    }
-    
-    func pasteCopiedText(text: String) {
-        textView.paste(text)
-    }
-    
-    //MARK: - Methods
-    
-    func setTextController(_ textController: TextController) {
-        self.textController = textController
-    }
-    
-    func setZoom() {
-        textView.minimumZoomScale = 0.5
-        textView.maximumZoomScale = 2.0
-    }
-    
-    @objc func startSearch() {
-        searchAndReplaceView.isReplacingEnabled = false
-        searchAndReplaceButtonView.isReplacingEnabled = false
-        mode = .searchAndReplace
-        UIView.animate(withDuration: 0.25) {
-            self.view.layoutIfNeeded()
-        }
-    }
-    @objc func startSearchAndReplace() {
-        searchAndReplaceView.isReplacingEnabled = true
-        searchAndReplaceButtonView.isReplacingEnabled = true
-        mode = .searchAndReplace
-        UIView.animate(withDuration: 0.25) {
-            self.view.layoutIfNeeded()
-        }
-    }
-    
-    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
-        if let range = textView.selectedTextRange {
-            notePadToolBar.selectedText = textView.text(in: range) ?? ""
-        }
-        return super.canPerformAction(action, withSender: sender)
-    }
-    
-    //MARK: - SetupMethods
     private func setupImageView() {
         let safeArea = view.safeAreaLayoutGuide
         
@@ -251,23 +185,82 @@ class TextViewer: UIViewController {
         textView.maximumZoomScale = 2.0
     }
     
-    
     //MARK: - Methods
+    func dataAndTime() {
+        let date = Date()
+        let calendar = Calendar.current
+        let year = calendar.component(.year, from: date)
+        let month = calendar.component(.month, from: date)
+        let data = calendar.component(.day, from: date)
+        let hour = calendar.component(.hour, from: date)
+        let minute = calendar.component(.minute, from: date)
+        updateDataAndTime(text:" \n    \n    \(year)/\(month)/\(data) - \(hour):\(minute)")
+    }
     
+    func updateTextViewFont(font: UIFont) {
+        textView.font = font
+    }
+    
+    func selectWholeText() {
+        textView.selectAll(self)
+    }
+    
+    func cutSelectedText(text: String) {
+        textView.cut(text)
+        textController?.careTakerSave()
+    }
+    
+    func pasteCopiedText(text: String) {
+        textView.paste(text)
+        textController?.careTakerSave()
+    }
+    
+    func setTextController(_ textController: TextController) {
+        self.textController = textController
+    }
+    
+    func setZoom() {
+        textView.minimumZoomScale = 0.5
+        textView.maximumZoomScale = 2.0
+    }
+    
+    @objc func startSearch() {
+        searchAndReplaceView.isReplacingEnabled = false
+        searchAndReplaceButtonView.isReplacingEnabled = false
+        mode = .searchAndReplace
+        UIView.animate(withDuration: 0.25) {
+            self.view.layoutIfNeeded()
+        }
+    }
+    @objc func startSearchAndReplace() {
+        searchAndReplaceView.isReplacingEnabled = true
+        searchAndReplaceButtonView.isReplacingEnabled = true
+        mode = .searchAndReplace
+        UIView.animate(withDuration: 0.25) {
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        if let range = textView.selectedTextRange {
+            notePadToolBar.selectedText = textView.text(in: range) ?? ""
+        }
+        return super.canPerformAction(action, withSender: sender)
+    }
     
     public func updateTextView(text: String) {
         textView.text = text
     }
-    
-    var isData = false
+
     public func updateDataAndTime(text: String) {
-        if !isData {
+        if !isDate {
             textView.text += text
-            isData = true
+            isDate = true
         } else {
             textView.text.removeLast(text.count)
-            isData = false
+            isDate = false
         }
+        textController?.careTakerSave()
     }
     
     public func getText() -> String {
@@ -325,9 +318,7 @@ class TextViewer: UIViewController {
 }
 
 extension TextViewer {
-    
     // MARK: - Keyboard
-    
     @objc private func keyboardWillChangeFrame(sender: Notification) {
         guard let userInfo = sender.userInfo,
               let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
@@ -344,32 +335,3 @@ extension TextViewer {
         textController?.redoDidTap()
     }
 }
-//MARK: - Add undo and redo command
-extension TextViewer: TextWriterProtocol {
-    func saveState() -> TextMemento {
-        TextMemento(text: textView.text,
-                    textFont: textView.font ?? UIFont())
-    }
-    
-    func restore(state: TextMemento) {
-        updateTextView(text: state.text)
-    }
-}
-
-extension TextViewer: UITextViewDelegate {
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        if text == " " {
-            textController?.careTakerSave()
-        }
-        return true
-    }
-    
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        mode = .default
-    }
-    
-    func textViewDidEndEditing(_ textView: UITextView) {
-        textController?.careTakerSave()
-    }
-}
-
