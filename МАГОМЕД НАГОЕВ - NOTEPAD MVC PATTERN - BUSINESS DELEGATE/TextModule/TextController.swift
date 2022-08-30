@@ -121,10 +121,10 @@ class TextController {
     }
 }
 
-//MARK: - MenuViewControllerDelegate
-extension TextController: MenuViewControllerDelegate {
+//MARK: - MenuControllerDelegate
+extension TextController: MenuControllerDelegate {
     
-    func menuViewController(didPressMenu menu: MenuOptions) {
+    func menuController(_ menuController: MenuController, didPressMenu menu: MenuOptions) {
         switch menu {
         case .new:
             router.initialViewController(fileUrl: nil)

@@ -10,7 +10,7 @@ import UIKit
 
 protocol RouterProtocol {
     func initialViewController(fileUrl: URL?)
-    func showContentMenu(over barButtonItem: UIBarButtonItem, delegate: MenuViewControllerDelegate)
+    func showContentMenu(over barButtonItem: UIBarButtonItem, delegate: MenuControllerDelegate)
     func pushInformationViewController()
     func pushDocumentViewer()
     func pushPrintViewer(text: String, font: UIFont)
@@ -46,15 +46,15 @@ class Router: NSObject, RouterProtocol {
         let documentController = DocumentController(documentViewer: documentViewer,
                                                     router: self)
         documentViewer.setDocumentController(documentController)
-//        documentViewer.documentController = documentController
         
         navigationController.pushViewController(documentViewer, animated: true)
     }
     
-    func showContentMenu(over barButtonItem: UIBarButtonItem, delegate: MenuViewControllerDelegate) {
-
-        let menuViewer = MenuViewer()
-        menuViewer.setDelegate(delegate)
+    func showContentMenu(over barButtonItem: UIBarButtonItem, delegate: MenuControllerDelegate) {
+        
+        let menuController = MenuController()
+        menuController.delegate = delegate
+        let menuViewer = MenuViewer(menuController: menuController)
         menuViewer.modalPresentationStyle = .popover
         let popoverPresentationController = menuViewer.popoverPresentationController
         popoverPresentationController?.barButtonItem = barButtonItem
