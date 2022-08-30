@@ -244,7 +244,7 @@ class TextViewer: UIViewController {
     
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
         if let range = textView.selectedTextRange {
-            notePadToolBar.selectedText = textView.text(in: range) ?? ""
+            notePadToolBar.setSelectedText(textView.text(in: range) ?? "")
         }
         return super.canPerformAction(action, withSender: sender)
     }
