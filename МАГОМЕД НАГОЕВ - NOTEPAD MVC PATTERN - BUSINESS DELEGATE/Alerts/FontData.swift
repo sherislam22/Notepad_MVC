@@ -7,11 +7,13 @@ class FontData: NSObject {
     private var fontValue: UIFont
     private let fontPicker: UIFontPickerViewController
     private let fontSizePicker: UIPickerView
+    private let defaultSize: Int
     
     // MARK: Initializer
     override init() {
         fontSizes = Array(10...47)
-        fontValue = UIFont(name: "Arial", size: 10)!
+        defaultSize = 14
+        fontValue = UIFont(name: "Arial", size: CGFloat(defaultSize))!
         
         let config = UIFontPickerViewController.Configuration()
         config.includeFaces = true
@@ -55,5 +57,10 @@ class FontData: NSObject {
     
     func getFontSizePicker() -> UIPickerView {
         return fontSizePicker
+    }
+    
+    func setSelectedRow() {
+        guard let index = fontSizes.firstIndex(of: defaultSize) else {return}
+        fontSizePicker.selectRow(index, inComponent: 0, animated: false)
     }
 }

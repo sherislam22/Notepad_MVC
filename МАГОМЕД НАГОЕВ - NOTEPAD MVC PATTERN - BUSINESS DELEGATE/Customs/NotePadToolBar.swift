@@ -12,7 +12,7 @@ class NotePadToolBar: UIToolbar {
     private let flexibleSpace: UIBarButtonItem
     private var tempToolBarItems: [UIBarButtonItem]
     private var goToRight: Bool
-    var selectedText: String
+    private var selectedText: String
     private var pasteboard: UIPasteboard
     private var fontData: FontData
     weak var notePadToolbarDelegate: NotePadToolbarDelegate?
@@ -49,6 +49,7 @@ class NotePadToolBar: UIToolbar {
         fontData.setFontSizeDelegate(delegate: self)
     }
     
+//    MARK: Getters and setters
     func getFont() -> UIFont {
         return fontData.getFontValue()
     }
@@ -57,10 +58,15 @@ class NotePadToolBar: UIToolbar {
         self.notePadToolbarDelegate = delegate
     }
     
-    func setSelectedText(_ delegate: NotePadToolbarDelegate) {
-        self.notePadToolbarDelegate = delegate
+    func setSelectedText(_ text: String?) {
+        selectedText = text!
     }
     
+    func setSelectedRow() {
+        fontData.setSelectedRow()
+    }
+    
+//    MARK: public methods
     func changeStateOfToolbar() {
         tempToolBarItems.removeAll()
         
@@ -105,9 +111,7 @@ class NotePadToolBar: UIToolbar {
     
     @objc func setFontSize() {
         let alert = UIAlertController(title: "Select size", message: "\n\n\n\n\n\n", preferredStyle: .alert)
-        let fontSizePickerView = fontData.getFontSizePicker()
-
-        alert.view.addSubview(fontSizePickerView)
+        alert.view.addSubview(fontData.getFontSizePicker())
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
 
@@ -200,7 +204,6 @@ extension NotePadToolBar: UIFontPickerViewControllerDelegate, UIPickerViewDelega
     
     
 //    ALERT WITH PICKER VIEW PROTOCOL STUBS
-    
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
