@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 
-class TextController {
+class TextController: NSObject {
     
     // MARK: Properties
     private var fileUrl: URL?
@@ -28,6 +28,8 @@ class TextController {
         self.fileUrl = fileUrl
         careTaker = CareTaker(textWriter: textViewer)
         careTaker.save()
+        
+        super.init()
         openDocument()
     }
 
@@ -57,30 +59,33 @@ class TextController {
         }
     }
     
-   func saveAs() {
-       let alert = UIAlertController.createGetFileNameAlert(completion: { alertController, fileName in
-           let fileUrl = self.fileManager.generateFileUrl(fileName: fileName)
-           
-           let performReplace = {
-               self.fileManager.save(fileUrl: fileUrl, content: self.textViewer.getText())
-               self.fileUrl = fileUrl
-               self.textViewer.updateTitle(fileTitle: fileUrl.lastPathComponent)
-           }
-           
-           if self.fileManager.fileExists(fileUrl) {
-               let renameReplaceAlert = UIAlertController.createRenameOrOverwriteAlert(
-                onRename: {
-                    self.textViewer.present(alertController, animated: true)
-                },
-                onReplace: {
+    func saveAs() {
+        let alert = UIAlertController.createGetFileNameAlert(
+            textFieldDelegate: self,
+            completion: { alertController, fileName in
+                let fileUrl = self.fileManager.generateFileUrl(fileName: fileName)
+                
+                let performReplace = {
+                    self.fileManager.save(fileUrl: fileUrl, content: self.textViewer.getText())
+                    self.fileUrl = fileUrl
+                    self.textViewer.updateTitle(fileTitle: fileUrl.lastPathComponent)
+                }
+                
+                if self.fileManager.fileExists(fileUrl) {
+                    let renameReplaceAlert = UIAlertController.createRenameOrOverwriteAlert(
+                        onRename: {
+                            self.textViewer.present(alertController, animated: true)
+                        },
+                        onReplace: {
+                            performReplace()
+                        })
+                    self.textViewer.present(renameReplaceAlert, animated: true)
+                } else {
                     performReplace()
-                })
-               self.textViewer.present(renameReplaceAlert, animated: true)
-           } else {
-               performReplace()
-           }
-       })
-       textViewer.present(alert, animated: true)
+                }
+            })
+        
+        textViewer.present(alert, animated: true)
     }
     
     func exitFromApp(){
@@ -121,10 +126,10 @@ class TextController {
     }
 }
 
-//MARK: - MenuViewControllerDelegate
-extension TextController: MenuViewControllerDelegate {
+//MARK: - MenuControllerDelegate
+extension TextController: MenuControllerDelegate {
     
-    func menuViewController(didPressMenu menu: MenuOptions) {
+    func menuController(_ menuController: MenuController, didPressMenu menu: MenuOptions) {
         switch menu {
         case .new:
             router.initialViewController(fileUrl: nil)
@@ -141,5 +146,23 @@ extension TextController: MenuViewControllerDelegate {
         case .exit:
             exitFromApp()
         }
+    }
+}
+
+extension TextController: UITextFieldDelegate {
+    
+    func textField(_ textField: UITextField,
+                   shouldChangeCharactersIn range: NSRange,
+                   replacementString string: String) -> Bool {
+        var result = true
+        
+        for charScalar in string.unicodeScalars {
+            if !CharacterSet.fileNameCharacterSet.contains(charScalar) {
+                result = false
+                break
+            }
+        }
+        
+        return result
     }
 }

@@ -37,6 +37,9 @@
 		F80070BC28AE71F100FCF512 /* TextController+SearchAndReplace.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80070BB28AE71F100FCF512 /* TextController+SearchAndReplace.swift */; };
 		F80070BE28AFDD5200FCF512 /* TextViewer+SearchAndReplaceExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80070BD28AFDD5200FCF512 /* TextViewer+SearchAndReplaceExt.swift */; };
 		F855213028B5F4610060BC35 /* UIAlertController+CustomAlerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = F855212F28B5F4610060BC35 /* UIAlertController+CustomAlerts.swift */; };
+		F855215828BD10130060BC35 /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F855215728BD10130060BC35 /* MenuController.swift */; };
+		F855215A28BD17F60060BC35 /* MenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F855215928BD17F60060BC35 /* MenuTableViewCell.swift */; };
+		F855215E28BD43920060BC35 /* CharacterSet+EngSymbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = F855215D28BD43920060BC35 /* CharacterSet+EngSymbols.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -72,6 +75,9 @@
 		F80070BB28AE71F100FCF512 /* TextController+SearchAndReplace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextController+SearchAndReplace.swift"; sourceTree = "<group>"; };
 		F80070BD28AFDD5200FCF512 /* TextViewer+SearchAndReplaceExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextViewer+SearchAndReplaceExt.swift"; sourceTree = "<group>"; };
 		F855212F28B5F4610060BC35 /* UIAlertController+CustomAlerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+CustomAlerts.swift"; sourceTree = "<group>"; };
+		F855215728BD10130060BC35 /* MenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
+		F855215928BD17F60060BC35 /* MenuTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTableViewCell.swift; sourceTree = "<group>"; };
+		F855215D28BD43920060BC35 /* CharacterSet+EngSymbols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CharacterSet+EngSymbols.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +114,8 @@
 			isa = PBXGroup;
 			children = (
 				9A01113428A7D9E500D82488 /* MenuViewer.swift */,
+				F855215928BD17F60060BC35 /* MenuTableViewCell.swift */,
+				F855215728BD10130060BC35 /* MenuController.swift */,
 				BE9F18E528AD62BA0030DD42 /* MenuOptions.swift */,
 			);
 			path = ContentMenu;
@@ -119,6 +127,7 @@
 				F80070B828AE531100FCF512 /* SearchAndReplaceButtonsView.swift */,
 				F80070B728AE531100FCF512 /* SearchAndReplaceView.swift */,
 				BEEB1F5128A571440072DFA5 /* NotePadToolBar.swift */,
+				F855215D28BD43920060BC35 /* CharacterSet+EngSymbols.swift */,
 			);
 			path = Customs;
 			sourceTree = "<group>";
@@ -290,6 +299,7 @@
 				BE68E1CC289F88A20054150C /* AppDelegate.swift in Sources */,
 				BE9F18E028AD33860030DD42 /* DocumentController.swift in Sources */,
 				BE9F18D828AC1B540030DD42 /* Memento.swift in Sources */,
+				F855215828BD10130060BC35 /* MenuController.swift in Sources */,
 				F80070B928AE531100FCF512 /* SearchAndReplaceView.swift in Sources */,
 				6A00550728A28902009C7393 /* LineReader.swift in Sources */,
 				197AAF6228AE42710066CAD3 /* FontData.swift in Sources */,
@@ -298,6 +308,7 @@
 				BECA334828A7DE9400011F92 /* UINavigationController+Ext.swift in Sources */,
 				6A3A8BFA28A274610051A1E9 /* Filemanager.swift in Sources */,
 				F855213028B5F4610060BC35 /* UIAlertController+CustomAlerts.swift in Sources */,
+				F855215A28BD17F60060BC35 /* MenuTableViewCell.swift in Sources */,
 				199E8E5D28B7A273003E00D6 /* CharacterReader.swift in Sources */,
 				BE9F18E328AD36AB0030DD42 /* DocumentCell.swift in Sources */,
 				F80070BA28AE531100FCF512 /* SearchAndReplaceButtonsView.swift in Sources */,
@@ -309,6 +320,7 @@
 				BE9F18E628AD62BA0030DD42 /* MenuOptions.swift in Sources */,
 				6A37959728BB4DF600104464 /* UserModel.swift in Sources */,
 				BE8F56C928B2745200882DAD /* PrintModel.swift in Sources */,
+				F855215E28BD43920060BC35 /* CharacterSet+EngSymbols.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
