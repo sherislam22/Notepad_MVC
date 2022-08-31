@@ -8,11 +8,12 @@
 import UIKit
 
 class DocumentViewer: UIViewController {
-    
+    //MARK: - Properties
     private var collectionView: UICollectionView!
     private let cellId: String
     private var documentController: DocumentController?
     
+    //MARK: - Initialize
     init() {
         cellId = "DocumentCollectionViewCell"
         super.init(nibName: nil, bundle: nil)
@@ -22,6 +23,7 @@ class DocumentViewer: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: - Methods
     override func viewDidLoad() {
         super.viewDidLoad()
 
