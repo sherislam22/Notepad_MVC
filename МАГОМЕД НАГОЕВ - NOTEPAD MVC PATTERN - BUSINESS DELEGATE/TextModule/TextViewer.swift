@@ -13,8 +13,7 @@ class TextViewer: UIViewController {
     private(set) var textController: TextController?
     
     private var urlFile: URL
-    private var filename: String?
-    var isDate: Bool
+    private var isDate: Bool
     
     let textView: UITextView
     private let notePadToolBar: NotePadToolBar
@@ -93,13 +92,8 @@ class TextViewer: UIViewController {
         setupDismissKeyboardGesture()
         setupKeyboardFrame()
         setupNavigationItem()
-        setupZoom()
-        notePadToolBar.setNotePadToolbarDelegate(self)
-        textView.delegate = self
-        textView.font = notePadToolBar.getFont()
-        notePadToolBar.setSelectedRow()
     }
-    
+    /// настройка картинки в верху экрана
     private func setupImageView() {
         let safeArea = view.safeAreaLayoutGuide
         
@@ -113,7 +107,7 @@ class TextViewer: UIViewController {
             notepadView.rightAnchor.constraint(equalTo: safeArea.rightAnchor, constant: 0)
         ])
     }
-    
+    /// настройка Стэк Вью в котором находится все элементы TextViewer
     private func setupStackView() {
         let safeArea = view.safeAreaLayoutGuide
         
@@ -135,7 +129,7 @@ class TextViewer: UIViewController {
         
         stackView.axis = .vertical
     }
-    
+    /// настройка TextView
     private func setupTextView() {
         textView.delegate = self
         
@@ -146,8 +140,13 @@ class TextViewer: UIViewController {
         
         notePadToolBar.translatesAutoresizingMaskIntoConstraints = false
         textView.inputAccessoryView = notePadToolBar
+        notePadToolBar.setNotePadToolbarDelegate(self)
+        textView.font = notePadToolBar.getFont()
+        notePadToolBar.setSelectedRow()
+        textView.minimumZoomScale = 0.5
+        textView.maximumZoomScale = 2.0
     }
-    
+    /// настройка жеста для скрытия клавиатуры
     private func setupDismissKeyboardGesture() {
         let dismissKeyboardTap = UITapGestureRecognizer(target: self, action: #selector(viewTapped(_: )))
         view.addGestureRecognizer(dismissKeyboardTap)
@@ -156,13 +155,13 @@ class TextViewer: UIViewController {
     @objc private func viewTapped(_ recognizer: UITapGestureRecognizer) {
         view.endEditing(true)
     }
-    
+    /// настойка слушателя фрэйма клавиатуры
     private func setupKeyboardFrame() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(keyboardWillChangeFrame),
                                                name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
     }
-    
+    ///настройка navigation item
     func setupNavigationItem() {
         let undo = UIBarButtonItem(image: UIImage(systemName: "arrow.uturn.backward.circle"),
                                    style: .plain,
@@ -181,36 +180,33 @@ class TextViewer: UIViewController {
                                                             action: #selector(menuButtonTapped))
     }
     
-    func setupZoom() {
-        textView.minimumZoomScale = 0.5
-        textView.maximumZoomScale = 2.0
-    }
-    
     //MARK: - Methods
-    func dataAndTime() {
+    /// добавляет время и дату в файле
+    func dateAndTime() {
         let date = Date()
         let calendar = Calendar.current
         let year = calendar.component(.year, from: date)
         let month = calendar.component(.month, from: date)
-        let data = calendar.component(.day, from: date)
+        let day = calendar.component(.day, from: date)
         let hour = calendar.component(.hour, from: date)
         let minute = calendar.component(.minute, from: date)
-        updateDataAndTime(text:" \n    \n    \(year)/\(month)/\(data) - \(hour):\(minute)")
+        updateDateAndTime(text:" \n    \n    \(year)/\(month)/\(day) - \(hour):\(minute)")
     }
     
+    /// обновляет шрифт
     func updateTextViewFont(font: UIFont) {
         textView.font = font
     }
-    
+    ///выбирает весь текст
     func selectWholeText() {
         textView.selectAll(self)
     }
-    
+    /// вырезает выбранный текст
     func cutSelectedText(text: String) {
         textView.cut(text)
         textController?.careTakerSave()
     }
-    
+    /// вставляет текст
     func pasteCopiedText(text: String) {
         textView.paste(text)
         textController?.careTakerSave()
@@ -220,28 +216,6 @@ class TextViewer: UIViewController {
         self.textController = textController
     }
     
-    func setZoom() {
-        textView.minimumZoomScale = 0.5
-        textView.maximumZoomScale = 2.0
-    }
-    
-    @objc func startSearch() {
-        searchAndReplaceView.isReplacingEnabled = false
-        searchAndReplaceButtonView.isReplacingEnabled = false
-        mode = .searchAndReplace
-        UIView.animate(withDuration: 0.25) {
-            self.view.layoutIfNeeded()
-        }
-    }
-    @objc func startSearchAndReplace() {
-        searchAndReplaceView.isReplacingEnabled = true
-        searchAndReplaceButtonView.isReplacingEnabled = true
-        mode = .searchAndReplace
-        UIView.animate(withDuration: 0.25) {
-            self.view.layoutIfNeeded()
-        }
-    }
-    
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
         if let range = textView.selectedTextRange {
             notePadToolBar.setSelectedText(textView.text(in: range) ?? "")
@@ -249,11 +223,12 @@ class TextViewer: UIViewController {
         return super.canPerformAction(action, withSender: sender)
     }
     
+    /// обновляет TextView
     public func updateTextView(text: String) {
         textView.text = text
     }
-
-    public func updateDataAndTime(text: String) {
+    /// обновляет время и дату
+    public func updateDateAndTime(text: String) {
         if !isDate {
             textView.text += text
             isDate = true
@@ -264,57 +239,24 @@ class TextViewer: UIViewController {
         textController?.careTakerSave()
     }
     
+    /// получает текст из textVIew
     public func getText() -> String {
         return textView.text
     }
-    
+    /// получает текущий шрифт
     public func getFont() -> UIFont {
         if let font = textView.font {
             return font
         }
         return UIFont()
     }
-    
+    /// обновляет тайтл в файле
     public func updateTitle(fileTitle: String) {
         title = fileTitle
     }
-    
+    /// при нажатии на кнопку меню открывает меню
     @objc func menuButtonTapped(_ sender: UIBarButtonItem) {
         textController?.showMenu(barButtonItem: sender)
-    }
-    
-    func didTapSaveButton(){
-        let alert = UIAlertController(title: "Name the file", message: nil, preferredStyle: .alert)
-        
-        let confirmAction = UIAlertAction(title: "Save", style: .default) { _ in
-            if let txtField = alert.textFields?.first, let text = txtField.text {
-                // operations
-                self.filename = text
-                self.textController?.saveAs()
-            }
-        }
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { _ in }
-        alert.view.addSubview(UIView())
-        alert.addTextField { (textField) in
-            textField.placeholder = "File name"
-        }
-        alert.addAction(confirmAction)
-        alert.addAction(cancelAction)
-        
-        present(alert, animated: true, completion: nil)
-    }
-    
-    func getFilename() -> String {
-        return self.filename ?? "Default"
-    }
-    
-    func setAttributedText(_ newAttributedText: NSAttributedString) {
-        textView.attributedText = newAttributedText
-        textView.font = UIFont(name: "Arial", size: 47)
-    }
-    
-    func performScrollRangeToVisible(_ range: NSRange) {
-        textView.scrollRangeToVisible(range)
     }
 }
 

@@ -28,8 +28,8 @@ extension TextViewer: NotePadToolbarDelegate {
         pasteCopiedText(text: text)
     }
     
-    func dataAndTimeDeligate() {
-        dataAndTime()
+    func dateAndTimeDeligate() {
+        dateAndTime()
     }
     
     func removeSelectedTextDalegate(text: String) {

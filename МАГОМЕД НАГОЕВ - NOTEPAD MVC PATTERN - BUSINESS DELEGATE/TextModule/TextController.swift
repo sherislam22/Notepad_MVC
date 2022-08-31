@@ -32,26 +32,57 @@ class TextController: NSObject {
         super.init()
         openDocument()
     }
-
-    // MARK: Public methods
     
+    // MARK: Public methods
+    /// отменяет последнее действие
     func undoDidTap() {
         careTaker.undo()
     }
     
+    /// возвращает последние изменения
     func redoDidTap() {
         careTaker.redo()
     }
     
+    /// сохраняет состояние
     func careTakerSave() {
         careTaker.save()
     }
     
-    @objc func showMenu(barButtonItem: UIBarButtonItem) {
+    /// показывет меню
+    ///  - barButtonItem: кнопка из которой появляется меню
+    func showMenu(barButtonItem: UIBarButtonItem) {
         router.showContentMenu(over: barButtonItem, delegate: self)
     }
-
-    func save() {
+    
+    /// возвращает TextViewer
+    func getViewer() -> TextViewer {
+        return textViewer
+    }
+    
+    /// открывает директорию со всеми документами приложения
+    func openAnotherDocument() {
+        router.pushDocumentViewer()
+    }
+    
+    // MARK: Private methods
+    /// открывает  файлы из папки приложения
+    private func openDocument() {
+        textViewer.navigationController?.pushViewController(DocumentViewer(), animated: true)
+        careTaker.removeStates()
+        if let fileUrl = fileUrl {
+            let text = fileManager.openFile(fileUrl)
+            // Для чтение по символам закоментируйте верхнюю линию и расскоментируйте нижнюю
+            // let text = fileManager.readFileByCharacter(fileUrl)
+            textViewer.updateTextView(text: text)
+            textViewer.updateTitle(fileTitle: fileUrl.lastPathComponent)
+        } else {
+            textViewer.updateTitle(fileTitle: "Untitled")
+        }
+    }
+    
+    /// сохраняет новые файлы
+    private func save() {
         if let fileUrl = fileUrl {
             fileManager.save(fileUrl: fileUrl, content: self.textViewer.getText())
         } else {
@@ -59,7 +90,8 @@ class TextController: NSObject {
         }
     }
     
-    func saveAs() {
+    /// пересохраняет файлы с новыми названиями и расширениями
+    private func saveAs() {
         let alert = UIAlertController.createGetFileNameAlert(
             textFieldDelegate: self,
             completion: { alertController, fileName in
@@ -87,20 +119,8 @@ class TextController: NSObject {
         
         textViewer.present(alert, animated: true)
     }
-    
-    func exitFromApp(){
-        exit(0)
-    }
-    
-    func getViewer() -> TextViewer {
-         return textViewer
-    }
-   
-    func openAnotherDocument() {
-        router.pushDocumentViewer()
-    }
-    
-    func printText() {
+    /// открывает окно распечатки
+    private func printText() {
         let alert = UIAlertController.callStandartAlert(title: "Warning.",
                                                         message: "You can't print empty page!")
         if textViewer.getText().isEmpty {
@@ -110,19 +130,9 @@ class TextController: NSObject {
         }
     }
     
-    // MARK: Private methods
-    private func openDocument() {
-        textViewer.navigationController?.pushViewController(DocumentViewer(), animated: true)
-        careTaker.removeStates()
-        if let fileUrl = fileUrl {
-            let text = fileManager.openFile(fileUrl)
-//             Для чтение по символам закоментируйте верхнюю линию и расскоментируйте нижнюю
-//            let text = fileManager.readFileByCharacter(fileUrl)
-            textViewer.updateTextView(text: text)
-            textViewer.updateTitle(fileTitle: fileUrl.lastPathComponent)
-        } else {
-            textViewer.updateTitle(fileTitle: "Untitled")
-        }
+    /// закрывает приложение
+    private func exitFromApp(){
+        exit(0)
     }
 }
 
@@ -151,6 +161,7 @@ extension TextController: MenuControllerDelegate {
 
 extension TextController: UITextFieldDelegate {
     
+    /// проверяет поле ввода названия файла на английский алфавит
     func textField(_ textField: UITextField,
                    shouldChangeCharactersIn range: NSRange,
                    replacementString string: String) -> Bool {
@@ -162,7 +173,6 @@ extension TextController: UITextFieldDelegate {
                 break
             }
         }
-        
         return result
     }
 }
