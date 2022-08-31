@@ -8,11 +8,13 @@
 import UIKit
 
 class DocumentController {
+    //MARK: - Properties
     private let documentViewer: DocumentViewer
     private let fileManager: FileManagerModel
     private var pathDictionary: [String: String]
     private let router: RouterProtocol
     
+    //MARK: - Initialize
     init(documentViewer: DocumentViewer,
          router: RouterProtocol) {
         self.documentViewer = documentViewer
@@ -21,6 +23,7 @@ class DocumentController {
         self.router = router
     }
     
+    //MARK: - Methods
     func getCountUrls() -> Int {
         return pathDictionary.count
     }
