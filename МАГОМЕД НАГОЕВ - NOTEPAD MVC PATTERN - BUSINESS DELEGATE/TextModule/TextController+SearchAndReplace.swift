@@ -8,6 +8,7 @@
 import UIKit
 
 extension TextController {
+    /// Ищет текст по запросу
     func search(_ string: String) {
         let allText = getViewer().getText() as NSString
         var searchRange = NSRange(location: 0, length: allText.length)
@@ -25,6 +26,8 @@ extension TextController {
         }
         getViewer().highlightRanges(result)
     }
+    
+    /// заменяет заданный текст
     func replace(ranges: [NSRange], replaceString: String) {
         let allText = getViewer().getText()
         var result = allText
