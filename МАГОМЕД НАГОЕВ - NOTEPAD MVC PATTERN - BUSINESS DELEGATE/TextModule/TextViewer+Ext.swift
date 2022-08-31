@@ -33,7 +33,7 @@ extension TextViewer: NotePadToolbarDelegate {
     }
     
     func removeSelectedTextDalegate(text: String) {
-        let updatedText = getText().replacingOccurrences(of: text, with: "")
+        let updatedText = (getText() as NSString).replacingCharacters(in: textView.selectedRange, with: "")
         updateTextView(text: updatedText)
     }
     
