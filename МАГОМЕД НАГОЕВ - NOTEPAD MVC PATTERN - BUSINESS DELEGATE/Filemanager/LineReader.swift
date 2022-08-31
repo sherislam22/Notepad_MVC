@@ -1,39 +1,40 @@
 import Foundation
+
 class LineReader {
-
+    
     private let path: String
-
-    init?(path: String) {
+    
+    init(path: String) {
         self.path = path
+    }
+    /// читает файл и возвращает строку
+    /// - Returns: возвращает содержимое файла в виде строки или nil
+    func read() -> String? {
+        // fopen открывает файл с правами чтения (r)
         guard let file = fopen(path, "r") else {
             return nil
         }
-        self.file = file
-    }
-    deinit {
-        fclose(file)
-    }
-
-    var nextLine: String? {
-        var line: UnsafeMutablePointer<CChar>?
-        var linecap = 0
+        // закрывает файл после выхода из функции
         defer {
-            free(line)
+            fclose(file)
         }
-        let status = getline(&line, &linecap, file)
-        guard status > 0, let unwrappedLine = line else {
-            return nil
+        // указатель на прочтенную строку
+        var buffer: UnsafeMutablePointer<CChar>?
+        // размер буфера
+        var bufferSize = 0
+        // результирующая строка, которая собирает в себя строки из файла
+        var lines = [String]()
+        
+        // читает в цикле построчно в буфер, когда getline вернет 0 выходим из цикла
+        while getline(&buffer, &bufferSize, file) > 0 {
+            if let buffer = buffer {
+                lines.append(String(cString: buffer))
+            }
+            // освобождает буфер и обнуляет переменные
+            free(buffer)
+            buffer = nil
+            bufferSize = 0
         }
-        return String(cString: unwrappedLine)
-    }
-
-    private let file: UnsafeMutablePointer<FILE>
-}
-
-extension LineReader: Sequence {
-    func makeIterator() -> AnyIterator<String> {
-        return AnyIterator<String> {
-            return self.nextLine
-        }
+        return lines.joined()
     }
 }
