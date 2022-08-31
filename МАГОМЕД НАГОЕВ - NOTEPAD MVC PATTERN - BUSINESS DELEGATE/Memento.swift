@@ -13,13 +13,21 @@ protocol TextWriterProtocol {
 }
 
 final class TextMemento {
-    private(set) var text: String
-    private(set) var textFont: UIFont
+    private let text: String
+    private let textFont: UIFont
     
     init(text: String,
          textFont: UIFont) {
         self.text = text
         self.textFont = textFont
+    }
+    
+    func getText() -> String {
+        return text
+    }
+    
+    func getFont() -> UIFont {
+        return textFont
     }
 }
 
@@ -32,10 +40,6 @@ final class CareTaker {
         states = []
         currentIndex = 0
         self.textWriter = textWriter
-    }
-    
-    func getStates() -> [TextMemento] {
-        return self.states
     }
     
     func removeStates() {
