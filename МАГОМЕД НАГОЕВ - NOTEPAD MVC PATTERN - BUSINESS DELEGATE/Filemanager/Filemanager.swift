@@ -5,15 +5,8 @@ class FileManagerModel {
     let filemanager = FileManager.default
     // открытие файла и чтение пути через LineReader
     func openFile(_ fileUrl: URL) -> String {
-        var textArray: [String] = [String]()
-        if let aStreamReader = LineReader(path: fileUrl.path) {
-            while let line = aStreamReader.nextLine{
-                textArray.append(line)
-            }
-        }
-        let text: String = textArray.map({$0}).joined(separator : "")
-        textArray.removeAll()
-        return text
+        let lineReader = LineReader(path: fileUrl.path)
+        return lineReader.read() ?? ""
     }
     // чтение пути через readFileByCharacter
     func readFileByCharacter(_ fileUrl: URL) -> String {
