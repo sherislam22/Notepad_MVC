@@ -68,8 +68,8 @@ extension TextViewer: TextWriterProtocol {
     }
     
     func restore(state: TextMemento) {
-        updateTextView(text: state.text)
-        updateTextViewFont(font: state.textFont)
+        updateTextView(text: state.getText())
+        updateTextViewFont(font: state.getFont())
     }
 }
 
