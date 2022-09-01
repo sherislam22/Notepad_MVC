@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 extension UIAlertController {
-    //Alert delet file and open New
+//    ALERT: Deleting current file and opening new one
     class func getAlertNewFile() -> UIAlertController {
         let alert = UIAlertController(title: "Delete current file?", message: "Are you sure you want to delete the current file and open new?", preferredStyle: .alert)
 
@@ -30,27 +30,51 @@ extension UIAlertController {
     }
 
 //    ALERT: Saving file name
-
-    class func getAlertNameTheFile(completion: @escaping (_ fileName: String) -> Void) -> UIAlertController {
+    
+    typealias GetFileNameAlertCompletion = (_ alertController: UIAlertController, _ fileName: String) -> Void
+    
+    class func createGetFileNameAlert(
+        textFieldDelegate: UITextFieldDelegate,
+        completion: @escaping GetFileNameAlertCompletion) -> UIAlertController
+    {
         let alert = UIAlertController(title: "Name the file", message: nil, preferredStyle: .alert)
 
-        let confirmAction = UIAlertAction(title: "Save", style: .default) { _ in
+        let saveAction = SaveAction(title: "Save", style: .default) { _ in
             if let txtField = alert.textFields?.first, let text = txtField.text {
-                completion(text)
+                completion(alert, text)
             }
         }
+        saveAction.isEnabled = false
 
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { _ in }
 
-        alert.addTextField { (textField) in
+        alert.addTextField { textField in
             textField.placeholder = "File name"
+            textField.delegate = textFieldDelegate
+            textField.addTarget(saveAction,
+                                action: #selector(SaveAction.didUpdateTextFieldEditing),
+                                for: .editingChanged)
         }
-        alert.addAction(confirmAction)
+        alert.addAction(saveAction)
         alert.addAction(cancelAction)
-
         
         return alert
     }
+    
+//    ALERT: Renaming or replacing the file
+    
+    class func createRenameOrOverwriteAlert(onRename: @escaping () -> Void,
+                                            onReplace: @escaping () -> Void) -> UIAlertController {
+       
+        let alert = UIAlertController(title: "Please rename", message: "File name is already exist", preferredStyle: .alert)
+        let renameAction = UIAlertAction(title: "Rename", style: .default) { _ in onRename() }
+        let replaceAction = UIAlertAction(title: "Replace", style: .default) { _ in onReplace() }
+        alert.addAction(renameAction)
+        alert.addAction(replaceAction)
+        return alert
+    }
+    
+//    ALERT: Maximum size error
     
     class func createFileMaxSizeErrorAlert() -> UIAlertController {
         let alert = UIAlertController(title: "Max Size Error", message: "The file exceeded maximum size", preferredStyle: .alert)
@@ -61,6 +85,9 @@ extension UIAlertController {
         return alert
     }
     
+    //    ALERT: File extension error
+        
+    
     class func createFileExtansionErrorAlert() -> UIAlertController {
         let alert = UIAlertController(title: "Type Error", message: "Unsupported file type", preferredStyle: .alert)
         let confirmAction = UIAlertAction(title: "Ok", style: .cancel)
@@ -68,5 +95,41 @@ extension UIAlertController {
         alert.addAction(confirmAction)
         
         return alert
+    }
+    
+    class func callStandartAlert(title: String,
+                                 message: String,
+                                 completion: @escaping () -> Void) -> UIAlertController {
+        let alert = UIAlertController(title: title,
+                                      message: message,
+                                      preferredStyle: .alert)
+
+        let confirmAction = UIAlertAction(title: "Ok", style: .default) { _ in
+            completion()
+        }
+
+        alert.addAction(confirmAction)
+        
+        return alert
+    }
+    
+    class func callStandartAlert(title: String,
+                                 message: String) -> UIAlertController {
+        let alert = UIAlertController(title: title,
+                                      message: message,
+                                      preferredStyle: .alert)
+
+        let confirmAction = UIAlertAction(title: "Ok", style: .default)
+
+        alert.addAction(confirmAction)
+        
+        return alert
+    }
+}
+
+private class SaveAction: UIAlertAction {
+    
+    @objc func didUpdateTextFieldEditing(_ textField: UITextField) {
+        self.isEnabled = !(textField.text ?? "").isEmpty
     }
 }

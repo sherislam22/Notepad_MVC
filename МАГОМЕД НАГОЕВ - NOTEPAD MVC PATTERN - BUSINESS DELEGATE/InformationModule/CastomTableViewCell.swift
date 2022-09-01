@@ -6,53 +6,66 @@
 //
 
 import UIKit
-
-
 class CastomTableViewCell: UITableViewCell {
-    
-    
-    lazy var backeView: UIView = {
+    lazy var backView: UIView = {
         //et view = UIView(frame: CGRect(x: 10, y: 6, width: self.frame.width - 20, height: 110))
-        let view = UIView(frame: CGRect(x: 7, y: 7, width: 360, height: 75))
+        let view = UIView()
         view.backgroundColor = UIColor.white
+        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
     lazy var userImage: UIImageView = {
-        let image = UIImageView(frame: CGRect(x: 4, y: 4, width: 70, height: 70))
+        let image = UIImageView()
         image.contentMode = .scaleAspectFill
+        image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
     
     lazy var userLabel: UILabel = {
-        let lbl = UILabel(frame: CGRect(x: 90, y: 28, width: 190, height: 30))
+        let lbl = UILabel()
+        lbl.translatesAutoresizingMaskIntoConstraints = false
         lbl.textAlignment = .left
         lbl.font = UIFont.boldSystemFont(ofSize: 15)
         return lbl
     }()
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-        
-        
-    }
-    
-    
     override func layoutSubviews() {
+        setupLayouts()
         contentView.backgroundColor = UIColor.clear
         backgroundColor = UIColor.clear
-        backeView.layer.cornerRadius = 5
-        backeView.clipsToBounds = true
-        userImage.layer.cornerRadius = 36
+        backView.layer.cornerRadius = 5
+        backView.clipsToBounds = true
+        userImage.layer.cornerRadius = 30
         userImage.clipsToBounds = true
+        
+        
     }
-
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        addSubview(backeView)
-        backeView.addSubview(userImage)
-        backeView.addSubview(userLabel)
+        addSubview(backView)
+        backView.addSubview(userImage)
+        backView.addSubview(userLabel)
+        
+    }
+    
+    func setupLayouts() {
+        NSLayoutConstraint.activate([
+            backView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            backView.trailingAnchor.constraint(equalTo: trailingAnchor,constant: -20),
+            backView.topAnchor.constraint(equalTo: topAnchor),
+            backView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            backView.widthAnchor.constraint(equalToConstant: 250),
+            backView.heightAnchor.constraint(equalToConstant: 70),
+            userImage.topAnchor.constraint(equalTo: backView.topAnchor,constant: 10),
+            userImage.leadingAnchor.constraint(equalTo: backView.leadingAnchor,constant: 10),
+            userImage.heightAnchor.constraint(equalToConstant: 60),
+            userImage.widthAnchor.constraint(equalToConstant: 60),
+            userImage.bottomAnchor.constraint(equalTo: backView.bottomAnchor),
+            userLabel.leadingAnchor.constraint(equalTo: userImage.trailingAnchor,constant: 10),
+            userLabel.topAnchor.constraint(equalTo: backView.topAnchor,constant: 10),
+            userLabel.trailingAnchor.constraint(equalTo: backView.trailingAnchor,constant: 20),
+            userLabel.bottomAnchor.constraint(equalTo: backView.bottomAnchor,constant: 10)
+        ])
     }
 
 }

@@ -1,36 +1,37 @@
-////
-////  MenuController.swift
-////  МАГОМЕД НАГОЕВ - NOTEPAD MVC PATTERN - BUSINESS DELEGATE
-////
-////  Created by Нагоев Магомед on 17/8/22.
-////
 //
-//import Foundation
+//  MenuController.swift
+//  МАГОМЕД НАГОЕВ - NOTEPAD MVC PATTERN - BUSINESS DELEGATE
 //
-//class MenuController {
-//    private let menuViewer: MenuViewer
-//    let router: RouterProtocol
-//    let urlPath: String
-//    let fileManager: FileManagerModel
-//    let text: String
+//  Created by Nargiza Beishekenova on 29/8/22.
 //
-//    init(menuViewer: MenuViewer,
-//         router: RouterProtocol,
-//         urlPath: String,
-//         text: String) {
-//        self.menuViewer = menuViewer
-//        self.router = router
-//        self.urlPath = urlPath
-//        fileManager = FileManagerModel()
-//        self.text = text
-//    }
-//    
-//    func save() {
-//        fileManager.saveFile(fileUrl: urlPath,
-//                             textFile: text,
-//                             fileName: "Test1")
-//    }
-//    
-//    
-//
-//}
+
+import Foundation
+import UIKit
+
+protocol MenuControllerDelegate: AnyObject {
+    func menuController(_ menuController: MenuController, didPressMenu menu: MenuOptions)
+}
+
+class MenuController {
+    
+    weak var delegate: MenuControllerDelegate?
+    
+    func numberOfMenus() -> Int {
+        return MenuOptions.allCases.count
+    }
+    
+    func menuTitle(at index: Int) -> String {
+        return MenuOptions.allCases[index].rawValue
+    }
+    
+    func menuImage(at index: Int) -> UIImage? {
+        return UIImage(systemName: MenuOptions.allCases[index].imageName)
+    }
+    
+    func menuTapped(at index: Int, in view: MenuViewer) {
+        view.presentingViewController?.dismiss(animated: true, completion: {
+            let menuItem = MenuOptions.allCases[index]
+            self.delegate?.menuController(self, didPressMenu: menuItem)
+        })
+    }
+}

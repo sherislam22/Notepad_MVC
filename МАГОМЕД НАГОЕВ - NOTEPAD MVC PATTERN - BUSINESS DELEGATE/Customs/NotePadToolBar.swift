@@ -12,11 +12,12 @@ class NotePadToolBar: UIToolbar {
     private let flexibleSpace: UIBarButtonItem
     private var tempToolBarItems: [UIBarButtonItem]
     private var goToRight: Bool
-    var selectedText: String
+    private var selectedText: String
     private var pasteboard: UIPasteboard
     private var fontData: FontData
     weak var notePadToolbarDelegate: NotePadToolbarDelegate?
     
+    //MARK: - Initialisers
     override init(frame: CGRect) {
         flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         goToRight = false
@@ -48,8 +49,27 @@ class NotePadToolBar: UIToolbar {
         fontData.setFontSizeDelegate(delegate: self)
     }
     
+//    MARK: Getters and setters
+    func getFont() -> UIFont {
+        return fontData.getFontValue()
+    }
+    
+    func setNotePadToolbarDelegate(_ delegate: NotePadToolbarDelegate) {
+        self.notePadToolbarDelegate = delegate
+    }
+    
+    func setSelectedText(_ text: String?) {
+        selectedText = text!
+    }
+    
+    func setSelectedRow() {
+        fontData.setSelectedRow()
+    }
+    
+//    MARK: public methods
     func changeStateOfToolbar() {
         tempToolBarItems.removeAll()
+        
         if !goToRight {
             let fontSize = UIBarButtonItem(image: UIImage(systemName: "textformat.size"), style: .plain, target: self, action: #selector(setFontSize))
             let fontStyle = UIBarButtonItem(image: UIImage(systemName: "signature"), style: .plain, target: self, action: #selector(setFont))
@@ -64,7 +84,7 @@ class NotePadToolBar: UIToolbar {
             let leftArrow = UIBarButtonItem(image: UIImage(systemName: "arrow.left.to.line"), style: .plain, target: self, action: #selector(leftArrowTapped))
             let replace = UIBarButtonItem(image: UIImage(systemName: "repeat.circle"), style: .plain, target: self, action: #selector(tappedReplaceButton))
             let goTo = UIBarButtonItem(image: UIImage(systemName: "arrow.forward"), style: .plain, target: self, action: #selector(tappedGoToButton))
-            let timeAndDate = UIBarButtonItem(image: UIImage(systemName: "calendar"), style: .plain, target: self, action: #selector(dataAndTimee))
+            let timeAndDate = UIBarButtonItem(image: UIImage(systemName: "calendar"), style: .plain, target: self, action: #selector(dateAndTime))
             let remove = UIBarButtonItem(image: UIImage(systemName: "trash.slash.circle"), style: .plain, target: self, action: #selector(removeTapped))
             let cut = UIBarButtonItem(image: UIImage(systemName: "scissors"), style: .plain, target: self, action: #selector(cutTapped))
             
@@ -76,8 +96,8 @@ class NotePadToolBar: UIToolbar {
         notePadToolbarDelegate?.removeSelectedTextDalegate(text: selectedText)
     }
     
-    @objc func dataAndTimee() {
-        notePadToolbarDelegate?.dataAndTimeDeligate()
+    @objc func dateAndTime() {
+        notePadToolbarDelegate?.dateAndTimeDeligate()
     }
     
     @objc func selectWholeText() {
@@ -91,9 +111,7 @@ class NotePadToolBar: UIToolbar {
     
     @objc func setFontSize() {
         let alert = UIAlertController(title: "Select size", message: "\n\n\n\n\n\n", preferredStyle: .alert)
-        let fontSizePickerView = fontData.getFontSizePicker()
-
-        alert.view.addSubview(fontSizePickerView)
+        alert.view.addSubview(fontData.getFontSizePicker())
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
 
@@ -156,7 +174,7 @@ protocol NotePadToolbarDelegate: AnyObject {
     
     func pasteCopiedTextDelegate(text: String)
     
-    func dataAndTimeDeligate()
+    func dateAndTimeDeligate()
     
     func removeSelectedTextDalegate(text: String)
     
@@ -186,7 +204,6 @@ extension NotePadToolBar: UIFontPickerViewControllerDelegate, UIPickerViewDelega
     
     
 //    ALERT WITH PICKER VIEW PROTOCOL STUBS
-    
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1

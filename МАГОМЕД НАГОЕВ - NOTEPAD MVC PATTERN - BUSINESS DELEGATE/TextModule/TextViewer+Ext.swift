@@ -2,8 +2,10 @@ import UIKit
 
 extension TextViewer: NotePadToolbarDelegate {
     
+    // MARK: Public methods from protocol
     func updateFont(font: UIFont) {
         updateTextViewFont(font: font)
+        textController?.careTakerSave()
     }
 
     func presentAlert(alert: UIAlertController) {
@@ -15,7 +17,6 @@ extension TextViewer: NotePadToolbarDelegate {
     }
     
     func selectWholeTextDelegate() {
-        
         selectWholeText()
     }
 
@@ -27,12 +28,12 @@ extension TextViewer: NotePadToolbarDelegate {
         pasteCopiedText(text: text)
     }
     
-    func dataAndTimeDeligate() {
-        dataAndTime()
+    func dateAndTimeDeligate() {
+        dateAndTime()
     }
     
     func removeSelectedTextDalegate(text: String) {
-        let updatedText = getText().replacingOccurrences(of: text, with: "")
+        let updatedText = (getText() as NSString).replacingCharacters(in: textView.selectedRange, with: "")
         updateTextView(text: updatedText)
     }
     
@@ -56,5 +57,35 @@ extension TextViewer: NotePadToolbarDelegate {
         UIView.animate(withDuration: 0.25) {
             self.view.layoutIfNeeded()
         }
+    }
+}
+
+//MARK: - Add undo and redo command
+extension TextViewer: TextWriterProtocol {
+    func saveState() -> TextMemento {
+        TextMemento(text: getText(),
+                    textFont: getFont())
+    }
+    
+    func restore(state: TextMemento) {
+        updateTextView(text: state.getText())
+        updateTextViewFont(font: state.getFont())
+    }
+}
+
+extension TextViewer: UITextViewDelegate {
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if text == " " {
+            textController?.careTakerSave()
+        }
+        return true
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        mode = .default
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        textController?.careTakerSave()
     }
 }

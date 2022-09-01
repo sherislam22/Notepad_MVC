@@ -8,8 +8,9 @@
 import UIKit
 
 extension TextController {
+    /// Ищет текст по запросу
     func search(_ string: String) {
-        let allText = textViewer.getText() as NSString
+        let allText = getViewer().getText() as NSString
         var searchRange = NSRange(location: 0, length: allText.length)
         var result = [NSRange]()
         while true {
@@ -23,14 +24,16 @@ extension TextController {
                 break
             }
         }
-        textViewer.highlightRanges(result)
+        getViewer().highlightRanges(result)
     }
+    
+    /// заменяет заданный текст
     func replace(ranges: [NSRange], replaceString: String) {
-        let allText = textViewer.getText()
+        let allText = getViewer().getText()
         var result = allText
         for range in ranges.reversed() {
             result = (result as NSString).replacingCharacters(in: range, with: replaceString)
         }
-        textViewer.updateTextView(text: result)
+        getViewer().updateTextView(text: result)
     }
 }

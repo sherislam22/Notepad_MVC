@@ -10,7 +10,7 @@ import UIKit
 
 protocol RouterProtocol {
     func initialViewController(fileUrl: URL?)
-    func showContentMenu(over barButtonItem: UIBarButtonItem, delegate: MenuViewControllerDelegate)
+    func showContentMenu(over barButtonItem: UIBarButtonItem, delegate: MenuControllerDelegate)
     func pushInformationViewController()
     func pushDocumentViewer()
     func pushPrintViewer(text: String, font: UIFont)
@@ -34,7 +34,7 @@ class Router: NSObject, RouterProtocol {
         let textController = TextController(textViewer: textViewer,
                                             fileUrl: fileUrl,
                                             router: self)
-        textViewer.textController = textController
+        textViewer.setTextController(textController)
 
         navigationController.viewControllers = [textViewer]
     }
@@ -45,21 +45,21 @@ class Router: NSObject, RouterProtocol {
         let documentViewer = DocumentViewer()
         let documentController = DocumentController(documentViewer: documentViewer,
                                                     router: self)
-        documentViewer.documentController = documentController
+        documentViewer.setDocumentController(documentController)
         
         navigationController.pushViewController(documentViewer, animated: true)
     }
     
-    func showContentMenu(over barButtonItem: UIBarButtonItem, delegate: MenuViewControllerDelegate) {
-
-        let menuViewer = MenuViewer()
-        menuViewer.delegate = delegate
+    func showContentMenu(over barButtonItem: UIBarButtonItem, delegate: MenuControllerDelegate) {
+        
+        let menuController = MenuController()
+        menuController.delegate = delegate
+        let menuViewer = MenuViewer(menuController: menuController)
         menuViewer.modalPresentationStyle = .popover
         let popoverPresentationController = menuViewer.popoverPresentationController
         popoverPresentationController?.barButtonItem = barButtonItem
         popoverPresentationController?.delegate = self
-        navigationController.present(menuViewer,
-                                                animated: true)
+        navigationController.present(menuViewer, animated: true)
     }
     
     func pushInformationViewController() {
@@ -69,8 +69,7 @@ class Router: NSObject, RouterProtocol {
     
     func pushPrintViewer(text: String, font: UIFont) {
         let printViewer = PrintViewer(text: text, font: font)
-        printViewer.presentPrintInteractionController()
-        
+        navigationController.present(printViewer, animated: true)
     }
 }
 

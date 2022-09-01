@@ -8,10 +8,11 @@
 import UIKit
 
 class DocumentCollectionViewCell: UICollectionViewCell {
+    //MARK: - Properties
     private var fileTypeLabel: UILabel
     private var fileNameLabel: UILabel
 
-
+    //MARK: - Initialize
     override init(frame: CGRect) {
         fileTypeLabel = UILabel()
         fileNameLabel = UILabel()
@@ -29,6 +30,7 @@ class DocumentCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
+    //MARK: - Methods
     private func setupImageView() {
         fileTypeLabel.textColor = #colorLiteral(red: 0.7767494321, green: 0.04680993408, blue: 0.391726166, alpha: 1)
         fileTypeLabel.textAlignment = .center
