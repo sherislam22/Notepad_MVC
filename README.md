@@ -9,4 +9,6 @@ Filemanager
 #### В мою задачу входило сделать кастомный файловый менеджер (UICollectionViewController)
 #### сделать создание/открытие/сохранение файлов с помощью filemanager
 также занимался построением правильной архитектуры MVC
+Сделал прорисовку текста для распечатки на принтере
+##
 <img src="https://github.com/sherislam22/Notepad_MVC/blob/main/img.png" width="300">
