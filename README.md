@@ -9,3 +9,4 @@ Filemanager
 #### В мою задачу входило сделать кастомный файловый менеджер (UICollectionViewController)
 #### сделать создание/открытие/сохранение файлов с помощью filemanager
 также занимался построением правильной архитектуры MVC
+![Image alt](https://github.com/sherislam22/CalcApp-and-Currency-Converter/raw/main/image.png)
